@@ -1,0 +1,11 @@
+{
+  "name": "wp1101-final",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/chungen04/wp1101-final",
+  "license": "MIT",
+  "scripts":{
+	"start": "cd frontend && yarn start",
+	"server": "cd backend && yarn start"
+  }
+}
