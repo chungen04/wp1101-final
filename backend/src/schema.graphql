@@ -1,3 +1,91 @@
 type Query {
-  users: [String!]
+  users: [User!]
+  user: User!
+  courses(filter: CourseFilter): [Course!]!
+  course(courseID: ID!): Course!
+  exams(courseID: ID!): [Exam!]!
+  exam(courseID: ID!, examName: String!): Exam!
+  files(examID: ID!): [File!]!
+  file(examID: ID!, fileID: ID!): File!
 }
+
+type Mutation {
+  createCourse(data: CreateCourseInput!): Course!
+  updateCourse(courseID: ID!, data: UpdateCourseInput!): Course!
+  deleteCourse(courseID: ID!): Boolean
+  createExam(examName: String!, courseID: ID!): Exam!
+  updateExam(examID: ID!, examName: String!): Exam!
+  deleteExam(examID: ID!): Boolean
+  createFile(examID: ID!, data: CreateFileInput!): File!
+  updateFile(fileID: ID!, data: UpdateFileInput!): File!
+  deleteFile(fileID: ID!): Boolean
+}
+
+
+input CreateCourseInput {
+  year_semester: String!
+  courseName: String!
+  instructors: [String!]
+  department: String!
+  courseType: String!
+  exams: [ID!]
+}
+
+input UpdateCourseInput {
+  year_semester: String
+  courseName: String
+  instructors: [String!]
+  department: String
+  courseType: String
+}
+
+input CourseFilter {
+  year_semester: String
+  courseName: String
+  department: String
+  courseType: String
+}
+
+input CreateFileInput {
+  fileDownloadLink: String!
+  fileViewLink: String!
+}
+
+input UpdateFileInput {
+  fileDownloadLink: String
+  fileViewLink: String
+  show: Boolean
+}
+
+type User {
+  id: ID!
+  userID: String! 
+}
+
+type Course {
+  id: ID!
+  year_semester: String!
+  courseName: String!
+  instructors: String!
+  department: String!
+  courseType: String!
+  exams: [Exam!]!
+}
+
+type Exam {
+  id: ID!
+  courseID: ID!
+  examName: String!
+  files: [File!]!
+}
+
+type File{
+  id: ID!
+  examID: ID!
+  fileDownloadLink: String!
+  fileViewLink: String!
+  uploadTime: Int!
+  show: Boolean!
+}
+
+

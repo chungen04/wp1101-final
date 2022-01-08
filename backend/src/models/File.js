@@ -2,9 +2,17 @@ import mongoose from "mongoose"
 
 const Schema = mongoose.Schema
 const fileSchema = new Schema({
-    file: {
+    examID: {
         type: String,
-        required: [true, 'file field is required.']
+        required: [true, 'examID field is required.']
+    },
+    fileDownloadLink: {
+        type: String,
+        required: [true, 'fileDownloadLink field is required.']
+    },
+    fileViewLink: {
+        type: String,
+        required: [true, 'fileViewLink field is required.']
     },
     uploadTime: {
         type: Date,

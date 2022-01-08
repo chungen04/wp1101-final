@@ -2,8 +2,11 @@ import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express'
 import { readFileSync } from 'fs';
 import dotenv from "dotenv-defaults"
 import jwt from "jsonwebtoken"
-import Query from './resolvers/Query';
-import User from './resolvers/User'
+import Query from './resolvers/Query'
+import Mutation from './resolvers/Mutation'
+import db from './models'
+import Course from "./resolvers/Course"
+import Exam from "./resolvers/Exam"
 
 dotenv.config()
 
@@ -13,18 +16,25 @@ const {SECRET_KEY} = process.env
 const server = new ApolloServer({
     typeDefs,
     resolvers:{
-        Query
+        Query,
+        Mutation,
+        Course,
+        Exam
     },
-    context: ({req}) => {
+    context: async({req}) => {
         const token = req.headers.authorization || '';
         const splitToken = token.split(' ')[1]
         try {
-            jwt.verify(splitToken, SECRET_KEY)
-            return { login: true };
+            const result = jwt.verify(splitToken, SECRET_KEY)
+            const {userID} = result
+            const user = await db.User.findOne({userID})
+            if (user){
+                return { db, userID, login: true };
+            }else{
+                return { db, login: false };
+            }
         } catch (e) {
-            throw new AuthenticationError(
-                'Authentication token is invalid, please log in',
-            )
+            return { db, login: false };
         }
     }
 })
