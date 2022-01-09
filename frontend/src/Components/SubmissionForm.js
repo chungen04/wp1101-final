@@ -2,28 +2,30 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import {useState} from "react";
 import { Input, InputLabel, NativeSelect} from "@material-ui/core";
+import { set } from 'express/lib/application';
 
 const types = ["Midterm", "Final", "Quiz"];
 const Semester = ["Fall", "Spring", "Summer"];
 const Property = ["Required", "Elective", "Liberal"];
 
-export default function AddressForm() {
-  const [type, setType] = useState('');
-  const [property, setProperty] = useState('');
-  const [semester, setSemester] = useState('');
-  const [year, setYear] = useState(0);
-  const [examTime, setExamTime] = useState("");
-  const [courseDept, setCourseDept] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [instructor, setInstructor] = useState("");
-  const [remarks, setRemarks] = useState("");
-
+export default function AddressForm({
+    setType,
+    setProperty,
+    setSemester,
+    setYear,
+    setExamTime,
+    setCourseDept,
+    setCourseName,
+    setInstructor,
+    setRemarks,
+    setProblemPdf,
+    setAnswerPdf
+  }) {
+  
+  const inputProblemPdf = document.getElementById("import-button-problem");
+  const inputAnswerPdf = document.getElementById("import-button-answer");
+  
   const handleChangeType = (event) => {
       setType(event.target.value);
   };
@@ -33,6 +35,31 @@ export default function AddressForm() {
   const handleChangeSemester = (event) => {
       setSemester(event.target.value);
   };
+  const handleChangeYear = (event) => {
+      setYear(event.target.value);
+  };
+  const handleChangeExamTime = (event) => {
+    setExamTime(event.target.value);
+  };
+  const handleChangeCourseDept = (event) => {
+    setCourseDept(event.target.value);
+  };
+  const handleChangeCourseName = (event) => {
+    setCourseName(event.target.value);
+  };
+  const handleChangeInstructor = (event) => {
+    setInstructor(event.target.value);
+  };
+  const handleChangeRemarks = (event) => {
+    setRemarks(event.target.value);
+  };
+  const handleChangeProblemPdf = () => {
+    setProblemPdf(inputProblemPdf.files[0])
+  };
+  const handleChangeAnswerPdf = () => {
+    setAnswerPdf(inputAnswerPdf.files[0])
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -42,6 +69,7 @@ export default function AddressForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
+            onChange = {handleChangeYear}
             id="year"
             type = "number"
             name="year"
@@ -58,7 +86,6 @@ export default function AddressForm() {
           <NativeSelect
             defaultValue={30}
             onChange={handleChangeType}
-            value={type}
             fullWidth
           >
             {types.map((option) => (
@@ -75,7 +102,6 @@ export default function AddressForm() {
           <NativeSelect
             defaultValue={30}
             onChange={handleChangeSemester}
-            value={semester}
             fullWidth
           >
             {Semester.map((option) => (
@@ -90,7 +116,9 @@ export default function AddressForm() {
             required
             id="time"
             name="time"
-            label="Exam time"
+            type = "number"
+            label="Exam time (in minutes)"
+            onChange = {handleChangeExamTime}
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
@@ -100,6 +128,7 @@ export default function AddressForm() {
           <TextField
             required
             id="courseDept"
+            onChange = {handleChangeCourseDept}
             name="courseDept"
             label="Course Department"
             fullWidth
@@ -111,6 +140,7 @@ export default function AddressForm() {
             required
             id="course"
             name="course"
+            onChange = {handleChangeCourseName}
             label="Course Name"
             fullWidth
             autoComplete="shipping postal-code"
@@ -121,6 +151,7 @@ export default function AddressForm() {
           <TextField
             required
             id="Instructor"
+            onChange={handleChangeInstructor}
             name="Instructor"
             label="Instructor"
             fullWidth
@@ -135,7 +166,6 @@ export default function AddressForm() {
           <NativeSelect
             defaultValue={30}
             onChange={handleChangeProperty}
-            value={property}
             fullWidth
           >
             {Property.map((option) => (
@@ -149,6 +179,7 @@ export default function AddressForm() {
           <TextField
             id="Remarks"
             name="Remarks"
+            onChange={handleChangeRemarks}
             label="Remarks (Optional)"
             fullWidth
             autoComplete="shipping country"
@@ -156,22 +187,19 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="send a copy to me"
-          />
         </Grid>
       </Grid>
       <Grid container spacing = {3}>
       <Grid item xs={12} sm = {12}>
         <InputLabel htmlFor="import-button">
           <Input
-              id="import-button"
+              id="import-button-problem"
               inputProps={{
                 accept:
                   ".pdf",
               }}
               type="file"
+              onChange = {handleChangeProblemPdf}
           />
           Import pdf (Question, pdf Only)
         </InputLabel>
@@ -179,18 +207,18 @@ export default function AddressForm() {
         <Grid item xs={12} sm = {12}>
         <InputLabel htmlFor="import-button">
           <Input
-              id="import-button"
+              id="import-button-answer"
               inputProps={{
                 accept:
                   ".pdf",
               }}
               type="file"
+              onChange = {handleChangeAnswerPdf}
           />
           Import pdf (Answer, Optional, pdf only)
         </InputLabel>
         </Grid>
       </Grid>
     </React.Fragment>
-
   );
 }

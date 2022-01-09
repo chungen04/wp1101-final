@@ -6,6 +6,10 @@ const fileSchema = new Schema({
         type: String,
         required: [true, 'examID field is required.']
     },
+    driveID: {
+        type: String,
+        required: [true, 'driveID field is required.']
+    },
     fileDownloadLink: {
         type: String,
         required: [true, 'fileDownloadLink field is required.']
