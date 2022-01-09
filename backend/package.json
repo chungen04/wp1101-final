@@ -10,6 +10,7 @@
         "cors": "^2.8.5",
         "dotenv-defaults": "^3.0.0",
         "express": "^4.17.2",
+        "googleapis": "^92.0.0",
         "graphql": "^16.2.0",
         "graphql-import": "^1.0.2",
         "http": "^0.0.1-security",

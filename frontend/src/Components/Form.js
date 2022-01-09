@@ -58,18 +58,6 @@ const Form = () => {
     <form className={classes.form} noValidate autoComplete="off">
       <div>
         <TextField 
-          required 
-          id="standard-required"
-          label="Your name" 
-          defaultValue="" 
-        /> 
-        <TextField 
-          required 
-          id="standard-required"
-          label="Your dept" 
-          defaultValue="" 
-        />
-        <TextField 
           id="outlined-select-type"
           select
           label="Select Midterm/Final/Quiz"

@@ -6,6 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import {useState} from "react";
 import { Input, InputLabel, NativeSelect} from "@material-ui/core";
 
 const types = ["Midterm", "Final", "Quiz"];
@@ -13,9 +14,16 @@ const Semester = ["Fall", "Spring", "Summer"];
 const Property = ["Required", "Elective", "Liberal"];
 
 export default function AddressForm() {
-  const [type, setType] = React.useState('');
-  const [property, setProperty] = React.useState('');
-  const [semester, setSemester] = React.useState('');
+  const [type, setType] = useState('');
+  const [property, setProperty] = useState('');
+  const [semester, setSemester] = useState('');
+  const [year, setYear] = useState(0);
+  const [examTime, setExamTime] = useState("");
+  const [courseDept, setCourseDept] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [instructor, setInstructor] = useState("");
+  const [remarks, setRemarks] = useState("");
+
   const handleChangeType = (event) => {
       setType(event.target.value);
   };
@@ -31,28 +39,6 @@ export default function AddressForm() {
         Submission Details
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="Your Name"
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Your Department"
-            fullWidth
-            autoComplete="family-name"
-            variant="standard"
-          />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -144,7 +130,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            Property
+            Course Type (Required/Elective/Liberal)
           </InputLabel>
           <NativeSelect
             defaultValue={30}
