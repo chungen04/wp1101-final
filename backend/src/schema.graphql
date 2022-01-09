@@ -21,6 +21,44 @@ type Mutation {
   deleteFile(fileID: ID!): Boolean
 }
 
+type Subscription{
+  course: CourseSubscriptionPayload!
+  exam(courseID: ID!): ExamSubscriptionPayload!
+  file(examID: ID!): FileSubscriptionPayload!
+}
+
+
+type User {
+  id: ID!
+  userID: String! 
+}
+
+type Course {
+  id: ID!
+  year_semester: String!
+  courseName: String!
+  instructors: [String!]!
+  department: String!
+  courseType: String!
+  exams: [Exam!]!
+}
+
+type Exam {
+  id: ID!
+  courseID: ID!
+  examName: String!
+  files: [File!]!
+}
+
+type File{
+  id: ID!
+  examID: ID!
+  driveID: ID!
+  fileDownloadLink: String!
+  fileViewLink: String!
+  uploadTime: Int!
+  show: Boolean!
+}
 
 input CreateCourseInput {
   year_semester: String!
@@ -59,36 +97,30 @@ input UpdateFileInput {
   show: Boolean
 }
 
-type User {
-  id: ID!
-  userID: String! 
+enum MutationType{
+  CREATED
+  UPDATED
+  DELETED
 }
 
-type Course {
-  id: ID!
-  year_semester: String!
-  courseName: String!
-  instructors: [String!]!
-  department: String!
-  courseType: String!
-  exams: [Exam!]!
-}
-
-type Exam {
-  id: ID!
+type CourseSubscriptionPayload {
+  mutation: MutationType!
   courseID: ID!
-  examName: String!
-  files: [File!]!
+  data: Course
 }
 
-type File{
-  id: ID!
+type ExamSubscriptionPayload {
+  mutation: MutationType!
+  courseID: ID!
   examID: ID!
-  driveID: ID!
-  fileDownloadLink: String!
-  fileViewLink: String!
-  uploadTime: Int!
-  show: Boolean!
+  data: Exam
+}
+
+type FileSubscriptionPayload {
+  mutation: MutationType!
+  examID: ID!
+  fileID: ID!
+  data: File
 }
 
 
