@@ -97,6 +97,7 @@ const Mutation = {
     async createFile(parent, args, {db, login}){
         const { data, examID } = args
         const {
+            driveID,
             fileDownloadLink,
             fileViewLink
         } = data
@@ -105,6 +106,7 @@ const Mutation = {
         const exam = await db.Exam.findById(examID)
         if (!exam) throw new Error("Exam not found")
         const file = await new db.File({
+            driveID,
             examID,
             fileDownloadLink,
             fileViewLink,

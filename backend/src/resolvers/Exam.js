@@ -1,7 +1,7 @@
 const Exam = {
     files(parent, args, {db}){
         return Promise.all(
-            parent.files.map((fileID) => db.Exam.findById(fileID))
+            parent.files.map((fileID) => db.File.findById(fileID))
         )
     }
 };

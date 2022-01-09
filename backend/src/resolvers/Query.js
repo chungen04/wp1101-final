@@ -9,13 +9,14 @@ const Query = {
         return user
     },
     async courses(parent, args, {db}){
+        let {filter} = args
+        if (!filter) filter = {} 
         const {
             year_semester,
             courseName,
             department,
             courseType
-        } = args.filter
-        const filter = {}
+        } = filter
         if (year_semester) filter.year_semester = year_semester
         if (courseName) filter.courseName = courseName
         if (department) filter.department = department

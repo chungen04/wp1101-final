@@ -47,11 +47,13 @@ input CourseFilter {
 }
 
 input CreateFileInput {
+  driveID: ID!
   fileDownloadLink: String!
   fileViewLink: String!
 }
 
 input UpdateFileInput {
+  driveID: ID
   fileDownloadLink: String
   fileViewLink: String
   show: Boolean
@@ -66,7 +68,7 @@ type Course {
   id: ID!
   year_semester: String!
   courseName: String!
-  instructors: String!
+  instructors: [String!]!
   department: String!
   courseType: String!
   exams: [Exam!]!
@@ -82,6 +84,7 @@ type Exam {
 type File{
   id: ID!
   examID: ID!
+  driveID: ID!
   fileDownloadLink: String!
   fileViewLink: String!
   uploadTime: Int!
