@@ -32,13 +32,15 @@ const Mutation = {
         const { data, courseID } = args
         await db.Course.updateOne({_id: courseID}, data)
         const course = await db.Course.findById(courseID)
-        pubsub.publish('COURSE', {
-            course: {
-                mutation: "UPDATED",
-                courseID: course.id,
-                data: course
-            }
-        })
+        if (data.show){
+            pubsub.publish('COURSE', {
+                course: {
+                    mutation: "UPDATED",
+                    courseID: course.id,
+                    data: course
+                }
+            })
+        }
         return course
     },
     async deleteCourse(parent, args, {db, login}){
@@ -110,14 +112,16 @@ const Mutation = {
         const { data, examID } = args
         await db.Exam.updateOne({_id: examID}, data)
         const exam = await db.Exam.findById(examID)
-        pubsub.publish('EXAM', {
-            exam: {
-                mutation: "UPDATED",
-                courseID: exam.courseID,
-                examID: exam.id,
-                data: exam
-            }
-        })
+        if(data.show){
+            pubsub.publish('EXAM', {
+                exam: {
+                    mutation: "UPDATED",
+                    courseID: exam.courseID,
+                    examID: exam.id,
+                    data: exam
+                }
+            })
+        }
         return exam
     },
     async deleteExam(parent, args, {db, login}){
@@ -193,14 +197,16 @@ const Mutation = {
         const { data, fileID } = args
         await db.File.updateOne({_id: fileID}, data)
         const file = await db.File.findById(fileID)
-        pubsub.publish('FILE', {
-            file: {
-                mutation: "UPDATED",
-                examID: file.examID,
-                fileID: file.id,
-                data: file
-            }
-        })
+        if(data.show){
+            pubsub.publish('FILE', {
+                file: {
+                    mutation: "UPDATED",
+                    examID: file.examID,
+                    fileID: file.id,
+                    data: file
+                }
+            })
+        }
         return file
     },
     async deleteFile(parent, args, {db, login}){
