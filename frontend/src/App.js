@@ -5,6 +5,7 @@ import SignIn from './Containers/SignIn';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import AdminHomePage from './Containers/AdminHomePage';
 import ContributePage from './Containers/ContributePage';
+import SearchPage from './Containers/SearchPage/SearchPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path = "/" exact element = {<StartingPage/>}/>
         <Route path = "/adminSignIn" exact element = {<SignIn/>}/>
         <Route path = "/adminHomePage" exact element = {<AdminHomePage/>}/>
+        <Route path = "/searchPage" exact element = {<SearchPage/>}/>
         <Route path = "/contributePage" exact element = {<ContributePage/>}/>
       </Routes>
     </Router>
