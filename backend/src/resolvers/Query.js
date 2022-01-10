@@ -8,46 +8,50 @@ const Query = {
         const user = await db.User.findOne({userID});
         return user
     },
-    async courses(parent, args, {db}){
+    async courses(parent, args, {db, login}){
         let {filter} = args
         if (!filter) filter = {} 
-        const {
-            year_semester,
-            courseName,
-            department,
-            courseType
-        } = filter
-        if (year_semester) filter.year_semester = year_semester
-        if (courseName) filter.courseName = courseName
-        if (department) filter.department = department
-        if (courseType) filter.courseType = courseType
+        if (!login){
+            filter.show = true
+        }
         const courses = await db.Course.find(filter)
         return courses
     },
-    async course(parent, args, {db}){
+    async course(parent, args, {db, login}){
         const { courseID } = args
         const course = await db.Course.findById(courseID)
+        if(!course.show && !login) return null
         return course
     },
-    async exams(parent, args, {db}){
+    async exams(parent, args, {db, login}){
         const {courseID} = args
-        const exams = await db.Exam.find({courseID})
+        const filter = {courseID}
+        if (!login){
+            filter.show = true
+        }
+        const exams = await db.Exam.find(filter)
         return exams
     },
-    async exam(parent, args, {db}){
+    async exam(parent, args, {db, login}){
         const {courseID, examName} = args
         const exam = await db.Exam.findOne({courseID, examName})
+        if(!exam.show && !login) return null
         return exam
     },
-    async files(parent, args, {db}){
+    async files(parent, args, {db, login}){
         const {examID} = args
-        const files = await db.File.find({examID})
+        const filter = {examID}
+        if (!login){
+            filter.show = true
+        }
+        const files = await db.File.find(filter)
         return files
     },
     async file(parent, args, {db}){
         const {examID, fileID} = args
-        const files = await db.File.findOne({examID, _id: fileID})
-        return files
+        const file = await db.File.findOne({examID, _id: fileID})
+        if(!file.show && !login) return null
+        return file
     },
 };
 

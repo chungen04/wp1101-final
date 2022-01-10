@@ -2,34 +2,22 @@ import pubsub from "./pubsub"
 
 const Mutation = {
     async createCourse(parent, args, {db, login}){
-        if (!login) throw new Error("Not Login")
         const {
             year_semester,
             courseName,
             instructors,
             department,
-            courseType,
-            exams
+            courseType
         } = args.data
-        const examIDs = await Promise.all(
-            exams.map(async(examName)=> {
-                const exam = await new db.Exam({examName, files: [], courseID:"test"}).save()
-                return exam.id
-            })
-        )
         const course = await new db.Course({
             year_semester, 
             courseName,
             instructors,
             department,
             courseType,
-            exams: examIDs
+            exams: [],
+            show: false
         }).save()
-        await Promise.all(
-            examIDs.map(async(examID)=> {
-                await db.Exam.updateOne({_id: examID}, {courseID: course.id})
-            })
-        )
         pubsub.publish('COURSE', {
             course: {
                 mutation: "CREATED",
@@ -95,14 +83,16 @@ const Mutation = {
         return true
     },
     async createExam(parent, args, {db, login}){
-        if (!login) throw new Error("Not Login")
-        const { examName, courseID } = args
+        const { data, courseID } = args
+        const {examName, examTime} = data
         const course = await db.Course.findById(courseID)
         if (!course) throw new Error("Course not found")
         const exam = await new db.Exam({
             courseID,
             examName,
-            files: []
+            examTime,
+            files: [],
+            show: false
         }).save()
         await db.Course.updateOne({_id: courseID}, {exams: [...course.exams, exam.id]})
         pubsub.publish('EXAM', {
@@ -117,8 +107,8 @@ const Mutation = {
     },
     async updateExam(parent, args, {db, login}){
         if (!login) throw new Error("Not Login")
-        const { examName, examID } = args
-        await db.Exam.updateOne({_id: examID}, {examName})
+        const { data, examID } = args
+        await db.Exam.updateOne({_id: examID}, data)
         const exam = await db.Exam.findById(examID)
         pubsub.publish('EXAM', {
             exam: {
@@ -165,21 +155,27 @@ const Mutation = {
     async createFile(parent, args, {db, login}){
         const { data, examID } = args
         const {
-            driveID,
-            fileDownloadLink,
-            fileViewLink
+            questionDriveID,
+            questionDownloadLink,
+            questionViewLink,
+            answerDriveID,
+            answerDownloadLink,
+            answerViewLink,
+            remarks
         } = data
-        let {show} = data
-        if (!login) show = false
         const exam = await db.Exam.findById(examID)
         if (!exam) throw new Error("Exam not found")
         const file = await new db.File({
-            driveID,
             examID,
-            fileDownloadLink,
-            fileViewLink,
+            questionDriveID,
+            questionDownloadLink,
+            questionViewLink,
+            answerDriveID,
+            answerDownloadLink,
+            answerViewLink,
             uploadTime: Date.now(),
-            show
+            show: false,
+            remarks
         }).save()
         await db.Exam.updateOne({_id: examID}, {files: [...exam.files, file.id]})
         pubsub.publish('FILE', {

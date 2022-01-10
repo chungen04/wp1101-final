@@ -1,23 +1,29 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from '../Components/SubmissionForm';
-import Review from '../Components/Review';
-import Modal from "@mui/material/Modal"
 import {useState} from "react"
 import {Navigate} from "react-router-dom"
+import {
+  CssBaseline, 
+  AppBar, 
+  Box, 
+  Container, 
+  Toolbar, 
+  Paper, 
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Modal
+} from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const steps = ['Submission Details', 'Check Submission'];
+import CourseForm from '../Components/CourseForm';
+import ExamForm from '../Components/ExamForm';
+import FileForm from '../Components/FileForm';
+import Review from '../Components/Review';
+import useContribute from "../Hooks/useContribute"
+
+const steps = ['Course Details', 'Exam Details', 'File Details', 'Check Submission'];
 
 const theme = createTheme();
 const style = {
@@ -32,36 +38,48 @@ const style = {
   p: 4,
 };
 export default function ContributePage() {
-  const [type, setType] = useState('Required');
-  const [property, setProperty] = useState('Midterm');
-  const [semester, setSemester] = useState('Fall');
-  const [year, setYear] = useState(0);
-  const [examTime, setExamTime] = useState(0);
-  const [courseDept, setCourseDept] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [instructor, setInstructor] = useState("");
-  const [remarks, setRemarks] = useState("");
+  const {
+    updateCourse,
+    updateExam,
+    updateFile,
+    course,
+    exam,
+    file
+  } = useContribute()
+
   const [activeStep, setActiveStep] = useState(0);
-  const [problemPdf, setProblemPdf] = useState();
-  const [answerPdf, setAnswerPdf] = useState();
   const [open, setOpen] = useState(false);
   const [leave, setLeave] = useState(false);
 
   const handleNext = () => {
+    if(activeStep === 0){
+      if (
+        course.year === "" || 
+        course.department === "" || 
+        course.instructors === "" || 
+        course.name === ""){
+          alert("Filled the required fields!")
+          return
+      }
+    }
+    if(activeStep === 1){
+      if (
+        exam.examTime === ""){
+          alert("Filled the required field!")
+          return
+      }
+    }
+    if(activeStep === 2){
+      if (
+        file.problemPDF === ""){
+          alert("Upload the question file!")
+          return
+      }
+    }
     setActiveStep(activeStep + 1);
     if(activeStep === steps.length-1){
       console.log({
-        type: type,
-        property: property,
-        semester: semester,
-        year: year,
-        examTime: examTime,
-        courseDept: courseDept,
-        courseName: courseName,
-        instructor: instructor,
-        remarks: remarks,
-        problemPdf: problemPdf,
-        answerPdf: answerPdf
+        course, exam, file
       })
       setOpen(true)
     }
@@ -119,33 +137,34 @@ export default function ContributePage() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === 0 ?( 
-              <AddressForm 
-                  setType = {setType}
-                  setProperty = {setProperty}
-                  setSemester = {setSemester}
-                  setYear = {setYear}
-                  setExamTime = {setExamTime}
-                  setCourseDept = {setCourseDept}
-                  setCourseName = {setCourseName}
-                  setInstructor = {setInstructor}
-                  setRemarks = {setRemarks}
-                  setProblemPdf = {setProblemPdf}
-                  setAnswerPdf = {setAnswerPdf}
-              />):(
-                activeStep === 1 ? (
-                <Review 
-                  type = {type}
-                  property = {property}
-                  semester = {semester}
-                  year = {year}
-                  examTime = {examTime}
-                  courseDept = {courseDept}
-                  courseName = {courseName}
-                  instructor = {instructor}
-                  remarks = {remarks}
-                />):(<></>)
-              )
+            {
+              (()=>{
+                switch(activeStep){
+                  case 0:
+                    return <CourseForm 
+                        updateCourse={updateCourse}
+                        course={course}
+                      />
+                  case 1:
+                    return <ExamForm 
+                        updateExam={updateExam}
+                        exam={exam}
+                      />
+                  case 2:
+                    return <FileForm 
+                        updateFile={updateFile}
+                        file={file}
+                      />
+                  case 3:
+                    return <Review 
+                        course={course}
+                        exam={exam}
+                        file={file}
+                      />
+                  default:
+                    break
+                }
+              })()
             }
             <Box sx={{ display: 'flex',justifyContent: 'flex-end' }}>
               {activeStep !== 0 && (

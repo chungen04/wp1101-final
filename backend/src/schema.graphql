@@ -13,8 +13,8 @@ type Mutation {
   createCourse(data: CreateCourseInput!): Course!
   updateCourse(courseID: ID!, data: UpdateCourseInput!): Course!
   deleteCourse(courseID: ID!): Boolean
-  createExam(examName: String!, courseID: ID!): Exam!
-  updateExam(examID: ID!, examName: String!): Exam!
+  createExam(data: CreateExamInput!, courseID: ID!): Exam!
+  updateExam(examID: ID!, data: UpdateExamInput!): Exam!
   deleteExam(examID: ID!): Boolean
   createFile(examID: ID!, data: CreateFileInput!): File!
   updateFile(fileID: ID!, data: UpdateFileInput!): File!
@@ -41,23 +41,30 @@ type Course {
   department: String!
   courseType: String!
   exams: [Exam!]!
+  show: Boolean!
 }
 
 type Exam {
   id: ID!
   courseID: ID!
   examName: String!
+  examTime: Int!
   files: [File!]!
+  show: Boolean!
 }
 
 type File{
   id: ID!
   examID: ID!
-  driveID: ID!
-  fileDownloadLink: String!
-  fileViewLink: String!
+  questionDriveID: ID!
+  questionDownloadLink: String!
+  questionViewLink: String!
+  answerDriveID: ID
+  answerDownloadLink: String
+  answerViewLink: String
   uploadTime: Int!
   show: Boolean!
+  remarks: String 
 }
 
 input CreateCourseInput {
@@ -66,7 +73,6 @@ input CreateCourseInput {
   instructors: [String!]
   department: String!
   courseType: String!
-  exams: [ID!]
 }
 
 input UpdateCourseInput {
@@ -75,6 +81,7 @@ input UpdateCourseInput {
   instructors: [String!]
   department: String
   courseType: String
+  show: Boolean
 }
 
 input CourseFilter {
@@ -84,17 +91,36 @@ input CourseFilter {
   courseType: String
 }
 
+input CreateExamInput {
+  examName: String!
+  examTime: Int!
+}
+
+input UpdateExamInput {
+  examName: String
+  examTime: Int
+  show: Boolean
+}
+
 input CreateFileInput {
-  driveID: ID!
-  fileDownloadLink: String!
-  fileViewLink: String!
+  questionDriveID: ID!
+  questionDownloadLink: String!
+  questionViewLink: String!
+  answerDriveID: ID
+  answerDownloadLink: String
+  answerViewLink: String
+  remarks: String
 }
 
 input UpdateFileInput {
-  driveID: ID
-  fileDownloadLink: String
-  fileViewLink: String
+  questionDriveID: ID
+  questionDownloadLink: String
+  questionViewLink: String
+  answerDriveID: ID
+  answerDownloadLink: String
+  answerViewLink: String
   show: Boolean
+  remarks: String
 }
 
 enum MutationType{

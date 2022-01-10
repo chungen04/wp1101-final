@@ -1,41 +1,49 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Grid from '@mui/material/Grid';
-import { process_params } from 'express/lib/router';
-const products = [
-  {
-    name: 'Product 1',
-    price: '$9.99',
-  },
-  {
-    name: 'Product 2',
-    price: '$3.45',
-  },
-  {
-    name: 'Product 3',
-    price: '$6.51',
-  },
-  {
-    name: 'Product 4',
-    price: '$14.11',
-  },
-];
+import {
+  Typography, 
+  List, 
+  ListItem, 
+  ListItemText
+} from '@mui/material';
+
+const courseKeys = ["semester", "year", "type", "courseName", "department", "instructors"]
+const examKeys = ["examName", "examTime"]
+const fileKeys = ["remark"]
 
 export default function Review(props) {
+  const {course, exam, file} = props
   console.log(props)
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Submission summary
       </Typography>
       <List disablePadding>
-        {Object.entries(props).map((key) => (
-          <ListItem key={key[0]} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={key[0]}/>
-            <Typography variant="body2">{key[1]}</Typography>
+        <Typography variant="h6" gutterBottom>
+          Course
+        </Typography>
+        {courseKeys.map((key) => (
+          <ListItem key={key} sx={{ py: 0.5, px: 3 }}>
+            <ListItemText primary={key}/>
+            <Typography variant="body2">{course[key]}</Typography>
+          </ListItem>
+        ))}
+        <Typography variant="h6" gutterBottom>
+          Exam
+        </Typography>
+        {examKeys.map((key) => (
+          <ListItem key={key} sx={{ py: 0.5, px: 3 }}>
+            <ListItemText primary={key}/>
+            <Typography variant="body2">{exam[key]}</Typography>
+          </ListItem>
+        ))}
+        <Typography variant="h6" gutterBottom>
+          File
+        </Typography>
+        {fileKeys.map((key) => (
+          <ListItem key={key} sx={{ py: 1, px: 3 }}>
+            <ListItemText primary={key}/>
+            <Typography variant="body2">{file[key]}</Typography>
           </ListItem>
         ))}
       </List>

@@ -6,17 +6,29 @@ const fileSchema = new Schema({
         type: String,
         required: [true, 'examID field is required.']
     },
-    driveID: {
+    questionDriveID: {
         type: String,
         required: [true, 'driveID field is required.']
     },
-    fileDownloadLink: {
+    questionDownloadLink: {
         type: String,
         required: [true, 'fileDownloadLink field is required.']
     },
-    fileViewLink: {
+    questionViewLink: {
         type: String,
         required: [true, 'fileViewLink field is required.']
+    },
+    answerDriveID: {
+        type: String,
+        required: false
+    },
+    answerDownloadLink: {
+        type: String,
+        required: false
+    },
+    answerViewLink: {
+        type: String,
+        required: false
     },
     uploadTime: {
         type: Date,
@@ -25,6 +37,10 @@ const fileSchema = new Schema({
     show: {
         type: Boolean,
         default: false
+    },
+    remarks: {
+        type: String,
+        required: false
     }
 })
 

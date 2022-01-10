@@ -26,7 +26,11 @@ const courseSchema = new Schema({
     exams: [{
         type: mongoose.Types.ObjectId, 
         ref: "Exam"
-    }]
+    }],
+    show: {
+        type: Boolean,
+        default: false
+    },
 })
 
 const Course = mongoose.model('course', courseSchema)
