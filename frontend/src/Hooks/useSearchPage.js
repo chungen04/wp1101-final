@@ -4,6 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import React from "react";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import DialogContent from '@mui/material/DialogContent';
+import Dialog from '@mui/material/Dialog';
 import {
     List, 
     ListItem, 
@@ -34,7 +36,7 @@ const useSearchPage = () =>{
                 {Object.keys(props).map((key) => (
                 <ListItem key={key} sx={{ py: 0.5, px: 3 }}>
                     <ListItemText primary={key}/>
-                    <Typography variant="body2">{props[key]}</Typography>
+                    <Typography variant="body3">{props[key]}</Typography>
                 </ListItem>
                 ))}
             </List>
@@ -74,6 +76,11 @@ const useSearchPage = () =>{
           </CardContent>
           <CardActions>
             <Button size="small" onClick = {() => setShowMore(true)}>Learn More</Button>
+            <Dialog open = {showMore} onClose = {() => setShowMore(false)} >
+            <DialogContent dividers>
+                {ShowMore(props)}
+                </DialogContent>
+            </Dialog>
           </CardActions>
         </React.Fragment>
         )
