@@ -2,29 +2,38 @@ import {gql} from "@apollo/client";
 
 export const USER_SEARCH_QUERY = gql`
     query(
-        $year_semester:String
+        $year: Int
+        $semester: String
         $courseDept: String
         $courseName: String
         $type: String
     ){
         courses(
             filter:{
-                year_semester: $year_semester
+                year: $year
+                semester: $semester
                 department: $courseDept
                 courseName: $courseName
                 courseType: $type
             }
         ){
-            id
-            year_semester
+            year
+            semester
             courseName
             instructors
             department
             courseType
             exams{
-                id
+                examName
+                examTime
+                files{
+                    questionDownloadLink
+                    questionViewLink
+                    answerDownloadLink
+                    answerViewLink
+                    remarks 
+                }
             }
-            show
         }
     }
 `

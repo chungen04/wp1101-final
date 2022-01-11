@@ -10,6 +10,10 @@ import useSearchPage from '../Hooks/useSearchPage';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Box from '@material-ui/core/Box';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import React from "react";
+
 import { USER_SEARCH_QUERY } from "../graphql/query";
 import { useQuery } from '@apollo/client';
 
@@ -60,16 +64,20 @@ const StyledPaper = styled(Paper)`
   padding: 2em;
 `;
 
+
+
 const SearchPage = () => {
   const {
     Semester,
     Types,
+    queryFiles,
     queryYear,
     queryType,
     querySemester,
     queryCourseDept,
     queryCourseName,
     queryAnswer,
+    setFiles,
     setQueryYear,
     setQuerySemester,
     setQueryCourseDept,
@@ -77,23 +85,80 @@ const SearchPage = () => {
     setQueryAnswer,
     setQueryType
   } = useSearchPage();
+  const card = ({
+    year,
+    semester,
+    remarks,
+    questionViewLink,
+    questionDownloadLink,
+    instructors,
+    examTime,
+    examName,
+    department,
+    courseType,
+    courseName,
+    answerViewLink,
+    answerDownloadLink
+  }) => {
+    return(
+    <React.Fragment>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Year: {year}
+        </Typography>
+        <Typography variant="h5" component="div">
+          semester: {semester}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          adjective
+        </Typography>
+        <Typography variant="body2">
+          well meaning and kindly.
+          <br />
+          {'"a benevolent smile"'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </React.Fragment>
+    )
+  }
   const classes = useStyles();
   const variables = {}
   if(queryCourseDept !== "") variables.courseDept = queryCourseDept;
   if(queryCourseName !== "") variables.courseName = queryCourseName;
-  if(queryType !== "Default") variables.type = queryType;
-  if(queryYear !== 0) variables.year_semester = [queryYear, querySemester].join("-");
+  if(queryType !== "All" && queryType) variables.type = queryType;
+  if(queryYear !== NaN && queryYear !== "" && queryYear) variables.year = parseInt(queryYear);
+  if(querySemester !== "All") variables.semester = querySemester
   console.log(variables);
+
   const {loading, data, subscribeToMore} = useQuery(USER_SEARCH_QUERY, {
       variables: variables
   })
+
+  let Files = []
   const handleQuery = () => {
-    console.log([queryYear, querySemester].join("-"))
-    console.log(queryCourseDept)
-    console.log(queryCourseName)
-    console.log(queryType==="Default"? null: queryType)
-    console.log(data);
+    Files = []
+    data.courses.map(e =>{
+      e.exams.map(f =>{
+        f.files.map(g =>{
+          Files.push({
+            ...e,
+            ...f,
+            ...g
+          })
+        })
+      })
+    })
+    Files.forEach(element => {
+      delete element['exams'];
+      delete element['files'];
+    });
+    console.log(Files)
+    setFiles(Files);
   }
+
   const handleChange = (func) => (event) => {
     console.log(event.target.value)
     func(event.target.value);
@@ -204,6 +269,11 @@ const SearchPage = () => {
         </Button>
         <br></br>
       <ContentPaper variant="outlined">
+      {
+        queryFiles.map((e) =>{
+          return card(e);
+        })
+      }
       </ContentPaper>
     </InTextWrapper>
     </StyledPaper>
