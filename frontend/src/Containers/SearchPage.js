@@ -1,15 +1,21 @@
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@mui/material/Grid';
+import {
+  Button,
+  FormControl,
+  Paper,
+  TextField,
+  Typography,
+  makeStyles,
+  Box
+} from '@material-ui/core';
+
+import {
+  Grid,
+  FormControlLabel,
+  Switch
+} from '@mui/material';
+
 import styled from 'styled-components';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import useSearchPage from '../Hooks/useSearchPage';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Box from '@material-ui/core/Box';
 import React from "react";
 
 import { USER_SEARCH_QUERY } from "../graphql/query";
@@ -170,26 +176,7 @@ const SearchPage = () => {
             onChange = {handleChange(setQueryCourseName)}
           />
           </Grid>
-          <Grid item xs={6} md={2}>
-            <TextField
-              label="Semester"
-              onChange = {handleChange(setQuerySemester)}
-              select
-              value={querySemester}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              SelectProps={{
-                native: true,
-              }}
-            >
-              {Semester.map((option) => (
-                  <option value={option}>
-                  {option}
-                  </option>
-              ))}
-            </TextField>
-            </Grid>
+          
           <Grid item xs={6} md={3}>
           <TextField
             label="Required/elective/liberal?"
@@ -204,6 +191,26 @@ const SearchPage = () => {
             }}
           >
             {Types.map((option) => (
+                <option value={option}>
+                {option}
+                </option>
+            ))}
+          </TextField>
+          </Grid>
+          <Grid item xs={6} md={3}>
+          <TextField
+            label="Semester"
+            onChange = {handleChange(setQuerySemester)}
+            value={querySemester}
+            select
+            InputLabelProps={{
+              shrink: true,
+            }}
+            SelectProps={{
+              native: true,
+            }}
+          >
+            {Semester.map((option) => (
                 <option value={option}>
                 {option}
                 </option>

@@ -1,16 +1,20 @@
 import {useState} from "react";
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import React from "react";
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import DialogContent from '@mui/material/DialogContent';
-import Dialog from '@mui/material/Dialog';
+
 import {
+    CardActions,
+    CardContent,
+    DialogContent,
+    Dialog,
     List, 
     ListItem, 
     ListItemText
-  } from '@mui/material';
+} from '@mui/material';
+
+import {
+    Button,
+    Typography
+} from '@material-ui/core';
 
 const useSearchPage = () =>{
     const [queryFiles, setFiles] = useState([]);
@@ -46,17 +50,10 @@ const useSearchPage = () =>{
         const {
             year,
             semester,
-            remarks,
-            questionViewLink,
-            questionDownloadLink,
             instructors,
-            examTime,
             examName,
             department,
-            courseType,
             courseName,
-            answerViewLink,
-            answerDownloadLink
         } = props;
         return(
         <React.Fragment>
