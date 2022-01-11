@@ -3,14 +3,16 @@ import pubsub from "./pubsub"
 const Mutation = {
     async createCourse(parent, args, {db, login}){
         const {
-            year_semester,
+            year,
+            semester,
             courseName,
             instructors,
             department,
             courseType
         } = args.data
         const course = await new db.Course({
-            year_semester, 
+            year,
+            semester, 
             courseName,
             instructors,
             department,
