@@ -5,7 +5,7 @@ import SignIn from './Containers/SignIn';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import AdminHomePage from './Containers/AdminHomePage';
 import ContributePage from './Containers/ContributePage';
-import SearchPage from './Containers/SearchPage/SearchPage';
+import SearchPage from './Containers/SearchPage';
 
 function App() {
   return (

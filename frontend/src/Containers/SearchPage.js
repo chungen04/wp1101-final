@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import useSearchPage from './useSearchPage';
+import useSearchPage from '../Hooks/useSearchPage';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Box from '@material-ui/core/Box';
@@ -61,24 +61,19 @@ const StyledPaper = styled(Paper)`
 const SearchPage = () => {
   const {
     Semester,
-    Types, 
     Property,
     queryYear,
     queryProperty,
-    queryType,
     querySemester,
     queryCourseDept,
     queryCourseName,
-    queryInstructor,
     queryAnswer,
     handleQuery,
     setQueryYear,
-    setQueryType,
     setQueryProperty,
     setQuerySemester,
     setQueryCourseDept,
     setQueryCourseName,
-    setQueryInstructor,
     setQueryAnswer
 } = useSearchPage();
   const classes = useStyles();
@@ -109,26 +104,6 @@ const SearchPage = () => {
             onChange = {handleChange(setQueryYear)}
           />
           </Grid>
-          <Grid item xs={6} md={3}>
-            <TextField
-              label="Exam Type"
-              onChange = {handleChange(setQueryType)}
-              select
-              value = {queryType}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              SelectProps={{
-                native: true,
-              }}
-            >
-              {Types.map((option) => (
-                  <option value={option}>
-                  {option}
-                  </option>
-              ))}
-            </TextField>
-            </Grid>
           <Grid item xs={6} md={2}>
             <TextField
               label="Semester"
