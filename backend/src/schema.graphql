@@ -2,8 +2,10 @@ type Query {
   users: [User!]
   user: User!
   courses(filter: CourseFilter): [Course!]!
+  coursesForContribute(filter: CourseFilter): [Course!]!
   course(courseID: ID!): Course!
   exams(courseID: ID!): [Exam!]!
+  examsForContribute(courseID: ID!): [Exam!]!
   exam(courseID: ID!, examName: String!): Exam!
   files(examID: ID!): [File!]!
   file(examID: ID!, fileID: ID!): File!

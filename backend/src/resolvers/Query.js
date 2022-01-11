@@ -17,6 +17,12 @@ const Query = {
         const courses = await db.Course.find(filter)
         return courses
     },
+    async coursesForContribute(parent, args, {db}){
+        let {filter} = args
+        if (!filter) filter = {} 
+        const courses = await db.Course.find(filter)
+        return courses
+    },
     async course(parent, args, {db, login}){
         const { courseID } = args
         const course = await db.Course.findById(courseID)
@@ -29,6 +35,12 @@ const Query = {
         if (!login){
             filter.show = true
         }
+        const exams = await db.Exam.find(filter)
+        return exams
+    },
+    async examsForContribute(parent, args, {db, login}){
+        const {courseID} = args
+        const filter = {courseID}
         const exams = await db.Exam.find(filter)
         return exams
     },

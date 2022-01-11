@@ -1,1 +1,1 @@
-export { COURSES_QUERY } from './queryForContribute';
+export { COURSES_QUERY, EXAMS_QUERY } from './queryForContribute';

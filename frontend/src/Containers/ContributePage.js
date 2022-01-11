@@ -13,7 +13,9 @@ import {
   StepLabel,
   Button,
   Typography,
-  Modal
+  Modal,
+  Snackbar, 
+  Alert 
 } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -50,6 +52,16 @@ export default function ContributePage() {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
   const [leave, setLeave] = useState(false);
+  const [addCourse, setAddCourse] = useState(false)
+  const [addExam, setAddExam] = useState(false)
+  const [alert, setAlert] = useState({});
+
+  const showAlert = (severity, msg) => {
+    setAlert({ open: true, severity, msg });
+  };
+
+
+  localStorage.removeItem("token")
 
   const handleNext = () => {
     if(activeStep === 0){
@@ -61,21 +73,24 @@ export default function ContributePage() {
         course.type === "" ||
         course.semester === ""
       ){
-        alert("Filled the required fields!")
+        showAlert("error", "Filled the required fields!")
         return
+      }
+      if (addCourse) {
+        updateCourse({"id": ""})
       }
     }
     if(activeStep === 1){
       if (
         exam.examTime === ""){
-          alert("Filled the required field!")
+          showAlert("error", "Filled the required field!")
           return
       }
     }
     if(activeStep === 2){
       if (
         file.problemPDF === ""){
-          alert("Upload the question file!")
+          showAlert("error", "Upload the question file!")
           return
       }
     }
@@ -147,11 +162,20 @@ export default function ContributePage() {
                     return <CourseForm 
                         updateCourse={updateCourse}
                         course={course}
+                        addCourse={addCourse}
+                        setAddCourse={setAddCourse}
+                        showAlert={showAlert}
+                        setAddExam={setAddExam}
                       />
                   case 1:
                     return <ExamForm 
                         updateExam={updateExam}
                         exam={exam}
+                        addCourse={addCourse}
+                        addExam={addExam}
+                        setAddExam={setAddExam}
+                        showAlert={showAlert}
+                        course={course}
                       />
                   case 2:
                     return <FileForm 
@@ -186,6 +210,16 @@ export default function ContributePage() {
           </React.Fragment>
         </Paper>
       </Container>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={alert?.open}
+        autoHideDuration={3000}
+        onClose={() => setAlert({ ...alert, open: false })}
+      >
+        <Alert variant="filled" severity={alert?.severity}>
+          {alert?.msg}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
     ));
 }

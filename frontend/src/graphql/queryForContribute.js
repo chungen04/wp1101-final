@@ -8,7 +8,7 @@ const COURSES_QUERY = gql`
         $department: String
         $courseType: String
     ){
-        courses(
+        coursesForContribute(
             filter: {
                 year: $year
                 semester: $semester
@@ -24,15 +24,25 @@ const COURSES_QUERY = gql`
             courseName
             courseType
             instructors
-            exams{
-                id
-                examName
-            }
-            show
+        }
+    }
+`;
+
+const EXAMS_QUERY = gql`
+    query exams(
+        $courseID: String!
+    ){
+        examsForContribute(
+            courseID: $courseID
+        ){
+            id
+            examName
+            examTime
         }
     }
 `;
 
 export {
-    COURSES_QUERY
+    COURSES_QUERY,
+    EXAMS_QUERY
 }
