@@ -10,6 +10,8 @@ import useSearchPage from '../Hooks/useSearchPage';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Box from '@material-ui/core/Box';
+import { USER_SEARCH_QUERY } from "../graphql/query";
+import { useQuery } from '@apollo/client';
 
 const Wrapper = styled.div`
   margin: auto;
@@ -63,21 +65,31 @@ const SearchPage = () => {
     Semester,
     Property,
     queryYear,
+    queryType,
     queryProperty,
     querySemester,
     queryCourseDept,
     queryCourseName,
     queryAnswer,
-    handleQuery,
     setQueryYear,
     setQueryProperty,
     setQuerySemester,
     setQueryCourseDept,
     setQueryCourseName,
     setQueryAnswer
-} = useSearchPage();
+  } = useSearchPage();
   const classes = useStyles();
-
+  const {loading, data, subscribeToMore} = useQuery(USER_SEARCH_QUERY, {
+      variables:{
+          year_semester: [queryYear, querySemester].join("-"),
+          courseDept: queryCourseDept,
+          courseName: queryCourseName,
+          type: queryType
+      },
+  })
+  const handleQuery = () => {
+    console.log(data);
+  }
   const handleChange = (func) => (event) => {
     console.log(event.target.value)
     func(event.target.value);

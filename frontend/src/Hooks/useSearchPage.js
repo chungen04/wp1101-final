@@ -1,5 +1,6 @@
 import {useState} from "react";
 
+
 const useSearchPage = () =>{
     const [queryYear, setQueryYear] = useState(0);
     const [queryProperty, setQueryProperty] = useState('');
@@ -10,13 +11,10 @@ const useSearchPage = () =>{
     const [queryInstructor, setQueryInstructor] = useState('')
     const [queryAnswer, setQueryAnswer] = useState(false)
 
-    const Semester = ["Default", "Fall", "Spring", "Summer"];
+    const Semester = ["Fall", "Spring", "Summer"];
     const Types = ["Default", "Midterm", "Final", "Quiz", ];
     const Property = ["Default", "Required", "Elective", "Liberal"];
 
-    const handleQuery = () =>{
-
-    };
     return {
         Semester,
         Types,
@@ -29,7 +27,6 @@ const useSearchPage = () =>{
         queryCourseName,
         queryInstructor,
         queryAnswer,
-        handleQuery,
         setQueryType,
         setQueryYear,
         setQueryProperty,
