@@ -22,8 +22,8 @@ export default function CourseForm({ updateCourse, course, addCourse, setAddCour
   const [allCourseNameInstructors, setAllCourseNameInstructors] = useState([course.courseName + ' - ' + course.instructors])
 
   const handleCheckbox = () => {
-    setAddCourse(!addCourse)
     setAddExam(!addCourse)
+    setAddCourse(!addCourse)
   }
 
   const handleQuery = async() => {

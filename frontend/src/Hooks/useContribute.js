@@ -11,6 +11,7 @@ const useContribute = () => {
         "instructors": ""
     })
     const [exam, setExam] = useState({
+        "id": "",
         "examName": "",
         "examTime": ""
     })

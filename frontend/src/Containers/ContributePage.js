@@ -62,6 +62,7 @@ export default function ContributePage() {
 
 
   localStorage.removeItem("token")
+  console.log(course.id)
 
   const handleNext = () => {
     if(activeStep === 0){
@@ -75,9 +76,6 @@ export default function ContributePage() {
       ){
         showAlert("error", "Filled the required fields!")
         return
-      }
-      if (addCourse) {
-        updateCourse({"id": ""})
       }
     }
     if(activeStep === 1){

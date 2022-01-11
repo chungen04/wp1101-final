@@ -30,7 +30,7 @@ const COURSES_QUERY = gql`
 
 const EXAMS_QUERY = gql`
     query exams(
-        $courseID: String!
+        $courseID: ID!
     ){
         examsForContribute(
             courseID: $courseID
