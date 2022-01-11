@@ -1,0 +1,1 @@
+export { COURSES_QUERY } from './queryForContribute';
