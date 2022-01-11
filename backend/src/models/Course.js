@@ -2,9 +2,13 @@ import mongoose from "mongoose"
 
 const Schema = mongoose.Schema
 const courseSchema = new Schema({
-    year_semester: {
+    year: {
+        type: Number,
+        required: [true, "year field is required."]
+    },
+    semester: {
         type: String,
-        required: [true, 'year_semester field is required.']
+        required: [true, 'semester field is required.']
     },
     courseName: {
         type: String,

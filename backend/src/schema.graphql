@@ -35,7 +35,8 @@ type User {
 
 type Course {
   id: ID!
-  year_semester: String!
+  year: Int!
+  semester: String!
   courseName: String!
   instructors: String!
   department: String!
@@ -68,7 +69,8 @@ type File{
 }
 
 input CreateCourseInput {
-  year_semester: String!
+  year: Int!
+  semester: String!
   courseName: String!
   instructors: String!
   department: String!
@@ -76,7 +78,8 @@ input CreateCourseInput {
 }
 
 input UpdateCourseInput {
-  year_semester: String
+  year: Int
+  semester: String
   courseName: String
   instructors: String!
   department: String
@@ -85,7 +88,8 @@ input UpdateCourseInput {
 }
 
 input CourseFilter {
-  year_semester: String
+  year:Int
+  semester: String
   courseName: String
   department: String
   courseType: String
