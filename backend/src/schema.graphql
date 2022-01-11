@@ -37,7 +37,7 @@ type Course {
   id: ID!
   year_semester: String!
   courseName: String!
-  instructors: [String!]!
+  instructors: String!
   department: String!
   courseType: String!
   exams: [Exam!]!
@@ -70,7 +70,7 @@ type File{
 input CreateCourseInput {
   year_semester: String!
   courseName: String!
-  instructors: [String!]
+  instructors: String!
   department: String!
   courseType: String!
 }
@@ -78,7 +78,7 @@ input CreateCourseInput {
 input UpdateCourseInput {
   year_semester: String
   courseName: String
-  instructors: [String!]
+  instructors: String!
   department: String
   courseType: String
   show: Boolean
