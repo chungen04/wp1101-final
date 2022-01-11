@@ -10,8 +10,6 @@ import useSearchPage from '../Hooks/useSearchPage';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Box from '@material-ui/core/Box';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import React from "react";
 
 import { USER_SEARCH_QUERY } from "../graphql/query";
@@ -68,6 +66,7 @@ const StyledPaper = styled(Paper)`
 
 const SearchPage = () => {
   const {
+    card,
     Semester,
     Types,
     queryFiles,
@@ -85,45 +84,8 @@ const SearchPage = () => {
     setQueryAnswer,
     setQueryType
   } = useSearchPage();
-  const card = ({
-    year,
-    semester,
-    remarks,
-    questionViewLink,
-    questionDownloadLink,
-    instructors,
-    examTime,
-    examName,
-    department,
-    courseType,
-    courseName,
-    answerViewLink,
-    answerDownloadLink
-  }) => {
-    return(
-    <React.Fragment>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Year: {year}
-        </Typography>
-        <Typography variant="h5" component="div">
-          semester: {semester}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </React.Fragment>
-    )
-  }
+
+
   const classes = useStyles();
   const variables = {}
   if(queryCourseDept !== "") variables.courseDept = queryCourseDept;
@@ -168,8 +130,9 @@ const SearchPage = () => {
     <Wrapper>
     <StyledPaper elevation={3}>
     <InTextWrapper>
-        <Box py = {3} px = {3}><Typography variant="h2" align = "center">
-          Query Page
+        <Box py = {3} px = {3}><Typography variant="h4" align = "center">
+          Search for the Documents Uploaded<br></br>
+           in NTU Old Exams.
         </Typography></Box>
         
         <StyledFormControl>
@@ -185,26 +148,6 @@ const SearchPage = () => {
             onChange = {handleChange(setQueryYear)}
           />
           </Grid>
-          <Grid item xs={6} md={2}>
-            <TextField
-              label="Semester"
-              onChange = {handleChange(setQuerySemester)}
-              select
-              value={querySemester}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              SelectProps={{
-                native: true,
-              }}
-            >
-              {Semester.map((option) => (
-                  <option value={option}>
-                  {option}
-                  </option>
-              ))}
-            </TextField>
-            </Grid>
             <Grid item xs={6} md={3}>
           <TextField
             label="Course Department"
@@ -227,6 +170,26 @@ const SearchPage = () => {
             onChange = {handleChange(setQueryCourseName)}
           />
           </Grid>
+          <Grid item xs={6} md={2}>
+            <TextField
+              label="Semester"
+              onChange = {handleChange(setQuerySemester)}
+              select
+              value={querySemester}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              SelectProps={{
+                native: true,
+              }}
+            >
+              {Semester.map((option) => (
+                  <option value={option}>
+                  {option}
+                  </option>
+              ))}
+            </TextField>
+            </Grid>
           <Grid item xs={6} md={3}>
           <TextField
             label="Required/elective/liberal?"
@@ -247,7 +210,7 @@ const SearchPage = () => {
             ))}
           </TextField>
           </Grid>
-          <Grid item xs={6} md={3}>
+          {/*<Grid item xs={6} md={3}>
             <FormControlLabel 
               control={
                 <Switch 
@@ -255,7 +218,7 @@ const SearchPage = () => {
               } 
               label="Require Answer" 
               checked = {queryAnswer}/>
-          </Grid>
+          </Grid>*/}
           </Grid>
         </StyledFormControl>
         <br></br>
@@ -268,7 +231,7 @@ const SearchPage = () => {
           Query
         </Button>
         <br></br>
-      <ContentPaper variant="outlined">
+      <ContentPaper variant="outlined" >
       {
         queryFiles.map((e) =>{
           return card(e);

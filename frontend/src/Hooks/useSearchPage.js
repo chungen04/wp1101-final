@@ -1,5 +1,14 @@
 import {useState} from "react";
-
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import React from "react";
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {
+    List, 
+    ListItem, 
+    ListItemText
+  } from '@mui/material';
 
 const useSearchPage = () =>{
     const [queryFiles, setFiles] = useState([]);
@@ -10,12 +19,68 @@ const useSearchPage = () =>{
     const [queryCourseDept, setQueryCourseDept] = useState('')
     const [queryCourseName, setQueryCourseName] = useState('')
     const [queryInstructor, setQueryInstructor] = useState('')
-    const [queryAnswer, setQueryAnswer] = useState(false)
+    const [queryAnswer, setQueryAnswer] = useState(false);
+    const [showMore, setShowMore] = useState(false);
 
     const Semester = ["All", "Fall", "Spring", "Summer"];
     const Types = ["All", "Required", "Elective", "Liberal"];
 
+    const ShowMore = (props) => {
+        return(
+            <List disablePadding>
+                <Typography variant="h6" gutterBottom>
+                Details
+                </Typography>
+                {Object.keys(props).map((key) => (
+                <ListItem key={key} sx={{ py: 0.5, px: 3 }}>
+                    <ListItemText primary={key}/>
+                    <Typography variant="body2">{props[key]}</Typography>
+                </ListItem>
+                ))}
+            </List>
+        )
+    }
+    const card = (props) => {
+        const {
+            year,
+            semester,
+            remarks,
+            questionViewLink,
+            questionDownloadLink,
+            instructors,
+            examTime,
+            examName,
+            department,
+            courseType,
+            courseName,
+            answerViewLink,
+            answerDownloadLink
+        } = props;
+        return(
+        <React.Fragment>
+          <CardContent>
+            <Typography variant="h5" component="div">
+            {[year, semester].join("-")}
+            </Typography>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Course/Exam: {[courseName, examName].join(" ")}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              Instructor: {instructors}
+            </Typography>
+            <Typography variant="body2">
+                Department: {department}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick = {() => setShowMore(true)}>Learn More</Button>
+          </CardActions>
+        </React.Fragment>
+        )
+      };
+
     return {
+        card,
         Semester,
         Types,
         queryFiles,

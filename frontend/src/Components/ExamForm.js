@@ -99,7 +99,6 @@ export default function ExamForm({ updateExam, exam, addCourse, addExam, setAddE
           </Grid>
         </>
       }
-      
     </React.Fragment>
   );
 }
