@@ -21,7 +21,9 @@ export const USER_SEARCH_QUERY = gql`
             instructors
             department
             courseType
-            exams
+            exams{
+                id
+            }
             show
         }
     }

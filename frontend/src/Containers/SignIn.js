@@ -51,6 +51,7 @@ export default function SignIn() {
         password: data.get('password'),
       });
       if(token){
+        localStorage.setItem("token", token)
         navigate("/adminHomePage",{ replace: true });
       }
     }catch(e){

@@ -63,31 +63,35 @@ const StyledPaper = styled(Paper)`
 const SearchPage = () => {
   const {
     Semester,
-    Property,
+    Types,
     queryYear,
     queryType,
-    queryProperty,
     querySemester,
     queryCourseDept,
     queryCourseName,
     queryAnswer,
     setQueryYear,
-    setQueryProperty,
     setQuerySemester,
     setQueryCourseDept,
     setQueryCourseName,
-    setQueryAnswer
+    setQueryAnswer,
+    setQueryType
   } = useSearchPage();
   const classes = useStyles();
+  const variables = {}
+  if(queryCourseDept !== "") variables.courseDept = queryCourseDept;
+  if(queryCourseName !== "") variables.courseName = queryCourseName;
+  if(queryType !== "Default") variables.type = queryType;
+  if(queryYear !== 0) variables.year_semester = [queryYear, querySemester].join("-");
+  console.log(variables);
   const {loading, data, subscribeToMore} = useQuery(USER_SEARCH_QUERY, {
-      variables:{
-          year_semester: [queryYear, querySemester].join("-"),
-          courseDept: queryCourseDept,
-          courseName: queryCourseName,
-          type: queryType
-      },
+      variables: variables
   })
   const handleQuery = () => {
+    console.log([queryYear, querySemester].join("-"))
+    console.log(queryCourseDept)
+    console.log(queryCourseName)
+    console.log(queryType==="Default"? null: queryType)
     console.log(data);
   }
   const handleChange = (func) => (event) => {
@@ -161,8 +165,8 @@ const SearchPage = () => {
           <Grid item xs={6} md={3}>
           <TextField
             label="Required/elective/liberal?"
-            onChange = {handleChange(setQueryProperty)}
-            value={queryProperty}
+            onChange = {handleChange(setQueryType)}
+            value={queryType}
             select
             InputLabelProps={{
               shrink: true,
@@ -171,7 +175,7 @@ const SearchPage = () => {
               native: true,
             }}
           >
-            {Property.map((option) => (
+            {Types.map((option) => (
                 <option value={option}>
                 {option}
                 </option>

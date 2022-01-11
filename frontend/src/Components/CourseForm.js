@@ -1,12 +1,18 @@
 import * as React from 'react';
 import {Grid, Typography, TextField }from '@mui/material';
 import { InputLabel, NativeSelect} from "@material-ui/core";
+import {useQuery} from "@apollo/react-hooks";
+import { COURSES_QUERY } from '../graphql'; 
 
 const Semester = ["Fall", "Spring", "Summer"];
 const Property = ["Required", "Elective", "Liberal"];
 
 export default function CourseForm({ updateCourse, course }) {
-
+  const {data, loading, subscribeToMore} = useQuery(COURSES_QUERY, {
+        variables: {year_semester: "110-1"},
+    });
+  console.log(data)
+  
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

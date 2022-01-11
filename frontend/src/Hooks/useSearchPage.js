@@ -4,21 +4,19 @@ import {useState} from "react";
 const useSearchPage = () =>{
     const [queryYear, setQueryYear] = useState(0);
     const [queryProperty, setQueryProperty] = useState('');
-    const [queryType, setQueryType] = useState('');
-    const [querySemester, setQuerySemester] = useState('')
+    const [queryType, setQueryType] = useState('Default');
+    const [querySemester, setQuerySemester] = useState('Fall')
     const [queryCourseDept, setQueryCourseDept] = useState('')
     const [queryCourseName, setQueryCourseName] = useState('')
     const [queryInstructor, setQueryInstructor] = useState('')
     const [queryAnswer, setQueryAnswer] = useState(false)
 
     const Semester = ["Fall", "Spring", "Summer"];
-    const Types = ["Default", "Midterm", "Final", "Quiz", ];
-    const Property = ["Default", "Required", "Elective", "Liberal"];
+    const Types = ["Default", "Required", "Elective", "Liberal"];
 
     return {
         Semester,
         Types,
-        Property,
         queryYear,
         queryProperty,
         queryType,
