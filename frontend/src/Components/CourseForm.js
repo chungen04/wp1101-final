@@ -4,12 +4,12 @@ import { InputLabel, NativeSelect} from "@material-ui/core";
 import {useQuery} from "@apollo/react-hooks";
 import { COURSES_QUERY } from '../graphql'; 
 
-const Semester = ["Fall", "Spring", "Summer"];
-const Property = ["Required", "Elective", "Liberal"];
+const Semester = ["", "Fall", "Spring", "Summer"];
+const Property = ["", "Required", "Elective", "Liberal"];
 
 export default function CourseForm({ updateCourse, course }) {
   const {data, loading, subscribeToMore} = useQuery(COURSES_QUERY, {
-        variables: {year_semester: "110-1"},
+        variables: {semester: "Fall"},
     });
   console.log(data)
   
@@ -39,6 +39,7 @@ export default function CourseForm({ updateCourse, course }) {
           </InputLabel>
           <NativeSelect
             defaultValue={30}
+            required
             onChange={(e)=>updateCourse({"semester": e.target.value})}
             fullWidth
           >
@@ -93,6 +94,10 @@ export default function CourseForm({ updateCourse, course }) {
           </InputLabel>
           <NativeSelect
             defaultValue={30}
+            inputProps={{
+              required: true,
+              disabled: true
+            }}
             onChange={(e)=>updateCourse({"type": e.target.value})}
             fullWidth
           >

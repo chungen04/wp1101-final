@@ -5,7 +5,8 @@ export const USER_CONTRIBUTION_MUTATION = gql`
         $courseName: String!
         $department: String!
         $instructor: String!
-        $year_semester: String!
+        $year: int!
+        $semester: String!
         $type: String!
     )
 `

@@ -57,9 +57,12 @@ export default function ContributePage() {
         course.year === "" || 
         course.department === "" || 
         course.instructors === "" || 
-        course.name === ""){
-          alert("Filled the required fields!")
-          return
+        course.name === "" ||
+        course.type === "" ||
+        course.semester === ""
+      ){
+        alert("Filled the required fields!")
+        return
       }
     }
     if(activeStep === 1){
