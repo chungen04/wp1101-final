@@ -2,15 +2,15 @@ import { useState } from "react"
 
 const useContribute = () => {
     const [course, setCourse] = useState({
-        "semester": "Fall", 
+        "semester": "", 
         "year": "", 
-        "type": "Required", 
+        "type": "", 
         "courseName": "", 
         "department": "", 
         "instructors": ""
     })
     const [exam, setExam] = useState({
-        "examName": "Midterm",
+        "examName": "",
         "examTime": ""
     })
     const [file, setFile] = useState({
