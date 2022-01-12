@@ -2,6 +2,7 @@ import { google } from "googleapis"
 import dotenv from "dotenv-defaults"
 import path from "path"
 import fs from "fs"
+import stream from "stream"
 
 dotenv.config()
 const {
@@ -26,19 +27,20 @@ const drive = google.drive({
 
 const filePath = path.join(__dirname, "report.pdf")
 
-const uploadFile = async() => {
+const uploadFile = async(name, uploadData) => {
     try{
+        let bufferStream = new stream.PassThrough();
+        bufferStream.end(uploadData.data)
         const response = await drive.files.create({
-            requestBody: {
-                name: "testPDF.pdf",
-                mimeType: "application/pdf"
+            resource: {
+                name
             },
             media: {
                 mimeType: "application/pdf",
-                body: fs.createReadStream(filePath)
+                body: bufferStream
             }
         })
-        console.log(response.data)
+        return response.data.id
     }catch(error){
         console.log(error)
     }
@@ -68,10 +70,14 @@ const generatePublicUrl = async(fileId) => {
             fileId,
             fields: 'webViewLink, webContentLink'
         })
-        console.log(result.data)
+        return result.data
     }catch(error){
         console.log(error)
     }
 }
 
-export default {uploadFile, deleteFile, generatePublicUrl}
+const logFile = () => {
+    console.log(fs.createReadStream(filePath))
+}
+
+export default {uploadFile, deleteFile, generatePublicUrl, logFile}

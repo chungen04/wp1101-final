@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useState} from "react"
 import {Navigate} from "react-router-dom"
+import {useMutation} from "@apollo/react-hooks";
 import {
   CssBaseline, 
   AppBar, 
@@ -24,6 +25,8 @@ import ExamForm from '../Components/ExamForm';
 import FileForm from '../Components/FileForm';
 import Review from '../Components/Review';
 import useContribute from "../Hooks/useContribute"
+import axios from "../api";
+import { CREATE_COURSE_MUTATION, CREATE_EXAM_MUTATION, CREATE_FILE_MUTATION } from '../graphql';
 
 const steps = ['Course Details', 'Exam Details', 'File Details', 'Check Submission'];
 
@@ -49,6 +52,10 @@ export default function ContributePage() {
     file
   } = useContribute()
 
+  const [createCourse] = useMutation(CREATE_COURSE_MUTATION)
+  const [createExam] = useMutation(CREATE_EXAM_MUTATION)
+  const [createFile] = useMutation(CREATE_FILE_MUTATION)
+
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
   const [leave, setLeave] = useState(false);
@@ -60,9 +67,45 @@ export default function ContributePage() {
     setAlert({ open: true, severity, msg });
   };
 
+  const sendFile = async(pdf) => {
+    const formData = new FormData();
+    formData.append("file", pdf, pdf.name);
+    const response = await axios.post('/api/fileupload', formData);
+    return response.data
+  }
 
-  localStorage.removeItem("token")
-  console.log(course.id)
+  const createGraphqlFile = async(examID, fileInput) => {
+    fileInput.examID = examID
+    await createFile({variables: fileInput})
+  }
+
+  const handleUpload = async() => {
+    let fileInput = {remarks: file.remarks}
+    let {id, webContentLink, webViewLink} = await sendFile(file.problemPDF)
+    fileInput = {...fileInput, problemID: id, problemDownloadLink: webContentLink, problemViewLink: webViewLink}
+    if(file.answerPDF !== ""){
+      const answerFile = await sendFile(file.answerPDF)
+      let {id, webContentLink, webViewLink} = answerFile
+      fileInput = {...fileInput, answerID: id, answerDownloadLink: webContentLink, answerViewLink: webViewLink}
+    } 
+    if(addCourse){
+      let courseInput = course
+      courseInput.courseType = course.type
+      courseInput.year = courseInput.year*1
+      const courseData = await createCourse({variables: courseInput})
+      const courseID = courseData.data.createCourse.id
+      const examData = await createExam({variables: {...exam, courseID, examTime: exam.examTime*1}})
+      const examID = examData.data.createExam.id
+      await createGraphqlFile(examID, fileInput)
+    }else if(addExam){
+      const examData = await createExam({variables: {...exam, courseID: course.id}})
+      const examID = examData.data.createExam.id
+      await createGraphqlFile(examID, fileInput)
+    }else{
+      await createGraphqlFile(exam.id, fileInput)
+    }
+    console.log("done")
+  }
 
   const handleNext = () => {
     if(activeStep === 0){
@@ -94,9 +137,7 @@ export default function ContributePage() {
     }
     setActiveStep(activeStep + 1);
     if(activeStep === steps.length-1){
-      console.log({
-        course, exam, file
-      })
+      handleUpload();
       setOpen(true)
     }
   };

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors'
 import dotenv from "dotenv-defaults"
 import http from "http";
+import busboy from 'connect-busboy';
 import bodyParser from "body-parser"
 import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express'
 import { readFileSync } from 'fs';
@@ -9,12 +10,12 @@ import jwt from "jsonwebtoken"
 import {execute, subscribe} from "graphql"
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import fileUpload from "express-fileupload"
 
 import mongo from "./mongo"
 import db from './models'
 import apiRoute from "./routes/index.js"
 import resolvers from "./resolvers"
-import file from "./google"
 
 dotenv.config()
 
@@ -26,6 +27,8 @@ const {SECRET_KEY} = process.env;
   const app = express()
   app.use(cors())
   app.use(bodyParser.json())
+  app.use(busboy());
+  app.use(fileUpload())
   app.use('/api', apiRoute)
 
   mongo()

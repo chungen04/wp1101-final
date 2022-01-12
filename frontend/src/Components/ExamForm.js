@@ -10,7 +10,6 @@ import { EXAMS_QUERY } from '../graphql';
 const types = ["", "Midterm", "Final", "Quiz"];
 
 export default function ExamForm({ updateExam, exam, addCourse, addExam, setAddExam, showAlert, course }) {
-  console.log(course.id)
   const {data, loading, subscribeToMore} = useQuery(EXAMS_QUERY, {
     variables: {courseID: course.id}
   });
@@ -18,7 +17,6 @@ export default function ExamForm({ updateExam, exam, addCourse, addExam, setAddE
   
   useEffect(() => {
     if(!data)return 
-    console.log(data)
     setExamData([{examName: "", examTime: ""}, ...data.examsForContribute])
   }, [data])
 
@@ -31,7 +29,7 @@ export default function ExamForm({ updateExam, exam, addCourse, addExam, setAddE
     let id = ""
     await Promise.all(
       examData.map((oneData) => {
-        if (oneData.examName === examName && oneData.examTime === examTime){
+        if (oneData.examName === examName && oneData.examTime * 1 === examTime * 1){
           id = oneData.id
         }
       })

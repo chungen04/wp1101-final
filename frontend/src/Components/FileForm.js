@@ -3,7 +3,8 @@ import {useRef} from 'react'
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { Input, InputLabel} from "@material-ui/core";
+import { Input, Button} from "@material-ui/core";
+import CheckIcon from "@mui/icons-material/Check"
 
 export default function ExamForm({ updateFile, file }) {
 
@@ -12,7 +13,7 @@ export default function ExamForm({ updateFile, file }) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Submission Details
       </Typography>
       <Grid container spacing={3}>
@@ -33,8 +34,9 @@ export default function ExamForm({ updateFile, file }) {
       </Grid>
       <Grid container spacing = {3}>
       <Grid item xs={12} sm = {12}>
-        <InputLabel htmlFor="import-button">
+        <label htmlFor="import-button-problem">
           <Input
+              style={{display: "none"}}
               id="import-button-problem"
               inputProps={{
                 accept:
@@ -43,27 +45,45 @@ export default function ExamForm({ updateFile, file }) {
               ref={problemRef}
               type="file"
               onChange = {()=>{
-                updateFile({"problemPDF": problemRef.current.children[0].files[0]})
+                updateFile({"problemPDF":  problemRef.current.children[0].files[0]})
               }}
-          />
-          Import pdf* (Question, pdf Only)
-        </InputLabel>
+            />
+            <Button color="primary" variant="contained" component="span"> Upload Problem </Button>
+          </label>
+          {
+            file.problemPDF === "" ?
+            <></> :
+            <CheckIcon color="primary"/> 
+          }
+          <Typography >
+            Import pdf* (Question, PDF only)            
+          </Typography>
         </Grid>
         <Grid item xs={12} sm = {12}>
-        <InputLabel htmlFor="import-button">
-          <Input
-              id="import-button-answer"
-              inputProps={{
-                accept:
-                  ".pdf",
-              }}
-              ref={answerRef}
-              type="file"
-              onChange = {()=>{console.log(answerRef)
-                updateFile({"answerPDF": answerRef.current.children[0].files[0]})}}
-          />
-          Import pdf (Answer, Optional, pdf only)
-        </InputLabel>
+          <label htmlFor="import-button-answer">
+            <Input
+                style={{display: "none"}}
+                id="import-button-answer"
+                inputProps={{
+                  accept:
+                    ".pdf",
+                }}
+                ref={answerRef}
+                type="file"
+                onChange = {()=>{
+                  updateFile({"answerPDF":  answerRef.current.children[0].files[0]})
+                }}
+            />
+            <Button color="secondary" variant="contained" component="span" > Upload Answer </Button>
+          </label>
+          {
+            file.answerPDF === "" ?
+            <></> :
+            <CheckIcon color="secondary"/> 
+          }
+          <Typography >
+            Import pdf (Answer, Optional, PDF only)
+          </Typography>
         </Grid>
       </Grid>
     </React.Fragment>

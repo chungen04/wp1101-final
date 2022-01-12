@@ -8,7 +8,7 @@ import {
 
 const courseKeys = ["semester", "year", "type", "courseName", "department", "instructors"]
 const examKeys = ["examName", "examTime"]
-const fileKeys = ["remark"]
+const fileKeys = ["remarks"]
 
 export default function Review(props) {
   const {course, exam, file} = props
@@ -43,9 +43,17 @@ export default function Review(props) {
         {fileKeys.map((key) => (
           <ListItem key={key} sx={{ py: 1, px: 3 }}>
             <ListItemText primary={key}/>
-            <Typography variant="body2">{file[key]}</Typography>
+            <Typography variant="body2">{file[key] === "" ? "none": file[key]}</Typography>
           </ListItem>
         ))}
+        <ListItem key="problem" sx={{ py: 1, px: 3 }}>
+          <ListItemText primary="problemPDF"/>
+          <Typography variant="body2">{file.problemPDF === "" ? "none" : file.problemPDF.name}</Typography>
+        </ListItem>
+        <ListItem key="answer" sx={{ py: 1, px: 3 }}>
+          <ListItemText primary="answerPDF"/>
+          <Typography variant="body2">{file.answerPDF === "" ? "none" : file.answerPDF.name}</Typography>
+        </ListItem>
       </List>
     </React.Fragment>
   );
