@@ -72,7 +72,7 @@ const StyledPaper = styled(Paper)`
 
 const SearchPage = () => {
   const {
-    card,
+    Card,
     Semester,
     Types,
     queryFiles,
@@ -122,6 +122,7 @@ const SearchPage = () => {
     Files.forEach(element => {
       delete element['exams'];
       delete element['files'];
+      delete element['__typename'];
     });
     console.log(Files)
     setFiles(Files);
@@ -240,9 +241,9 @@ const SearchPage = () => {
         <br></br>
       <ContentPaper variant="outlined" >
       {
-        queryFiles.map((e) =>{
-          return card(e);
-        })
+        queryFiles.map((e) =>
+          <Card content = {e}/>
+        )
       }
       </ContentPaper>
     </InTextWrapper>

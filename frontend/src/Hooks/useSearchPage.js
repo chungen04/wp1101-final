@@ -6,7 +6,8 @@ import {
     CardContent,
     DialogContent,
     Dialog,
-    List, 
+    Grid,
+    List,
     ListItem, 
     ListItemText
 } from '@mui/material';
@@ -26,27 +27,29 @@ const useSearchPage = () =>{
     const [queryCourseName, setQueryCourseName] = useState('')
     const [queryInstructor, setQueryInstructor] = useState('')
     const [queryAnswer, setQueryAnswer] = useState(false);
-    const [showMore, setShowMore] = useState(false);
 
     const Semester = ["All", "Fall", "Spring", "Summer"];
     const Types = ["All", "Required", "Elective", "Liberal"];
 
-    const ShowMore = (props) => {
-        return(
-            <List disablePadding>
-                <Typography variant="h6" gutterBottom>
-                Details
-                </Typography>
-                {Object.keys(props).map((key) => (
-                <ListItem key={key} sx={{ py: 0.5, px: 3 }}>
-                    <ListItemText primary={key}/>
-                    <Typography variant="body3">{props[key]}</Typography>
-                </ListItem>
-                ))}
-            </List>
-        )
+    const ShowMore = (content) => {
+      return(
+        <List disablePadding>
+            <Typography variant="h6" gutterBottom>
+            Details
+            </Typography>
+            {Object.keys(content).map((key) => (
+            <ListItem key={key}>
+                <ListItemText primary={key} sx={{ padding: 1 }}/>
+                <Grid item >
+                <Typography variant="body2">{content[key]}</Typography>
+                </Grid>
+            </ListItem>
+            ))}
+        </List>
+      )
     }
-    const card = (props) => {
+    const Card = ({content}) => {
+        const [showMore, setShowMore] = useState(false);
         const {
             year,
             semester,
@@ -54,17 +57,17 @@ const useSearchPage = () =>{
             examName,
             department,
             courseName,
-        } = props;
+        } = content;
         return(
         <React.Fragment>
           <CardContent>
             <Typography variant="h5" component="div">
             {[year, semester].join("-")}
             </Typography>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            <Typography sx={{ fontSize: 14 }} gutterBottom>
               Course/Exam: {[courseName, examName].join(" ")}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography sx={{ mb: 1.5 }}>
               Instructor: {instructors}
             </Typography>
             <Typography variant="body2">
@@ -73,9 +76,9 @@ const useSearchPage = () =>{
           </CardContent>
           <CardActions>
             <Button size="small" onClick = {() => setShowMore(true)}>Learn More</Button>
-            <Dialog open = {showMore} onClose = {() => setShowMore(false)} >
+            <Dialog open = {showMore} onClose = {() => setShowMore(false)} maxWidth>
             <DialogContent dividers>
-                {ShowMore(props)}
+                {ShowMore(content)}
                 </DialogContent>
             </Dialog>
           </CardActions>
@@ -84,7 +87,7 @@ const useSearchPage = () =>{
       };
 
     return {
-        card,
+        Card,
         Semester,
         Types,
         queryFiles,
