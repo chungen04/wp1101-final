@@ -84,7 +84,7 @@ input UpdateCourseInput {
   year: Int
   semester: String
   courseName: String
-  instructors: String!
+  instructors: String
   department: String
   courseType: String
   show: Boolean
