@@ -23,15 +23,18 @@ export const USER_SEARCH_QUERY = gql`
             instructors
             department
             courseType
+            show
             exams{
                 examName
                 examTime
+                show
                 files{
                     questionDownloadLink
                     questionViewLink
                     answerDownloadLink
                     answerViewLink
                     remarks 
+                    show
                 }
             }
         }

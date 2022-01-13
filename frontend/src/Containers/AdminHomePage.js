@@ -45,12 +45,10 @@ const AdminHomePage = () => {
               color="text.primary"
               gutterBottom
             >
-              Find All NTU Old Exams Here.
+              Admin Page
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              You may find any old exam problems and answers
-              or make contributions to the exam problems you've just got
-              anywhere, anytime.
+              Check the unreviewed query and change visibilty of Courses, Exams, and Files. 
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -58,9 +56,11 @@ const AdminHomePage = () => {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">I'm a student</Button>
-              <LinkRouter to= "/adminSignIn">
-                <Button variant="outlined">Admin</Button>
+              <LinkRouter to= "/adminReviewQueries">
+                <Button variant="contained">See UnReviewed Queries</Button>
+              </LinkRouter>
+              <LinkRouter to= "/adminChangeVisibility">
+                <Button variant="contained">Change visibility of Courses, Exams and Files</Button>
               </LinkRouter>
             </Stack>
           </Container>

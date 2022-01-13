@@ -109,15 +109,22 @@ const SearchPage = () => {
   const handleQuery = () => {
     Files = []
     data.courses.map(e =>{
-      e.exams.map(f =>{
-        f.files.map(g =>{
-          Files.push({
-            ...e,
-            ...f,
-            ...g
-          })
+      console.log(e)
+      if(e.show){
+        e.exams.map(f =>{
+          if(f.show){
+            f.files.map(g =>{
+              if(g.show){
+                Files.push({
+                  ...e,
+                  ...f,
+                  ...g
+                })
+              }
+            })
+          }
         })
-      })
+      }
     })
     Files.forEach(element => {
       delete element['exams'];
