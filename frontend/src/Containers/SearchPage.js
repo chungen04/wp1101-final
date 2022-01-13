@@ -98,7 +98,7 @@ const SearchPage = () => {
   if(queryCourseName !== "") variables.courseName = queryCourseName;
   if(queryType !== "All" && queryType) variables.type = queryType;
   if(queryYear !== NaN && queryYear !== "" && queryYear) variables.year = parseInt(queryYear);
-  if(querySemester !== "All") variables.semester = querySemester
+  if(querySemester !== "All"&& querySemester) variables.semester = querySemester
   console.log(variables);
 
   const {loading, data, subscribeToMore} = useQuery(USER_SEARCH_QUERY, {
@@ -130,6 +130,8 @@ const SearchPage = () => {
       delete element['exams'];
       delete element['files'];
       delete element['__typename'];
+      delete element['pass'];
+      delete element['show'];
     });
     console.log(Files)
     setFiles(Files);

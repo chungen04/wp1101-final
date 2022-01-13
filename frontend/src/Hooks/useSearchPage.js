@@ -22,7 +22,7 @@ const useSearchPage = () =>{
     const [queryYear, setQueryYear] = useState();
     const [queryProperty, setQueryProperty] = useState('');
     const [queryType, setQueryType] = useState();
-    const [querySemester, setQuerySemester] = useState('Fall')
+    const [querySemester, setQuerySemester] = useState('')
     const [queryCourseDept, setQueryCourseDept] = useState('')
     const [queryCourseName, setQueryCourseName] = useState('')
     const [queryInstructor, setQueryInstructor] = useState('')
