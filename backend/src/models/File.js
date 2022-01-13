@@ -38,6 +38,10 @@ const fileSchema = new Schema({
         type: Boolean,
         default: false
     },
+    pass: {
+        type: Boolean,
+        default: false
+    },
     remarks: {
         type: String,
         required: false

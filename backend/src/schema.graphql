@@ -66,6 +66,7 @@ type File{
   answerDownloadLink: String
   answerViewLink: String
   uploadTime: Int!
+  pass: Boolean!
   show: Boolean!
   remarks: String 
 }
@@ -125,6 +126,7 @@ input UpdateFileInput {
   answerDriveID: ID
   answerDownloadLink: String
   answerViewLink: String
+  pass: Boolean
   show: Boolean
   remarks: String
 }

@@ -34,6 +34,7 @@ export const USER_SEARCH_QUERY = gql`
                     answerDownloadLink
                     answerViewLink
                     remarks 
+                    pass
                     show
                 }
             }

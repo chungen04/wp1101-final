@@ -180,7 +180,8 @@ const Mutation = {
             answerDownloadLink,
             answerViewLink,
             uploadTime: Date.now(),
-            show: false,
+            pass: false,
+            show: true,
             remarks
         }).save()
         await db.Exam.updateOne({_id: examID}, {files: [...exam.files, file.id]})
