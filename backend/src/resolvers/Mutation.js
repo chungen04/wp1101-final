@@ -132,11 +132,11 @@ const Mutation = {
                 }
             })
         }
-        const newCourse = await db.Course.findById(courseID)
+        const newCourse = await db.Course.findById(exam.courseID)
         pubsub.publish('COURSE', {
             course: {
                 mutation: "UPDATED",
-                courseID: course.id,
+                courseID: newCourse.id,
                 data: newCourse,
             }
         });

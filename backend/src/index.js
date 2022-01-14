@@ -38,11 +38,16 @@ const {SECRET_KEY} = process.env;
   const typeDefs = readFileSync('./src/schema.graphql').toString('utf-8')
   const schema = makeExecutableSchema({ typeDefs, resolvers })
 
+  const subscriptionBuildOptions = async (connectionParams,webSocket) => {                      
+    return { db }
+  } 
+
   const subscriptionServer = SubscriptionServer.create(
     { 
       schema, 
       execute, 
-      subscribe 
+      subscribe ,
+      onConnect: subscriptionBuildOptions
     },
     { server: httpServer, path: '/graphql' }
   );

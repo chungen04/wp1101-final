@@ -25,7 +25,7 @@ import {
 } from '@apollo/client';
 
 import { ADMIN_CHECK_SUBMISSION_QUERY } from '../graphql/queryForAdmin';
-//import { ADMIN_REVIEW_SUBSCRIPTION } from '../graphql';
+import { ADMIN_REVIEW_SUBSCRIPTION } from '../graphql';
 import { 
     DELETE_SUBMISSION_FOR_ADMIN,
     PASS_AND_SHOW_SUBMISSION_FOR_ADMIN,
@@ -131,25 +131,23 @@ const AdminReviewQueries = () => {
         }
     }, [data])
 
-    // useEffect(()=> {
-    //     try{
-    //         subscribeToMore({
-    //             document: ADMIN_REVIEW_SUBSCRIPTION,
-    //             updateQuery: (prev, {subscriptionData}) => {
-    //                 const {data, mutation, courseID} = subscriptionData;
-    //                 console.log(courseID);
-    //                 console.log(data);
-    //                 console.log(prev);
-    //                 return {
-    //                     ...prev,
-    //                     courses: [...prev.courses, data]
-    //                 }
-    //             }
-    //         })
-    //     }catch(e){
-    //         console.log(e);
-    //     }
-    // }, [subscribeToMore])
+    useEffect(()=> {
+        try{
+            subscribeToMore({
+                document: ADMIN_REVIEW_SUBSCRIPTION,
+                updateQuery: (prev, {subscriptionData}) => {
+                    const {data, mutation, courseID} = subscriptionData;
+                    console.log(prev);
+                    return {
+                        ...prev,
+                        courses: [...prev.courses, data]
+                    }
+                }
+            })
+        }catch(e){
+            console.log(e);
+        }
+    }, [subscribeToMore])
 
     return (
         <Wrapper>
