@@ -1,4 +1,5 @@
 import pubsub from "./pubsub"
+import google from "../google"
 
 const Mutation = {
     async createCourse(parent, args, {db, login}){
@@ -57,6 +58,11 @@ const Mutation = {
                 const {files} = exam
                 await Promise.all(
                     files.map(async(fileID)=> {
+                        const file = await db.File.findById(fileID);
+                        await google.deleteFile(file.questionDriveID);
+                        if (file.answerDriveID){
+                            await google.deleteFile(file.answerDriveID);
+                        }
                         await db.File.deleteOne({_id: fileID})
                         pubsub.publish('FILE', {
                             file: {
@@ -150,6 +156,11 @@ const Mutation = {
         const {files, courseID} = exam
         await Promise.all(
             files.map(async(fileID)=>{
+                const file = await db.File.findById(fileID);
+                await google.deleteFile(file.questionDriveID);
+                if (file.answerDriveID){
+                    await google.deleteFile(file.answerDriveID);
+                }
                 await db.File.deleteOne({_id: fileID})
                 pubsub.publish('FILE', {
                     file: {
@@ -273,6 +284,10 @@ const Mutation = {
         const { fileID } = args
         const file = await db.File.findById(fileID)
         if(!file) throw new Error("File not found")
+        await google.deleteFile(file.questionDriveID);
+        if (file.answerDriveID){
+            await google.deleteFile(file.answerDriveID);
+        }
         const {examID} = file
         const exam = await db.Exam.findById(examID)
         const originalFiles = exam.files
