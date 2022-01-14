@@ -107,6 +107,14 @@ const Mutation = {
                 data: exam
             }
         })
+        const newCourse = await db.Course.findById(courseID)
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: newCourse,
+            }
+        });
         return exam
     },
     async updateExam(parent, args, {db, login}){
@@ -124,6 +132,14 @@ const Mutation = {
                 }
             })
         }
+        const newCourse = await db.Course.findById(courseID)
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: newCourse,
+            }
+        });
         return exam
     },
     async deleteExam(parent, args, {db, login}){
@@ -149,6 +165,7 @@ const Mutation = {
         const exams = await originalExams.filter((exam) => String(exam) !== examID)
         await db.Course.updateOne({_id: courseID}, {exams})
         await db.Exam.deleteOne({_id: examID})
+        const newCourse = await db.Course.findById(courseID)
         pubsub.publish('EXAM', {
             exam: {
                 mutation: "DELETED",
@@ -156,6 +173,13 @@ const Mutation = {
                 examID: exam.id,
             }
         })
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: newCourse,
+            }
+        });
         return true
     },
     async createFile(parent, args, {db, login}){
@@ -185,6 +209,8 @@ const Mutation = {
             remarks
         }).save()
         await db.Exam.updateOne({_id: examID}, {files: [...exam.files, file.id]})
+        const course = await db.Course.findById(exam.courseID)
+        const newExam = await db.Exam.findById(examID)
         pubsub.publish('FILE', {
             file: {
                 mutation: "CREATED",
@@ -193,6 +219,21 @@ const Mutation = {
                 data: file
             }
         })
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: course,
+            }
+        });
+        pubsub.publish('EXAM', {
+            exam: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                examID: file.examID,
+                data: newExam,
+            }
+        });
         return file
     },
     async updateFile(parent, args, {db, login}){
@@ -200,16 +241,31 @@ const Mutation = {
         const { data, fileID } = args
         await db.File.updateOne({_id: fileID}, data)
         const file = await db.File.findById(fileID)
-        if(data.show){
-            pubsub.publish('FILE', {
-                file: {
-                    mutation: "UPDATED",
-                    examID: file.examID,
-                    fileID: file.id,
-                    data: file
-                }
-            })
-        }
+        const exam = await db.Exam.findById(file.examID)
+        const course = await db.Course.findById(exam.courseID)
+        pubsub.publish('FILE', {
+            file: {
+                mutation: "UPDATED",
+                examID: file.examID,
+                fileID: file.id,
+                data: file
+            }
+        })
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: course,
+            }
+        });
+        pubsub.publish('EXAM', {
+            exam: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                examID: file.examID,
+                data: exam,
+            }
+        });
         return file
     },
     async deleteFile(parent, args, {db, login}){
@@ -223,13 +279,30 @@ const Mutation = {
         const files = await originalFiles.filter((file) => String(file) !== fileID)
         await db.Exam.updateOne({_id: examID}, {files})
         await db.File.deleteOne({_id: fileID})
+        const course = await db.Course.findById(exam.courseID)
+        const newExam = await db.Exam.findById(examID)
         pubsub.publish('FILE', {
             file: {
                 mutation: "DELETED",
                 examID: file.examID,
                 fileID: file.id,
             }
-        })
+        });
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: course,
+            }
+        });
+        pubsub.publish('EXAM', {
+            exam: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                examID: file.examID,
+                data: newExam,
+            }
+        });
         return true
     },
 }

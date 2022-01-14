@@ -98,7 +98,7 @@ export default function ContributePage() {
       const examID = examData.data.createExam.id
       await createGraphqlFile(examID, fileInput)
     }else if(addExam){
-      const examData = await createExam({variables: {...exam, courseID: course.id}})
+      const examData = await createExam({variables: {...exam, courseID: course.id, examTime: exam.examTime*1}})
       const examID = examData.data.createExam.id
       await createGraphqlFile(examID, fileInput)
     }else{
