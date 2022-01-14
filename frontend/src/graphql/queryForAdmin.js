@@ -64,29 +64,36 @@ export const ADMIN_COURSE_QUERY = gql`
 export const ADMIN_EXAM_QUERY = gql`
 query courses(
         $year: Int
-        $semester: String
+        $Semester: String
         $courseName: String
-        $department: String
+        $courseDept: String
         $courseType: String
-        $instructors: String
     ){
         courses(
             filter: {
                 year: $year
-                semester: $semester
+                semester: $Semester
                 courseName: $courseName
-                department: $department
+                department: $courseDept
                 courseType: $courseType
-                instructors: $instructor
             }
         ){
             id
             year
             semester
-            department
             courseName
-            courseType
             instructors
+            department
+            courseType
+            show
+            exams{
+                id
+                examName
+                examTime
+                files{
+                    id
+                }
+            }
         }
     }
 `
@@ -94,29 +101,41 @@ query courses(
 export const ADMIN_FILE_QUERY = gql`
 query courses(
         $year: Int
-        $semester: String
+        $Semester: String
         $courseName: String
-        $department: String
+        $courseDept: String
         $courseType: String
-        $instructors: String
     ){
         courses(
             filter: {
                 year: $year
-                semester: $semester
+                semester: $Semester
                 courseName: $courseName
-                department: $department
+                department: $courseDept
                 courseType: $courseType
-                instructors: $instructor
             }
         ){
             id
             year
             semester
-            department
             courseName
-            courseType
             instructors
+            department
+            courseType
+            show
+            exams{
+                id
+                examName
+                examTime
+                files{
+                    id
+                    questionDownloadLink
+                    questionViewLink
+                    answerDownloadLink
+                    answerViewLink
+                    remarks
+                }
+            }
         }
     }
 `

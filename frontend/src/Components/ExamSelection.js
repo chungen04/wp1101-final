@@ -45,10 +45,10 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                 onChange = {(event) =>{
                     let Filter = examFilter
                     if(event.target.value){
-                        Filter.department = event.target.value
+                        Filter.courseDept = event.target.value
                         setExamFilter(Filter)
                     }else{
-                        delete Filter.department;
+                        delete Filter.courseDept;
                         setExamFilter(Filter);
                     }
                     setQuery(false)
@@ -169,7 +169,7 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                     onChange = {(event) =>{
                         let Filter = examFilter
                         if(event.target.value){
-                            Filter.examTime = event.target.value
+                            Filter.examTime = parseInt(event.target.value)
                             setExamFilter(Filter)
                         }else{
                             delete Filter.examTime;

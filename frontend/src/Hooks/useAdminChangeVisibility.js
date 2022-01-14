@@ -2,10 +2,7 @@ import {useState} from "react";
 import React from "react";
 
 import {
-    CardActions,
     CardContent,
-    DialogContent,
-    Dialog,
     Grid,
     List,
     ListItem, 
@@ -47,7 +44,7 @@ const useAdminChangeVisibility = () =>{
         </List>
       )
     }
-    const Card = ({content}) => {
+    const CardForCourse = ({content}) => {
         const [showMore, setShowMore] = useState(false);
         const {
             year,
@@ -79,14 +76,6 @@ const useAdminChangeVisibility = () =>{
                 Exams contained: {content.exams.length}
             </Typography>
           </CardContent>
-          {/*<CardActions>
-            <Button size="small" onClick = {() => setShowMore(true)}>Learn More</Button>
-            <Dialog open = {showMore} onClose = {() => setShowMore(false)} maxWidth>
-                <DialogContent dividers>
-                  {ShowMore(content)}
-                </DialogContent>
-                </Dialog>
-          </CardActions>*/}
           <Typography variant="body1">
                 Options:
           </Typography>
@@ -99,9 +88,107 @@ const useAdminChangeVisibility = () =>{
         </React.Fragment>
         )
       };
-
+      const CardForExam = ({content}) => {
+        const {
+            year,
+            semester,
+            instructors,
+            department,
+            courseName,
+            examName,
+            examTime,
+            show
+        } = content;
+        return(
+        <React.Fragment>
+          <CardContent>
+            <Typography variant="h5" component="div">
+            {[year, semester].join("-")}
+            </Typography>
+            <Typography sx={{ fontSize: 14 }} gutterBottom>
+              Course Name: {courseName}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }}>
+              Instructor: {instructors}
+            </Typography>
+            <Typography variant="body2">
+              Department: {department}<br></br>
+              Exam Name: {examName}<br></br>
+              ExamTime: {examTime} <br></br>
+            </Typography>
+            <Typography variant="body2">
+                Currently Show: {show? "true": "false"}
+            </Typography>
+            <Typography variant="body2">
+                Files contained: {content.files.length}
+            </Typography>
+          </CardContent>
+          <Typography variant="body1">
+                Options:
+          </Typography>
+          <Button>
+            <DeleteIcon color = "action"/> Delete this Exam
+          </Button><br></br>
+          <Button>
+            <RefreshIcon color = "action"/> Change Visibility
+          </Button><br></br>
+        </React.Fragment>
+        )
+      };
+      const CardForFile = ({content}) => {
+        const {
+            year,
+            semester,
+            instructors,
+            department,
+            courseName,
+            examName,
+            examTime,
+            questionViewLink,
+            answerViewLink,
+            show,
+            remarks
+        } = content;
+        return(
+        <React.Fragment>
+          <CardContent>
+            <Typography variant="h5" component="div">
+            {[year, semester].join("-")}
+            </Typography>
+            <Typography sx={{ fontSize: 14 }} gutterBottom>
+              Course Name: {courseName}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }}>
+              Instructor: {instructors}
+            </Typography>
+            <Typography variant="body2">
+              Department: {department}<br></br>
+              Exam Name: {examName}<br></br>
+              ExamTime: {examTime} <br></br>
+              Question View Link: {questionViewLink}<br></br>
+              Answer View Link: {answerViewLink}<br></br>
+              Remarks: {remarks}
+            </Typography>
+            <Typography variant="body2">
+                Currently Show: {show? "true": "false"}
+            </Typography>
+          </CardContent>
+          <Typography variant="body1">
+                Options:
+          </Typography>
+          <Button>
+            <DeleteIcon color = "action"/> Delete this File
+          </Button><br></br>
+          <Button>
+            <RefreshIcon color = "action"/> Change Visibility
+          </Button><br></br>
+        </React.Fragment>
+        )
+      };
     return {
-        Card,
+        CardForCourse,
+        CardForExam,
+        CardForFile,
         Semester,
         Types,
         documentType,

@@ -60,8 +60,14 @@ const AdminHomePage = () => {
               <LinkRouter to= "/adminReviewQueries">
                 <Button variant="contained">See UnReviewed Queries</Button>
               </LinkRouter>
-              <LinkRouter to= "/adminChangeVisibility">
-                <Button variant="contained">delete/Change visibility of Courses, Exams and Files</Button>
+              <LinkRouter to= "/adminChangeCourseVisibility">
+                <Button variant="contained">delete/Change visibility of Courses</Button>
+              </LinkRouter>
+              <LinkRouter to= "/adminChangeExamVisibility">
+                <Button variant="contained">delete/Change visibility of Exams</Button>
+              </LinkRouter>
+              <LinkRouter to= "/adminChangeFileVisibility">
+                <Button variant="contained">delete/Change visibility of Files</Button>
               </LinkRouter>
             </Stack>
           </Container>

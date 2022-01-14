@@ -44,10 +44,10 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                 onChange = {(event) =>{
                     let Filter = fileFilter
                     if(event.target.value){
-                        Filter.department = event.target.value
+                        Filter.courseDept = event.target.value
                         setFileFilter(Filter)
                     }else{
-                        delete Filter.department;
+                        delete Filter.courseDept;
                         setFileFilter(Filter);
                     }
                     console.log(Filter)
@@ -162,7 +162,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                     onChange = {(event) =>{
                         let Filter = fileFilter
                         if(event.target.value){
-                            Filter.examTime = event.target.value
+                            Filter.examTime = parseInt(event.target.value)
                             setFileFilter(Filter)
                         }else{
                             delete Filter.examTime;
