@@ -16,19 +16,22 @@ import {
 
 import styled from 'styled-components';
 import React from "react";
+import {useEffect} from "react";
 import useAdminReviewQueries from '../Hooks/useAdminReviewQueries';
 
 import { 
     useQuery,
-    useMutation
+    useMutation,
 } from '@apollo/client';
 
 import { ADMIN_CHECK_SUBMISSION_QUERY } from '../graphql/queryForAdmin';
+//import { ADMIN_REVIEW_SUBSCRIPTION } from '../graphql';
 import { 
     DELETE_SUBMISSION_FOR_ADMIN,
     PASS_AND_SHOW_SUBMISSION_FOR_ADMIN,
     SET_EXAM_SHOW_FOR_ADMIN,
-    SET_COURSE_SHOW_FOR_ADMIN
+    SET_COURSE_SHOW_FOR_ADMIN,
+    PASS_AND_NOT_SHOW_SUBMISSION_FOR_ADMIN
 } from '../graphql/mutationForAdmin';
 
 const Wrapper = styled.div`
@@ -65,17 +68,17 @@ const Row = styled.div`
 `;
 
 const StyledFormControl = styled(FormControl)`
-min-width: 120px;
+    min-width: 120px;
 `;
 
 const ContentPaper = styled(Paper)`
-height: 300px;
-padding: 2em;
-overflow: auto;
+    height: 300px;
+    padding: 2em;
+    overflow: auto;
 `;
 
 const StyledPaper = styled(Paper)`
-padding: 2em;
+    padding: 2em;
 `;
 
 const AdminReviewQueries = () => {
@@ -88,39 +91,65 @@ const AdminReviewQueries = () => {
 
     const variables = {}
     const {loading, data, subscribeToMore} = useQuery(ADMIN_CHECK_SUBMISSION_QUERY)
+
     const [handleDelete] = useMutation(DELETE_SUBMISSION_FOR_ADMIN);
     const [handlePassAndShow] = useMutation(PASS_AND_SHOW_SUBMISSION_FOR_ADMIN);
+    const [handlePassAndNotShow] = useMutation(PASS_AND_NOT_SHOW_SUBMISSION_FOR_ADMIN);
     const [setExamShow] = useMutation(SET_EXAM_SHOW_FOR_ADMIN);
     const [setCourseShow] = useMutation(SET_COURSE_SHOW_FOR_ADMIN);
-    console.log(data)
 
-    let Files = []
-    try{
-        data.courses.map(e =>{
-            e.exams.map(f =>{
-                f.files.map(g =>{
-                    if(!g.pass){
-                        Files.push({
-                            ...e,
-                            ...f,
-                            ...g,
-                            courseId: e.id,
-                            examId: f.id
-                        })
-                    }
+    let Files = [];
+    useEffect(() =>{
+        let Files = [];
+        try{
+            console.log(data)
+            data.courses.map(e =>{
+                e.exams.map(f =>{
+                    f.files.map(g =>{
+                        if(!g.pass){
+                            Files.push({
+                                ...e,
+                                ...f,
+                                ...g,
+                                courseId: e.id,
+                                examId: f.id
+                            })
+                        }
+                    })
                 })
             })
-        })
-        Files.forEach(element => {
-            delete element['exams'];
-            delete element['files'];
-            delete element['__typename'];
-            delete element['pass'];
-            delete element['show'];
-        });
-        console.log(Files)
-    }catch(e){}
-    
+            Files.forEach(element => {
+                delete element['exams'];
+                delete element['files'];
+                delete element['__typename'];
+            });
+            console.log(files)
+            console.log(Files)
+            setFiles(Files);
+        }catch(e){
+            console.log(e);
+        }
+    }, [data])
+
+    // useEffect(()=> {
+    //     try{
+    //         subscribeToMore({
+    //             document: ADMIN_REVIEW_SUBSCRIPTION,
+    //             updateQuery: (prev, {subscriptionData}) => {
+    //                 const {data, mutation, courseID} = subscriptionData;
+    //                 console.log(courseID);
+    //                 console.log(data);
+    //                 console.log(prev);
+    //                 return {
+    //                     ...prev,
+    //                     courses: [...prev.courses, data]
+    //                 }
+    //             }
+    //         })
+    //     }catch(e){
+    //         console.log(e);
+    //     }
+    // }, [subscribeToMore])
 
     return (
         <Wrapper>
@@ -132,13 +161,15 @@ const AdminReviewQueries = () => {
             </Typography></Box>
             <ContentPaper variant="outlined" >
             {
-                Files.map((e) =>
+                files.map((e) =>
                     <Card 
                         content = {e} 
                         handleDelete = {handleDelete} 
                         handlePassAndShow = {handlePassAndShow}
+                        handlePassAndNotShow = {handlePassAndNotShow}
                         setExamShow = {setExamShow}
                         setCourseShow = {setCourseShow}
+                        //handleClick = {handleClick}
                     />
                 )
             }

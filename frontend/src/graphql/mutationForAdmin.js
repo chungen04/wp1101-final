@@ -26,6 +26,22 @@ export const PASS_AND_SHOW_SUBMISSION_FOR_ADMIN = gql`
     }
 `
 
+export const PASS_AND_NOT_SHOW_SUBMISSION_FOR_ADMIN = gql`
+    mutation (
+        $fileId: ID! 
+    ){
+        updateFile(
+            data:{
+                pass: true,
+                show: false
+            }
+            fileID: $fileId
+        ){
+            id
+        }
+    }
+`
+
 export const SET_EXAM_SHOW_FOR_ADMIN = gql`
     mutation (
         $examId: ID! 

@@ -41,7 +41,7 @@ const useAdminReviewQueries = () =>{
           </List>
         )
       }
-    const Card = ({content, handleDelete, handlePassAndShow, setExamShow, setCourseShow}) => {
+    const Card = ({content, handleDelete, handlePassAndShow, setExamShow, setCourseShow,handlePassAndNotShow}) => {
         const [showMore, setShowMore] = useState(false);
         const {
             year,
@@ -79,7 +79,7 @@ const useAdminReviewQueries = () =>{
           </CardActions>
             <Box>
                 Options<br></br>
-                <Button  onClick = {() => {
+                <Button onClick = {() => {
                     handleDelete({
                         variables:{
                             fileId: content.id
@@ -107,7 +107,23 @@ const useAdminReviewQueries = () =>{
                 }}>
                     <CheckIcon color = "success"/> Pass this query and make it visible 
                 </Button><br></br>
-                <Button>
+                <Button onClick = {() => {
+                    handlePassAndNotShow({
+                        variables:{
+                            fileId: content.id
+                        }
+                    });
+                    setExamShow({
+                        variables:{
+                            examId: content.examId
+                        }
+                    });
+                    setCourseShow({
+                        variables:{
+                            courseId: content.courseId
+                        }
+                    });
+                }}>
                     <NewReleasesIcon color = "action"/> Pass this query and make it invisible
                 </Button>   
             </Box>
