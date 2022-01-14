@@ -114,7 +114,7 @@ const SearchPage = () => {
         e.exams.map(f =>{
           if(f.show){
             f.files.map(g =>{
-              if(g.show){
+              if(g.show && g.pass){
                 Files.push({
                   ...e,
                   ...f,
@@ -146,10 +146,15 @@ const SearchPage = () => {
     <Wrapper>
     <StyledPaper elevation={3}>
     <InTextWrapper>
-        <Box py = {3} px = {3}><Typography variant="h4" align = "center">
+        <Box py = {3} px = {3}>
+        <Typography variant="h4" align = "center">
           Search for the Documents Uploaded<br></br>
            in NTU Old Exams.
-        </Typography></Box>
+        </Typography><br></br>
+        <Typography variant="body1" align = "center">
+         Fill in the field(s) to search what you want!
+        </Typography><br></br>
+        </Box>
         
         <StyledFormControl>
         <Grid container xs={12} sm={13}>
@@ -250,8 +255,12 @@ const SearchPage = () => {
         <br></br>
       <ContentPaper variant="outlined" >
       {
-        queryFiles.map((e) =>
-          <Card content = {e}/>
+        queryFiles.length !== 0? (
+          queryFiles.map((e) =>
+            <Card content = {e}/>
+          )
+        ):(
+          <Typography variant = "body2">No Documents Found...</Typography>
         )
       }
       </ContentPaper>

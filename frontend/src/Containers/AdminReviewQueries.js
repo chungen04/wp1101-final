@@ -14,6 +14,10 @@ import {
     Switch
 } from '@mui/material';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckIcon from '@mui/icons-material/Check';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+
 import styled from 'styled-components';
 import React from "react";
 import {useEffect} from "react";
@@ -153,10 +157,17 @@ const AdminReviewQueries = () => {
         <Wrapper>
         <StyledPaper elevation={3}>
         <InTextWrapper>
-            <Box py = {3} px = {20}><Typography variant="h4" align = "center">
-            Check the Submission <br></br>
-                From the users.
-            </Typography></Box>
+            <Box py = {3} px = {20}>
+                <Typography variant="h4" align = "center">
+                    Check the Submission <br></br>
+                    From the users.
+                </Typography><Typography variant="body2">
+                    Options:<br></br>
+                    <DeleteIcon color = "action"/> Delete the submission from the user.<br></br>
+                    <CheckIcon color = "success"/> Pass the submission and set it visible to the users.<br></br>
+                    <NewReleasesIcon color = "action"/> Pass the submission while set it invisible to the users. (You may modify the visiblilty on another admin page)
+                </Typography>
+            </Box>
             <ContentPaper variant="outlined" >
             {
                 files.map((e) =>

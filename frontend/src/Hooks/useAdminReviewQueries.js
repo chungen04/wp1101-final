@@ -86,7 +86,7 @@ const useAdminReviewQueries = () =>{
                         }
                     })
                 }}>
-                    <DeleteIcon color = "action"/> Delete this query
+                <DeleteIcon color = "action"/> Delete this query
                 </Button><br></br>
                 <Button onClick = {() => {
                     handlePassAndShow({
@@ -105,7 +105,7 @@ const useAdminReviewQueries = () =>{
                         }
                     });
                 }}>
-                    <CheckIcon color = "success"/> Pass this query and make it visible 
+                <CheckIcon color = "success"/> Pass this query and make it visible 
                 </Button><br></br>
                 <Button onClick = {() => {
                     handlePassAndNotShow({

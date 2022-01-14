@@ -45,10 +45,11 @@ const AdminHomePage = () => {
               color="text.primary"
               gutterBottom
             >
-              Admin Page
+              Welcome, Admin
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Check the unreviewed query and change visibilty of Courses, Exams, and Files. 
+              Check the unreviewed query and delete/change visibilty of <br></br>
+              Courses, Exams, and Files. 
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -60,7 +61,7 @@ const AdminHomePage = () => {
                 <Button variant="contained">See UnReviewed Queries</Button>
               </LinkRouter>
               <LinkRouter to= "/adminChangeVisibility">
-                <Button variant="contained">Change visibility of Courses, Exams and Files</Button>
+                <Button variant="contained">delete/Change visibility of Courses, Exams and Files</Button>
               </LinkRouter>
             </Stack>
           </Container>
