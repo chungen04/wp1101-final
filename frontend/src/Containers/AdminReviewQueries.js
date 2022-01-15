@@ -190,7 +190,6 @@ const AdminReviewQueries = (props) => {
                 </Typography>
                 <br></br>
             </div>
-            <ContentPaper variant="outlined" >
             {
                 files.map((e) =>
                     <Card 
@@ -200,11 +199,9 @@ const AdminReviewQueries = (props) => {
                         handlePassAndNotShow = {handlePassAndNotShow}
                         setExamShow = {setExamShow}
                         setCourseShow = {setCourseShow}
-                        //handleClick = {handleClick}
                     />
                 )
             }
-        </ContentPaper>
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>

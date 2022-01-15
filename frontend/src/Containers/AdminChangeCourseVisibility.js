@@ -12,17 +12,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 
+import SearchIcon from '@mui/icons-material/Search';
 import CourseSelection from "../Components/CourseSelection"
 import CardForCourse from '../Components/CardForCourse';
 
 const Wrapper = styled.div`
-    margin: auto;
-    width: 60%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 2vh auto;
+  width: 60%;
+  height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const useStyles = makeStyles({
@@ -46,6 +47,8 @@ const StyledFormControl = styled(FormControl)`
 
 const StyledPaper = styled(Paper)`
     padding: 2em;
+    max-height: 90vh;
+    overflow: auto;
 `;
 
 const AdminChangeCourseVisibility = () => {
@@ -93,6 +96,7 @@ const AdminChangeCourseVisibility = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleQuery}
+                startIcon = {<SearchIcon />}
             >
             Query
             </Button>

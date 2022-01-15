@@ -256,7 +256,6 @@ const SearchPage = () => {
           Query
         </Button>
         <br></br>
-      <ContentPaper variant="outlined" >
       {
         queryFiles.length !== 0? (
           queryFiles.map((e, i) =>{
@@ -274,7 +273,6 @@ const SearchPage = () => {
           <Typography variant = "body2">No Documents Found...</Typography>
         )
       }
-      </ContentPaper>
     </InTextWrapper>
     </StyledPaper>
     </Wrapper>

@@ -3,7 +3,8 @@ import React from "react";
 
 import {
     CardContent,
-    Card
+    Card,
+    Divider
 } from '@mui/material';
 import {
     Button,
@@ -83,7 +84,7 @@ const CardForCourse = ({query}) => {
     }, [subscribeToMore])
 
     return(
-        <ContentPaper variant="outlined" >
+        <>
         {
             !data ? loading :
             data.courses.length !== 0 ? (
@@ -91,16 +92,13 @@ const CardForCourse = ({query}) => {
                 <Card sx={{my: 2}} style={{backgroundColor: "#00000011"}}>
                     <CardContent>
                         <Typography variant="h5" component="div">
-                        {[e.year, e.semester].join("-")}
+                            {[e.courseName, e.department].join(" - ")}
                         </Typography>
-                        <Typography sx={{ fontSize: 14 }} gutterBottom>
-                            Course Name: {e.courseName}
+                        <Typography variant="h6" component="div">
+                            {[e.year, e.semester].join(" - ")}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }}>
                             Instructor: {e.instructors}
-                        </Typography>
-                        <Typography variant="body2">
-                            Department: {e.department}
                         </Typography>
                         <Typography variant="body2">
                             Currently Show: {e.show? "true": "false"}
@@ -109,17 +107,18 @@ const CardForCourse = ({query}) => {
                             Exams contained: {e.exams.length}
                         </Typography>
                         </CardContent>
-                        <Typography variant="body1">
-                            Options:
+                        <Divider />
+                        <Typography variant="h6" component = "div">  
+                            &nbsp;&nbsp;Options
                         </Typography>
                         <Button onClick = {() =>{
-                        handleDelete({
-                            variables:{
-                            courseId: e.id
-                            }
-                        })
+                            handleDelete({
+                                variables:{
+                                courseId: e.id
+                                }
+                            })
                         }}>
-                        <DeleteIcon color = "action"/> Delete this Course
+                            <DeleteIcon color = "action"/> Delete this Course
                         </Button><br></br>
                         <Button onClick = {() =>{
                         handleChangeVisibility({
@@ -129,15 +128,15 @@ const CardForCourse = ({query}) => {
                             }
                         })
                         }}>
-                        <RefreshIcon color = "action"/> Change Visibility
-                    </Button><br></br>
-                </Card>
-            )
+                            <RefreshIcon color = "action"/> Change Visibility
+                        </Button><br></br>
+                    </Card>
+                )
             ):(
             <Typography variant = "body2">No Documents Found...</Typography>
             )
         }
-        </ContentPaper>
+        </>
     )
 };
 
