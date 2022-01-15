@@ -94,8 +94,9 @@ const AdminChangeExamVisibility = () => {
         if(!localStorage.getItem("token")){
             navigate("/adminSignIn")
         }
+        console.log(data)
         if (!data) return;
-        if (query){
+        if (true){
             const exams = []
             data.courses.map((e) =>{
                 e.exams.map((f) =>{
@@ -123,17 +124,14 @@ const AdminChangeExamVisibility = () => {
             })
             setQueryData(FilteredExams);
         }
-    }, [data]);
-
-    useEffect(()=>{
         try {
             subscribeToMore({
                 document: ADMIN_CHANGE_EXAM_SUBSCRIPTION,
-                updateQuery: async(prev, { subscriptionData }) => {
+                updateQuery: (prev, { subscriptionData }) => {
                     if (!subscriptionData.data) return prev;
                     const {courseID, examID, mutation} = subscriptionData.data.exam;
-                    const {show} = subscriptionData.data.exam.data
                     if (mutation === "DELETED"){
+                        
                         const courses = prev.courses.filter((course)=>{
                             return course.id !==courseID
                         })
@@ -143,26 +141,41 @@ const AdminChangeExamVisibility = () => {
                         const exams = course.exams.filter((exam) => {
                             return exam.id !== examID
                         })
-                        return {
+                        console.log(courses)
+                        console.log(course)
+                        console.log(exams)
+                        console.log(prev)
+                        const newCourse = {
                             ...prev,
-                            courses: [...courses, {...course, exams}]
+                            courses: [...courses, {...course, exams: exams}]
                         }
+                        console.log(newCourse)
+                        return newCourse
                     }else if (mutation === "UPDATED"){
-                        const courses = await Promise.all(prev.courses.map(async(course)=>{
-                            if (course.id !==courseID) return course;
-                            const exams = await Promise.all(course.exams.map((exam)=> {
-                                if (exam.id !== examID) return exam
-                                return {...exam, show}
-                            }))
-                            return {...course, exams}
-                        }))
-                        const result = {courses: courses}
-                        return {courses: [...courses]}
+                        const {show} = subscriptionData.data.exam.data
+                        console.log(subscriptionData)
+                        const courses = prev.courses.map((course)=>{
+                            if (course.id !==courseID){
+                                return course;
+                            }else{
+                                const exams = course.exams.map((exam)=> {
+                                    if (exam.id !== examID){
+                                        return exam
+                                    }else{
+                                        return {...exam, show}
+                                    }
+                                })
+                                return {...course, exams}
+                            }
+                        })
+                        const result = {...prev, courses: courses}
+                        console.log(result)
+                        return result
                     }
                 },
             });
         } catch (e) {}
-    }, [subscribeToMore])
+    }, [data, subscribeToMore])
 
     return (
         <Wrapper>
