@@ -7,11 +7,11 @@ import {
 } from '@mui/material';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 
+
+const Semester = ["All", "Fall", "Spring", "Summer"];
+const Types = ["All", "Required", "Elective", "Liberal"];
+
 const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
-    const {
-        Semester,
-        Types,
-    } = useAdminChangeVisibility();
     return (
         <Grid container xs={12} sm={13}>
             <Grid item xs={6} md={3}>
@@ -30,8 +30,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                         delete Filter.year;
                         setExamFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -51,8 +49,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                         delete Filter.courseDept;
                         setExamFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -72,8 +68,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                         delete Filter.courseName;
                         setExamFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -93,7 +87,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                             delete Filter.instructor;
                             setExamFilter(Filter);
                         }
-                        setQuery(false)
                         console.log(Filter)
                     }}
                 />
@@ -117,8 +110,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                         delete Filter.courseType;
                         setExamFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             >
                 {Types.map((option) => (
@@ -148,8 +139,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                         delete Filter.Semester;
                         setExamFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             >
                 {Semester.map((option) => (
@@ -175,8 +164,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                             delete Filter.examTime;
                             setExamFilter(Filter);
                         }
-                        setQuery(false)
-                        console.log(Filter)
                     }}
                 />
             </Grid>
@@ -196,8 +183,6 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                             delete Filter.examName;
                             setExamFilter(Filter);
                         }
-                        setQuery(false)
-                        console.log(Filter)
                     }}
                 />
             </Grid>

@@ -12,7 +12,7 @@ const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator('EXAM'),
             (payload, variables) => {
-                return payload.exam.courseID === variables.courseID
+                return payload.exam.courseID === variables.courseID || variables.courseID === "0"
             }
         )
     },

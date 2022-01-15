@@ -44,3 +44,19 @@ export const ADMIN_CHANGE_COURSE_SUBSCRIPTION = gql`
         }
     }
 `
+
+export const ADMIN_CHANGE_EXAM_SUBSCRIPTION = gql`
+    subscription
+    {
+        exam(
+            courseID: "0"
+        ){
+            data{
+                show
+            }
+            examID
+            courseID
+            mutation
+        }
+    }
+`

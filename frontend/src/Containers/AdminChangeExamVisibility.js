@@ -24,7 +24,7 @@ import{
     CHANGE_EXAM_VISIBILITY_FOR_ADMIN,
     DELETE_EXAM_FOR_ADMIN
 } from "../graphql/mutationForAdmin"
-
+import { ADMIN_CHANGE_EXAM_SUBSCRIPTION } from '../graphql';
 import ExamSelection from "../Components/ExamSelection"
 
 const Wrapper = styled.div`
@@ -79,17 +79,16 @@ const AdminChangeExamVisibility = () => {
 
     const [handleDelete] = useMutation(DELETE_EXAM_FOR_ADMIN);
     const [handleChangeVisibility] = useMutation(CHANGE_EXAM_VISIBILITY_FOR_ADMIN);
+    const [query, setQuery] = useState({});
     const {loading, data, subscribeToMore} = useQuery(ADMIN_EXAM_QUERY, {
         variables: {
-            ...examFilter
+            ...query
         }
     })
-    const [query, setQuery] = useState(true);
+    console.log(data)
 
     const handleQuery = () =>{
-        console.log(examFilter)
-        console.log(data.courses);
-        setQuery(true);
+        setQuery({...examFilter});
     }
     useEffect(() =>{
         if(!localStorage.getItem("token")){
@@ -97,8 +96,6 @@ const AdminChangeExamVisibility = () => {
         }
         if (!data) return;
         if (query){
-            console.log(data.courses);
-            console.log(queryData);
             const exams = []
             data.courses.map((e) =>{
                 e.exams.map((f) =>{
@@ -122,13 +119,50 @@ const AdminChangeExamVisibility = () => {
                         b = false;
                     }
                 }
-                console.log(a && b);
                 return a && b;
             })
-            console.log(FilteredExams)
             setQueryData(FilteredExams);
         }
-    }, [data, query]);
+    }, [data]);
+
+    useEffect(()=>{
+        try {
+            subscribeToMore({
+                document: ADMIN_CHANGE_EXAM_SUBSCRIPTION,
+                updateQuery: async(prev, { subscriptionData }) => {
+                    if (!subscriptionData.data) return prev;
+                    const {courseID, examID, mutation} = subscriptionData.data.exam;
+                    const {show} = subscriptionData.data.exam.data
+                    if (mutation === "DELETED"){
+                        const courses = prev.courses.filter((course)=>{
+                            return course.id !==courseID
+                        })
+                        const course = prev.courses.filter((course)=>{
+                            return course.id ===courseID
+                        })[0];
+                        const exams = course.exams.filter((exam) => {
+                            return exam.id !== examID
+                        })
+                        return {
+                            ...prev,
+                            courses: [...courses, {...course, exams}]
+                        }
+                    }else if (mutation === "UPDATED"){
+                        const courses = await Promise.all(prev.courses.map(async(course)=>{
+                            if (course.id !==courseID) return course;
+                            const exams = await Promise.all(course.exams.map((exam)=> {
+                                if (exam.id !== examID) return exam
+                                return {...exam, show}
+                            }))
+                            return {...course, exams}
+                        }))
+                        const result = {courses: courses}
+                        return {courses: [...courses]}
+                    }
+                },
+            });
+        } catch (e) {}
+    }, [subscribeToMore])
 
     return (
         <Wrapper>
