@@ -179,16 +179,12 @@ export default function ContributePage() {
       </Modal>
 
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-      <Toolbar></Toolbar>
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            NTU Old Exams
+          </Typography>
+        </Toolbar>
       </AppBar>
       <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
         <Typography variant="h6" color="inherit" noWrap align = "center">

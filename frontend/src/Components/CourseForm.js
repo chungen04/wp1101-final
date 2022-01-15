@@ -4,6 +4,7 @@ import {Grid, Typography, TextField, Checkbox, Button}from '@mui/material';
 import { InputLabel, NativeSelect} from "@material-ui/core";
 import {useQuery} from "@apollo/react-hooks";
 import { COURSES_QUERY } from '../graphql'; 
+import SearchIcon from '@mui/icons-material/Search';
 
 const Semester = ["", "Fall", "Spring", "Summer"];
 const Property = ["", "Required", "Elective", "Liberal"];
@@ -179,7 +180,7 @@ export default function CourseForm({ updateCourse, course, addCourse, setAddCour
           </> :
           <>
             <Grid item xs={12} sm={12} textAlign="center" >
-              <Button variant="contained" onClick={handleQuery} >Query</Button>
+              <Button variant="contained" onClick={handleQuery} startIcon = {<SearchIcon/>}>Find a Course</Button>
             </Grid>
             {
               !query ? 

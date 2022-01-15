@@ -115,10 +115,7 @@ const useSearchPage = () =>{
               {[courseName, examName].join(" - ")}
             </Typography>
             <Typography variant="h6" component="div">
-              {[year, semester].join("-")}
-            </Typography>
-            <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Exam: {examName}
+              {[year, semester].join(" - ")}
             </Typography>
             <Typography sx={{ mb: 1.5 }}>
               Instructor: {instructors}

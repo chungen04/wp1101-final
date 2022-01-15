@@ -2,9 +2,13 @@ import {
     FormControl,
     Paper,
     Typography,
-    makeStyles,
-    Box
+    makeStyles
 } from '@material-ui/core';
+
+import {
+    ListItem,
+    Grid
+} from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
@@ -32,13 +36,13 @@ import {
 } from '../graphql/mutationForAdmin';
 
 const Wrapper = styled.div`
-    margin: auto;
-    width: 60%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 2vh auto;
+  width: 60%;
+  height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const useStyles = makeStyles({
@@ -56,14 +60,6 @@ const InTextWrapper = styled.section`
     flex-direction: column;
 `;
 
-const Row = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1em;
-`;
-
 const StyledFormControl = styled(FormControl)`
     min-width: 120px;
 `;
@@ -76,6 +72,8 @@ const ContentPaper = styled(Paper)`
 
 const StyledPaper = styled(Paper)`
     padding: 2em;
+    max-height: 90vh;
+    overflow: auto;
 `;
 
 const AdminReviewQueries = (props) => {
@@ -154,17 +152,44 @@ const AdminReviewQueries = (props) => {
         <Wrapper>
         <StyledPaper elevation={3}>
         <InTextWrapper>
-            <Box py = {3} px = {20}>
-                <Typography variant="h4" align = "center">
-                    Check the Submission <br></br>
-                    From the users.
-                </Typography><Typography variant="body2">
-                    Options:<br></br>
-                    <DeleteIcon color = "action"/> Delete the submission from the user.<br></br>
-                    <CheckIcon color = "success"/> Pass the submission and set it visible to the users.<br></br>
-                    <NewReleasesIcon color = "action"/> Pass the submission while set it invisible to the users. (You may modify the visiblilty on another admin page)
+            <Typography variant="h4" align = "center">
+                Check the Submission <br></br>
+                From the users.
+            </Typography>
+            <div style = {{margin: "5px 5px 5px 5px"}}>
+                <Typography variant="h5" component = "div">
+                    Options:
                 </Typography>
-            </Box>
+                <br></br>
+                <Typography variant="body2">
+                    <ListItem>
+                        <DeleteIcon color = "action"/>
+                        <Grid item>
+                            <Typography variant="body2">
+                                Delete the submission from the user.<br></br>
+                            </Typography>
+                        </Grid>
+                    </ListItem>
+                    <ListItem>
+                        <CheckIcon color = "success"/>
+                        <Grid item>
+                            <Typography variant="body2">
+                            Pass the submission and set it visible to the users.<br></br>
+                            </Typography>
+                        </Grid>
+                    </ListItem>
+                    <ListItem>
+                        <NewReleasesIcon color = "action"/>
+                        <Grid item>
+                            <Typography variant="body2">
+                            Pass the submission while setting it invisible to the users. (You may modify the visiblilty on another admin page)
+                            </Typography>
+                        </Grid>
+                    </ListItem>
+                                         
+                </Typography>
+                <br></br>
+            </div>
             <ContentPaper variant="outlined" >
             {
                 files.map((e) =>

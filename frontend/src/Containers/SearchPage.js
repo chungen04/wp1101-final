@@ -11,7 +11,10 @@ import {
 
 import {
   Grid,
+  Switch
 } from '@mui/material';
+
+import SearchIcon from '@mui/icons-material/Search';
 
 import styled from 'styled-components';
 import useSearchPage from '../Hooks/useSearchPage';
@@ -21,9 +24,9 @@ import { USER_SEARCH_QUERY } from "../graphql/query";
 import { useQuery } from '@apollo/client';
 
 const Wrapper = styled.div`
-  margin: auto;
+  margin: 2vh auto;
   width: 60%;
-  height: 100vh;
+  height: 96vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,13 +48,6 @@ const InTextWrapper = styled.section`
   flex-direction: column;
 `;
 
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 1em;
-`;
 
 const StyledFormControl = styled(FormControl)`
   min-width: 120px;
@@ -65,6 +61,8 @@ const ContentPaper = styled(Paper)`
 
 const StyledPaper = styled(Paper)`
   padding: 2em;
+  max-height: 90vh;
+  overflow: auto;
 `;
 
 
@@ -114,11 +112,13 @@ const SearchPage = () => {
           if(f.show){
             f.files.map(g =>{
               if(g.show && g.pass){
-                Files.push({
-                  ...e,
-                  ...f,
-                  ...g
-                })
+                if(!queryAnswer || (queryAnswer && g.answerDownloadLink)){
+                  Files.push({
+                    ...e,
+                    ...f,
+                    ...g
+                  })
+                }
               }
             })
           }
@@ -235,15 +235,14 @@ const SearchPage = () => {
               ))}
             </TextField>
           </Grid>
-          {/*<Grid item xs={6} md={3}>
-            <FormControlLabel 
-              control={
-                <Switch 
-                onChange = {(e) => setQueryAnswer(e.target.checked)}/>
-              } 
-              label="Require Answer" 
-              checked = {queryAnswer}/>
-          </Grid>*/}
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <Typography variant = "body2">
+              Require Answer?
+            </Typography>
+            <Switch onChange = { (e) =>{
+              setQueryAnswer(e.target.checked)
+            }}/>
+          </Grid>
         </Grid>
         </StyledFormControl>
         <br></br>
@@ -252,6 +251,7 @@ const SearchPage = () => {
           variant="contained"
           color="primary"
           onClick = {handleQuery}
+          startIcon = {<SearchIcon/>}
         >
           Query
         </Button>

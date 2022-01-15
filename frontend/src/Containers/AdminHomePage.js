@@ -9,6 +9,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CheckIcon from '@mui/icons-material/Check';
+import SchoolIcon from '@mui/icons-material/School';
+import QuizIcon from '@mui/icons-material/Quiz';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const theme = createTheme();
 
@@ -34,6 +39,7 @@ const AdminHomePage = () => {
               localStorage.removeItem("token")
               navigate("/adminSignIn")
             }}
+            endIcon = {<LogoutIcon />}
           >Logout</Button>
         </Toolbar>
       </AppBar>
@@ -56,26 +62,27 @@ const AdminHomePage = () => {
               Welcome, Admin
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Check the unreviewed query and delete/change visibilty of <br></br>
+              Check the Unreviewed Query and Delete/Change Visibilty of <br></br>
               Courses, Exams, and Files. 
             </Typography>
             <Stack
               sx={{ pt: 4 }}
-              direction="row"
+              direction="column"
               spacing={2}
               justifyContent="center"
+              align = "center"
             >
               <LinkRouter to= "/adminReviewQueries"  style={{ textDecoration: 'none' }}>
-                <Button variant="contained">See UnReviewed Queries</Button>
+                <Button variant="contained" startIcon = {<CheckIcon />}>See UnReviewed Queries</Button>
               </LinkRouter>
               <LinkRouter to= "/adminChangeCourseVisibility"  style={{ textDecoration: 'none' }}>
-                <Button variant="contained">delete/Change visibility of Courses</Button>
+                <Button variant="contained" startIcon = {<SchoolIcon />}>delete/Change visibility of Courses</Button>
               </LinkRouter>
               <LinkRouter to= "/adminChangeExamVisibility"  style={{ textDecoration: 'none' }}>
-                <Button variant="contained">delete/Change visibility of Exams</Button>
+                <Button variant="contained" startIcon = {<QuizIcon />}>delete/Change visibility of Exams</Button>
               </LinkRouter>
               <LinkRouter to= "/adminChangeFileVisibility"  style={{ textDecoration: 'none' }}>
-                <Button variant="contained">delete/Change visibility of Files</Button>
+                <Button variant="contained" startIcon = {<InsertDriveFileIcon />}>delete/Change visibility of Files</Button>
               </LinkRouter>
               <br></br>
             </Stack>
