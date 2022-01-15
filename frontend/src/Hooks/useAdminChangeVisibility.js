@@ -6,7 +6,9 @@ import {
     Grid,
     List,
     ListItem, 
-    ListItemText
+    ListItemText,
+    Divider,
+    Card
 } from '@mui/material';
 
 import {
@@ -16,7 +18,6 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { handle } from "express/lib/application";
 
 const useAdminChangeVisibility = () =>{
     const [documentType, setDocumentType] = useState("")
@@ -57,20 +58,20 @@ const useAdminChangeVisibility = () =>{
             show
         } = content;
         return(
-        <React.Fragment>
+          <Card sx={{my: 2}} style={show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
           <CardContent>
+          <Grid container>
+            <Grid item xs>
             <Typography variant="h5" component="div">
-            {[year, semester].join("-")}
+            {[courseName, department, examName].join(" - ")}
             </Typography>
-            <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Course Name: {courseName}
+            <Typography variant="h6" component="div">
+            {[year, semester].join(" - ")}
             </Typography>
             <Typography sx={{ mb: 1.5 }}>
               Instructor: {instructors}
             </Typography>
             <Typography variant="body2">
-              Department: {department}<br></br>
-              Exam Name: {examName}<br></br>
               ExamTime: {examTime} <br></br>
             </Typography>
             <Typography variant="body2">
@@ -79,10 +80,14 @@ const useAdminChangeVisibility = () =>{
             <Typography variant="body2">
                 Files contained: {content.files.length}
             </Typography>
-          </CardContent>
-          <Typography variant="body1">
-                Options:
-          </Typography>
+            </Grid>
+          <Divider orientation="vertical" flexItem/>
+            <Grid item xs>
+            <Typography variant="h6" component = "div">  
+              &nbsp;&nbsp;Options
+            </Typography>
+            
+          
           <Button onClick = {() =>{
             handleDelete({
               variables:{
@@ -102,7 +107,10 @@ const useAdminChangeVisibility = () =>{
           }}>
             <RefreshIcon color = "action"/> Change Visibility
           </Button><br></br>
-        </React.Fragment>
+          </Grid>
+          </Grid>
+          </CardContent>
+          </Card>
         )
       };
       const CardForFile = ({content, handleDelete, handleChangeVisibility}) => {

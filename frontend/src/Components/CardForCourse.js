@@ -34,7 +34,7 @@ const CardForCourse = ({courseData}) => {
     };
 
     return(
-        <Card sx={{my: 2}} style={{backgroundColor: "#00000011"}}>
+        <Card sx={{my: 2}} style={courseData.show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
             <CardContent>
                 <Grid container>
                     <Grid item xs>

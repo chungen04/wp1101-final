@@ -28,13 +28,13 @@ import { ADMIN_CHANGE_EXAM_SUBSCRIPTION } from '../graphql';
 import ExamSelection from "../Components/ExamSelection"
 
 const Wrapper = styled.div`
-    margin: auto;
-    width: 60%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 2vh auto;
+  width: 60%;
+  height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const useStyles = makeStyles({
@@ -63,7 +63,9 @@ const ContentPaper = styled(Paper)`
 `;
 
 const StyledPaper = styled(Paper)`
-    padding: 2em;
+  padding: 2em;
+  max-height: 90vh;
+  overflow: auto;
 `;
 
 const AdminChangeExamVisibility = () => {

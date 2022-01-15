@@ -14,7 +14,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
 
     return (
         <Grid container>
-            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Year"
                 type="number"
@@ -34,7 +34,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Semester"
                 select
@@ -63,7 +63,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 ))}
             </TextField>
             </Grid>
-            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Course Department"
                 type="string"
@@ -83,7 +83,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Required/elective/liberal?"
                 select
@@ -112,7 +112,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 ))}
             </TextField>
             </Grid>
-            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Course Name"
                 type="string"
