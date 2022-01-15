@@ -30,15 +30,43 @@ const useAdminReviewQueries = () =>{
               <Typography variant="h6" gutterBottom>
               Details
               </Typography>
-              {Object.keys(content).map((key) => (
-              <ListItem key={key}>
-                  <ListItemText primary={key} sx={{ padding: 1 }}/>
-                  <Grid item >
-                  <Typography variant="body2">{content[key]}</Typography>
-                  </Grid>
-              </ListItem>
-              ))}
-          </List>
+              {Object.keys(content).map((key) => {
+                if(key !== "questionDownloadLink" &&
+                    key !== "questionViewLink" &&
+                    key !== "answerDownloadLink" &&
+                    key !== "answerViewLink"
+                ){
+                    if(key != "courseId" &&
+                        key != "id" &&
+                        key != "examId" &&
+                        key != "examID" &&
+                        key != "pass"
+                    ){
+                        return(
+                        <ListItem key={key}>
+                            <ListItemText primary={key} sx={{ padding: 1 }}/>
+                            <Grid item >
+                            <Typography variant="body2">{content[key]}</Typography>
+                            </Grid>
+                        </ListItem>
+                        )
+                    }
+                }else{
+                    return(
+                    <ListItem key={key}>
+                        <ListItemText primary={key} sx={{ padding: 1 }}/>
+                        <Grid item >
+                            <Typography variant="body2">
+                            <a href = {content[key]}>
+                                {content[key]}
+                            </a>
+                            </Typography>
+                        </Grid>
+                    </ListItem>
+                    )
+                }
+                })}
+            </List>
         )
       }
     const Card = ({content, handleDelete, handlePassAndShow, setExamShow, setCourseShow,handlePassAndNotShow}) => {
@@ -62,12 +90,6 @@ const useAdminReviewQueries = () =>{
               Instructor: {instructors}<br></br>
               Department: {department}<br></br>
             </Typography>
-            {/*<Typography sx={{ mb: 1.5 }}>
-              
-            </Typography>
-            <Typography variant="body2">
-               
-        </Typography>*/}
           </CardContent>
           <CardActions>
             <Button size="small" onClick = {() => setShowMore(true)}>Details</Button>

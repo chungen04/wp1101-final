@@ -37,14 +37,35 @@ const useSearchPage = () =>{
             <Typography variant="h6" gutterBottom>
             Details
             </Typography>
-            {Object.keys(content).map((key) => (
-            <ListItem key={key}>
-                <ListItemText primary={key} sx={{ padding: 1 }}/>
-                <Grid item >
-                <Typography variant="body2">{content[key]}</Typography>
-                </Grid>
-            </ListItem>
-            ))}
+            {Object.keys(content).map((key) => {
+              if(key !== "questionDownloadLink" &&
+                  key !== "questionViewLink" &&
+                  key !== "answerDownloadLink" &&
+                  key !== "answerViewLink"
+              ){
+                return(
+                  <ListItem key={key}>
+                      <ListItemText primary={key} sx={{ padding: 1 }}/>
+                      <Grid item >
+                      <Typography variant="body2">{content[key]}</Typography>
+                      </Grid>
+                  </ListItem>
+                )
+              }else{
+                return(
+                  <ListItem key={key}>
+                      <ListItemText primary={key} sx={{ padding: 1 }}/>
+                      <Grid item >
+                        <Typography variant="body2">
+                          <a href = {content[key]}>
+                            {content[key]}
+                          </a>
+                        </Typography>
+                      </Grid>
+                  </ListItem>
+                )
+              }
+            })}
         </List>
       )
     }

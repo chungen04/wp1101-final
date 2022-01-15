@@ -230,15 +230,6 @@ const SearchPage = () => {
             ))}
           </TextField>
           </Grid>
-          {/*<Grid item xs={6} md={3}>
-            <FormControlLabel 
-              control={
-                <Switch 
-                onChange = {(e) => setQueryAnswer(e.target.checked)}/>
-              } 
-              label="Require Answer" 
-              checked = {queryAnswer}/>
-          </Grid>*/}
           </Grid>
         </StyledFormControl>
         <br></br>
