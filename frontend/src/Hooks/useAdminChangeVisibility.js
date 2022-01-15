@@ -196,8 +196,8 @@ const useAdminChangeVisibility = () =>{
               Department: {department}<br></br>
               Exam Name: {examName}<br></br>
               ExamTime: {examTime} <br></br>
-              Question View Link: {questionViewLink}<br></br>
-              Answer View Link: {answerViewLink}<br></br>
+              Question View Link: <a href = {questionViewLink}>{questionViewLink}</a><br></br>
+              Answer View Link: <a href = {answerViewLink}>{answerViewLink}</a><br></br>
               Remarks: {remarks}
             </Typography>
             <Typography variant="body2">

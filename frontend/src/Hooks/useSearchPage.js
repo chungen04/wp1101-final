@@ -57,7 +57,11 @@ const useSearchPage = () =>{
                       <ListItemText primary={key} sx={{ padding: 1 }}/>
                       <Grid item >
                         <Typography variant="body2">
-                          <a href = {content[key]}>
+                          <a 
+                            href = {content[key]} 
+                            target = "_blank"
+                            rel="noopener noreferrer"
+                          >
                             {content[key]}
                           </a>
                         </Typography>
