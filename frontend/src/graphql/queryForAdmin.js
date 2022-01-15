@@ -135,6 +135,7 @@ query courses(
                     answerDownloadLink
                     answerViewLink
                     remarks
+                    show
                 }
             }
         }

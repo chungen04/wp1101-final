@@ -150,10 +150,6 @@ const useAdminChangeVisibility = () =>{
             <DeleteIcon color = "action"/> Delete this Exam
           </Button><br></br>
           <Button onClick = {() =>{
-            console.log({
-              examId: content.examId,
-              show: !content.show
-            })
             handleChangeVisibility({
               variables:{
                 examId: content.examId,
@@ -166,7 +162,7 @@ const useAdminChangeVisibility = () =>{
         </React.Fragment>
         )
       };
-      const CardForFile = ({content}) => {
+      const CardForFile = ({content, handleDelete, handleChangeVisibility}) => {
         const {
             year,
             semester,
@@ -207,10 +203,23 @@ const useAdminChangeVisibility = () =>{
           <Typography variant="body1">
                 Options:
           </Typography>
-          <Button>
+          <Button onClick = {() =>{
+            handleDelete({
+              variables:{
+                fileId: content.fileId
+              }
+            })
+          }}>
             <DeleteIcon color = "action"/> Delete this File
           </Button><br></br>
-          <Button>
+          <Button onClick = {() =>{
+            handleChangeVisibility({
+              variables:{
+                fileId: content.fileId,
+                show: !content.show
+              }
+            })
+          }}>
             <RefreshIcon color = "action"/> Change Visibility
           </Button><br></br>
         </React.Fragment>

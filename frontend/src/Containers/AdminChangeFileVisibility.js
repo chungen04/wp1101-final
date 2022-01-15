@@ -10,8 +10,16 @@ import {
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
-import { useQuery } from '@apollo/client';
+import { 
+    useQuery,
+    useMutation
+} from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+
+import{
+    CHANGE_FILE_VISIBILITY_FOR_ADMIN,
+    DELETE_FILE_FOR_ADMIN
+} from "../graphql/mutationForAdmin"
 
 import{
     ADMIN_FILE_QUERY
@@ -76,6 +84,8 @@ const AdminChangeFileVisibility = () => {
     })
     const [query, setQuery] = useState(true);
 
+    const [handleDelete] = useMutation(DELETE_FILE_FOR_ADMIN);
+    const [handleChangeVisibility] = useMutation(CHANGE_FILE_VISIBILITY_FOR_ADMIN);
     const handleQuery = () =>{
         console.log(fileFilter)
         setQuery(true);
@@ -165,7 +175,11 @@ const AdminChangeFileVisibility = () => {
         {
             queryData.length !== 0? (
                 queryData.map((e) =>
-                    <CardForFile content = {e}/>
+                    <CardForFile 
+                        content = {e}
+                        handleDelete = {handleDelete}
+                        handleChangeVisibility = {handleChangeVisibility}
+                    />
                 )
             ):(
             <Typography variant = "body2">No Documents Found...</Typography>
