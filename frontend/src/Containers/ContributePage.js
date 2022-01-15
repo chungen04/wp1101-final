@@ -74,20 +74,33 @@ export default function ContributePage() {
     return response.data
   }
 
-  const createGraphqlFile = async(examID, fileInput) => {
-    fileInput.examID = examID
-    await createFile({variables: fileInput})
-  }
-
-  const handleUpload = async() => {
-    let fileInput = {remarks: file.remarks}
+  const createGraphqlFile = async(examID) => {
     let {id, webContentLink, webViewLink} = await sendFile(file.problemPDF)
-    fileInput = {...fileInput, problemID: id, problemDownloadLink: webContentLink, problemViewLink: webViewLink}
+    const problemID = id;
+    const problemDownloadLink = webContentLink;
+    const problemViewLink= webViewLink;
     if(file.answerPDF !== ""){
       const answerFile = await sendFile(file.answerPDF)
       let {id, webContentLink, webViewLink} = answerFile
-      fileInput = {...fileInput, answerID: id, answerDownloadLink: webContentLink, answerViewLink: webViewLink}
-    } 
+      const answerID = id;
+      const answerDownloadLink = webContentLink;
+      const answerViewLink= webViewLink;
+      await createFile({variables: {
+        examID,
+        remarks: file.remarks,
+        problemID, problemViewLink, problemDownloadLink,
+        answerID, answerViewLink, answerDownloadLink,
+      }})
+    } else{
+      await createFile({variables: {
+        examID,
+        remarks: file.remarks,
+        problemID, problemViewLink, problemDownloadLink,
+      }})
+    }
+  }
+
+  const handleUpload = async() => {    
     if(addCourse){
       let courseInput = course
       courseInput.courseType = course.type
@@ -96,15 +109,14 @@ export default function ContributePage() {
       const courseID = courseData.data.createCourse.id
       const examData = await createExam({variables: {...exam, courseID, examTime: exam.examTime*1}})
       const examID = examData.data.createExam.id
-      await createGraphqlFile(examID, fileInput)
+      await createGraphqlFile(examID)
     }else if(addExam){
       const examData = await createExam({variables: {...exam, courseID: course.id, examTime: exam.examTime*1}})
       const examID = examData.data.createExam.id
-      await createGraphqlFile(examID, fileInput)
+      await createGraphqlFile(examID)
     }else{
-      await createGraphqlFile(exam.id, fileInput)
+      await createGraphqlFile(exam.id)
     }
-    console.log("done")
   }
 
   const handleNext = () => {
