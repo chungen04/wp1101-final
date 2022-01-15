@@ -26,6 +26,7 @@ import{
 } from "../graphql/mutationForAdmin"
 import { ADMIN_CHANGE_EXAM_SUBSCRIPTION } from '../graphql';
 import ExamSelection from "../Components/ExamSelection"
+import SearchIcon from '@mui/icons-material/Search';
 
 const Wrapper = styled.div`
   margin: 2vh auto;
@@ -193,11 +194,11 @@ const AdminChangeExamVisibility = () => {
                 variant="contained"
                 color="primary"
                 onClick = {handleQuery}
+                startIcon = {<SearchIcon />}
             >
             Query
             </Button>
             <br></br>
-        <ContentPaper variant="outlined" >
         {
             queryData.length !== 0? (
                 queryData.map((e) =>
@@ -211,7 +212,6 @@ const AdminChangeExamVisibility = () => {
             <Typography variant = "body2">No Documents Found...</Typography>
             )
         }
-        </ContentPaper>
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>

@@ -24,6 +24,7 @@ const useAdminChangeVisibility = () => {
   const [queryData, setQueryData] = useState([]);
   const [query, setQuery] = useState({});
 
+<<<<<<< HEAD
   const ShowMore = (content) => {
     return (
       <List disablePadding>
@@ -63,6 +64,40 @@ const useAdminChangeVisibility = () => {
         }
       >
         <CardContent>
+=======
+    const ShowMore = (content) => {
+      return(
+        <List disablePadding>
+            <Typography variant="h6" gutterBottom>
+            Details
+            </Typography>
+            {Object.keys(content).map((key) => (
+            <ListItem key={key}>
+                <ListItemText primary={key} sx={{ padding: 1 }}/>
+                <Grid item >
+                <Typography variant="body2">{content[key]}</Typography>
+                </Grid>
+            </ListItem>
+            ))}
+        </List>
+      )
+    }
+    
+      const CardForExam = ({content, handleDelete, handleChangeVisibility}) => {
+        const {
+            year,
+            semester,
+            instructors,
+            department,
+            courseName,
+            examName,
+            examTime,
+            show
+        } = content;
+        return(
+          <Card sx={{my: 2}} style={!show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
+          <CardContent>
+>>>>>>> update ui
           <Grid container>
             <Grid item xs>
               <Typography variant="h5" component="div">

@@ -15,6 +15,7 @@ import {
     useMutation
 } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
 
 import{
     CHANGE_FILE_VISIBILITY_FOR_ADMIN,
@@ -29,13 +30,13 @@ import FileSelection from "../Components/FileSelection"
 import { ADMIN_CHANGE_FILE_SUBSCRIPTION } from '../graphql';
 
 const Wrapper = styled.div`
-    margin: auto;
-    width: 60%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 2vh auto;
+  width: 60%;
+  height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const useStyles = makeStyles({
@@ -64,7 +65,9 @@ const ContentPaper = styled(Paper)`
 `;
 
 const StyledPaper = styled(Paper)`
-    padding: 2em;
+  padding: 2em;
+  max-height: 90vh;
+  overflow: auto;
 `;
 
 const AdminChangeFileVisibility = () => {
@@ -216,11 +219,11 @@ const AdminChangeFileVisibility = () => {
                 variant="contained"
                 color="primary"
                 onClick = {handleQuery}
+                startIcon = {<SearchIcon />}
             >
             Query
             </Button>
             <br></br>
-        <ContentPaper variant="outlined" >
         {
             queryData.length !== 0? (
                 queryData.map((e) =>{
@@ -237,7 +240,6 @@ const AdminChangeFileVisibility = () => {
             <Typography variant = "body2">No Documents Found...</Typography>
             )
         }
-        </ContentPaper>
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>
