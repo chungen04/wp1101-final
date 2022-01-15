@@ -11,21 +11,9 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
-import { 
-    useQuery,
-    useMutation
-} from '@apollo/client';
-
-import{
-    ADMIN_COURSE_QUERY,
-} from "../graphql/queryForAdmin"
-
-import{
-    CHANGE_COURSE_VISIBILITY_FOR_ADMIN,
-    DELETE_COURSE_FOR_ADMIN
-} from "../graphql/mutationForAdmin"
 
 import CourseSelection from "../Components/CourseSelection"
+import CardForCourse from '../Components/CardForCourse';
 
 const Wrapper = styled.div`
     margin: auto;
@@ -56,12 +44,6 @@ const StyledFormControl = styled(FormControl)`
     min-width: 120px;
 `;
 
-const ContentPaper = styled(Paper)`
-    height: 300px;
-    padding: 2em;
-    overflow: auto;
-`;
-
 const StyledPaper = styled(Paper)`
     padding: 2em;
 `;
@@ -70,39 +52,25 @@ const AdminChangeCourseVisibility = () => {
     const {
         courseFilter,
         setCourseFilter,
-        queryData,
-        setQueryData,
-        CardForCourse
+        query,
+        setQuery
     } = useAdminChangeVisibility();
     const navigate = useNavigate();
     const classes = useStyles();
-    const [handleDelete] = useMutation(DELETE_COURSE_FOR_ADMIN);
-    const [handleChangeVisibility] = useMutation(CHANGE_COURSE_VISIBILITY_FOR_ADMIN);
-
-    const {loading, data, subscribeToMore} = useQuery(ADMIN_COURSE_QUERY, {
-        variables: {
-            ...courseFilter
-        }
-    })
-    const [query, setQuery] = useState(true);
+    
+    
     console.log(query);
 
-    const handleQuery = () =>{
-        console.log(courseFilter)
-        console.log(data.courses);
-        setQuery(true);
-    }
     useEffect(() =>{
         if(!localStorage.getItem("token")){
             navigate("/adminSignIn")
         }
-        if (!data) return;
-        if (query){
-            console.log(data.courses);
-            console.log(queryData);
-            setQueryData(data.courses);
-        }
-    }, [data, query]);
+    }, []);
+
+    const handleQuery = () => {
+        const newCourseFilter = {...courseFilter}
+        setQuery(newCourseFilter)
+    }
 
     return (
         <Wrapper>
@@ -117,8 +85,6 @@ const AdminChangeCourseVisibility = () => {
                 <CourseSelection 
                     courseFilter={courseFilter}
                     setCourseFilter = {setCourseFilter}
-                    query = {query}
-                    setQuery = {setQuery}
                 />          
             </StyledFormControl>
             <br></br>
@@ -126,26 +92,14 @@ const AdminChangeCourseVisibility = () => {
                 className={classes.button}
                 variant="contained"
                 color="primary"
-                onClick = {handleQuery}
+                onClick={handleQuery}
             >
             Query
             </Button>
             <br></br>
-        <ContentPaper variant="outlined" >
-        {
-            queryData.length !== 0? (
-            queryData.map((e) =>
-                <CardForCourse 
-                    content = {e}
-                    handleDelete = {handleDelete}
-                    handleChangeVisibility = {handleChangeVisibility}
-                />
-            )
-            ):(
-            <Typography variant = "body2">No Documents Found...</Typography>
-            )
-        }
-        </ContentPaper>
+            <CardForCourse 
+                query={query}
+            />
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>

@@ -7,11 +7,11 @@ import {
 } from '@mui/material';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 
-const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
-    const {
-        Semester,
-        Types,
-    } = useAdminChangeVisibility();
+
+const Semester = ["All", "Fall", "Spring", "Summer"];
+const Types = ["All", "Required", "Elective", "Liberal"];
+
+const CourseSelection = ({courseFilter, setCourseFilter}) =>{
 
     return (
         <Grid container xs={12} sm={13}>
@@ -31,8 +31,6 @@ const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
                         delete Filter.year;
                         setCourseFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -52,8 +50,6 @@ const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
                         delete Filter.courseDept;
                         setCourseFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -73,8 +69,6 @@ const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
                         delete Filter.courseName;
                         setCourseFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             />
             </Grid>
@@ -97,8 +91,6 @@ const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
                         delete Filter.courseType;
                         setCourseFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             >
                 {Types.map((option) => (
@@ -127,8 +119,6 @@ const CourseSelection = ({courseFilter, setCourseFilter, setQuery}) =>{
                         delete Filter.Semester;
                         setCourseFilter(Filter);
                     }
-                    setQuery(false)
-                    console.log(Filter)
                 }}
             >
                 {Semester.map((option) => (

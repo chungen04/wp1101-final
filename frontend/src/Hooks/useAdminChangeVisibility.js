@@ -24,9 +24,8 @@ const useAdminChangeVisibility = () =>{
     const [examFilter, setExamFilter] = useState({})
     const [fileFilter, setFileFilter] = useState({})
     const [queryData, setQueryData] = useState([])
+    const [query, setQuery] = useState({});
 
-    const Semester = ["All", "Fall", "Spring", "Summer"];
-    const Types = ["All", "Required", "Elective", "Liberal"];
 
     const ShowMore = (content) => {
       return(
@@ -45,63 +44,7 @@ const useAdminChangeVisibility = () =>{
         </List>
       )
     }
-    const CardForCourse = ({content, handleDelete, handleChangeVisibility}) => {
-        const [showMore, setShowMore] = useState(false);
-        const {
-            year,
-            semester,
-            instructors,
-            department,
-            courseName,
-            show
-        } = content;
-        return(
-        <React.Fragment>
-          <CardContent>
-            <Typography variant="h5" component="div">
-            {[year, semester].join("-")}
-            </Typography>
-            <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Course Name: {courseName}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }}>
-              Instructor: {instructors}
-            </Typography>
-            <Typography variant="body2">
-                Department: {department}
-            </Typography>
-            <Typography variant="body2">
-                Currently Show: {show? "true": "false"}
-            </Typography>
-            <Typography variant="body2">
-                Exams contained: {content.exams.length}
-            </Typography>
-          </CardContent>
-          <Typography variant="body1">
-                Options:
-          </Typography>
-          <Button onClick = {() =>{
-            handleDelete({
-              variables:{
-                courseId: content.id
-              }
-            })
-          }}>
-            <DeleteIcon color = "action"/> Delete this Course
-          </Button><br></br>
-          <Button onClick = {() =>{
-            handleChangeVisibility({
-              variables:{
-                courseId: content.id,
-                show: !content.show
-              }
-            })
-          }}>
-            <RefreshIcon color = "action"/> Change Visibility
-          </Button><br></br>
-        </React.Fragment>
-        )
-      };
+    
       const CardForExam = ({content, handleDelete, handleChangeVisibility}) => {
         const {
             year,
@@ -226,11 +169,10 @@ const useAdminChangeVisibility = () =>{
         )
       };
     return {
-        CardForCourse,
+        query,
+        setQuery,
         CardForExam,
         CardForFile,
-        Semester,
-        Types,
         documentType,
         setDocumentType,
         courseFilter,

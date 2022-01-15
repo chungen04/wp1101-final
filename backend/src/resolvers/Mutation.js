@@ -35,15 +35,13 @@ const Mutation = {
         const { data, courseID } = args
         await db.Course.updateOne({_id: courseID}, data)
         const course = await db.Course.findById(courseID)
-        if (data.show){
-            pubsub.publish('COURSE', {
-                course: {
-                    mutation: "UPDATED",
-                    courseID: course.id,
-                    data: course
-                }
-            })
-        }
+        pubsub.publish('COURSE', {
+            course: {
+                mutation: "UPDATED",
+                courseID: course.id,
+                data: course
+            }
+        })
         return course
     },
     async deleteCourse(parent, args, {db, login}){
@@ -128,16 +126,14 @@ const Mutation = {
         const { data, examID } = args
         await db.Exam.updateOne({_id: examID}, data)
         const exam = await db.Exam.findById(examID)
-        if(data.show){
-            pubsub.publish('EXAM', {
-                exam: {
-                    mutation: "UPDATED",
-                    courseID: exam.courseID,
-                    examID: exam.id,
-                    data: exam
-                }
-            })
-        }
+        pubsub.publish('EXAM', {
+            exam: {
+                mutation: "UPDATED",
+                courseID: exam.courseID,
+                examID: exam.id,
+                data: exam
+            }
+        })
         const newCourse = await db.Course.findById(exam.courseID)
         pubsub.publish('COURSE', {
             course: {

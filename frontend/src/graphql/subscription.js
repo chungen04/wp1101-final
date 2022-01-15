@@ -32,3 +32,15 @@ export const ADMIN_REVIEW_SUBSCRIPTION = gql`
         }
     }
 `
+
+export const ADMIN_CHANGE_COURSE_SUBSCRIPTION = gql`
+    subscription{
+        course{
+            data{
+                show
+            }
+            courseID
+            mutation
+        }
+    }
+`
