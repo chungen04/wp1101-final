@@ -9,13 +9,21 @@ import {
     Grid,
     List,
     ListItem, 
-    ListItemText
+    ListItemText,
 } from '@mui/material';
+import {Card as MaterialCard} from '@mui/material';
 
 import {
     Button,
     Typography
 } from '@material-ui/core';
+
+const refList = {
+  questionDownloadLink: "Download Question",
+  questionViewLink: "View Question",
+  answerDownloadLink: "Download Answer",
+  answerViewLink: "View Answer"
+}
 
 const useSearchPage = () =>{
     const [queryFiles, setFiles] = useState([]);
@@ -33,10 +41,20 @@ const useSearchPage = () =>{
 
     const ShowMore = (content) => {
       return(
-        <List disablePadding>
-            <Typography variant="h6" gutterBottom>
-            Details
-            </Typography>
+        <>
+          <Typography variant="h4">
+          Details
+          </Typography>
+          <List 
+            sx={{
+              width: '100%',
+              bgcolor: 'background.paper',
+              position: 'relative',
+              overflow: 'auto',
+              maxHeight: "70vh",
+              '& ul': { padding: 0 },
+            }}
+          >
             {Object.keys(content).map((key) => {
               if(key !== "questionDownloadLink" &&
                   key !== "questionViewLink" &&
@@ -47,30 +65,37 @@ const useSearchPage = () =>{
                   <ListItem key={key}>
                       <ListItemText primary={key} sx={{ padding: 1 }}/>
                       <Grid item >
-                      <Typography variant="body2">{content[key]}</Typography>
+                      <Typography variant="body2">
+                        {
+                          content[key] !== "" && content[key] ?
+                          content[key] :
+                          "None"
+                        }
+                      </Typography>
                       </Grid>
                   </ListItem>
                 )
               }else{
                 return(
                   <ListItem key={key}>
-                      <ListItemText primary={key} sx={{ padding: 1 }}/>
-                      <Grid item >
-                        <Typography variant="body2">
-                          <a 
-                            href = {content[key]} 
-                            target = "_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {content[key]}
-                          </a>
-                        </Typography>
-                      </Grid>
+                    <ListItemText primary={key} sx={{ padding: 1 }}/>
+                    <Grid item >
+                      <Typography variant="body2">
+                        {
+                          content[key] !== "" && content[key] ?
+                          <a href = {content[key]}>
+                            {refList[key]} 
+                          </a> :
+                          "None"
+                        }
+                      </Typography>
+                    </Grid>
                   </ListItem>
                 )
               }
             })}
-        </List>
+          </List>
+        </>
       )
     }
     const Card = ({content}) => {
@@ -84,13 +109,16 @@ const useSearchPage = () =>{
             courseName,
         } = content;
         return(
-        <React.Fragment>
+        <MaterialCard sx={{my: 2}} style={{backgroundColor: "#00000011"}}>
           <CardContent>
             <Typography variant="h5" component="div">
-            {[year, semester].join("-")}
+              {[courseName, examName].join(" - ")}
+            </Typography>
+            <Typography variant="h6" component="div">
+              {[year, semester].join("-")}
             </Typography>
             <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Course/Exam: {[courseName, examName].join(" ")}
+              Exam: {examName}
             </Typography>
             <Typography sx={{ mb: 1.5 }}>
               Instructor: {instructors}
@@ -101,13 +129,13 @@ const useSearchPage = () =>{
           </CardContent>
           <CardActions>
             <Button size="small" onClick = {() => setShowMore(true)}>Learn More</Button>
-            <Dialog open = {showMore} onClose = {() => setShowMore(false)} maxWidth>
-            <DialogContent dividers>
+            <Dialog open = {showMore} onClose = {() => setShowMore(false)} maxWidth="md" fullWidth>
+              <DialogContent dividers>
                 {ShowMore(content)}
-                </DialogContent>
+              </DialogContent>
             </Dialog>
           </CardActions>
-        </React.Fragment>
+        </MaterialCard>
         )
       };
 

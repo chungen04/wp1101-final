@@ -5,7 +5,8 @@ import {
   TextField,
   Typography,
   makeStyles,
-  Box
+  Box,
+  Divider
 } from '@material-ui/core';
 
 import {
@@ -155,82 +156,95 @@ const SearchPage = () => {
         </Box>
         
         <StyledFormControl>
-        <Grid container xs={12} sm={13}>
-        <Grid item xs={6} md={3}>
-          <TextField
-            label="Year"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value = {queryYear}
-            onChange = {handleChange(setQueryYear)}
-          />
+        <Grid container >
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <TextField
+              label="Year"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value = {queryYear}
+              fullWidth
+              onChange = {handleChange(setQueryYear)}
+            />
           </Grid>
-            <Grid item xs={6} md={3}>
-          <TextField
-            label="Course Department"
-            type="string"
-            value = {queryCourseDept}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange = {handleChange(setQueryCourseDept)}
-          />
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <TextField
+              label="Course Department"
+              type="string"
+              value = {queryCourseDept}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              onChange = {handleChange(setQueryCourseDept)}
+            />
           </Grid>
-          <Grid item xs={6} md={3}>
-          <TextField
-            label="Course Name"
-            type="string"
-            value = {queryCourseName}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange = {handleChange(setQueryCourseName)}
-          />
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <TextField
+              label="Course Name"
+              type="string"
+              value = {queryCourseName}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              onChange = {handleChange(setQueryCourseName)}
+            />
           </Grid>
-          
-          <Grid item xs={6} md={3}>
-          <TextField
-            label="Required/elective/liberal?"
-            onChange = {handleChange(setQueryType)}
-            value={queryType}
-            select
-            InputLabelProps={{
-              shrink: true,
-            }}
-            SelectProps={{
-              native: true,
-            }}
-          >
-            {Types.map((option) => (
-                <option value={option}>
-                {option}
-                </option>
-            ))}
-          </TextField>
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <TextField
+              label="Required/elective/liberal?"
+              onChange = {handleChange(setQueryType)}
+              value={queryType}
+              select
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              SelectProps={{
+                native: true,
+              }}
+            >
+              {Types.map((option) => (
+                  <option value={option}>
+                  {option}
+                  </option>
+              ))}
+            </TextField>
           </Grid>
-          <Grid item xs={6} md={3}>
-          <TextField
-            label="Semester"
-            onChange = {handleChange(setQuerySemester)}
-            value={querySemester}
-            select
-            InputLabelProps={{
-              shrink: true,
-            }}
-            SelectProps={{
-              native: true,
-            }}
-          >
-            {Semester.map((option) => (
-                <option value={option}>
-                {option}
-                </option>
-            ))}
-          </TextField>
+          <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <TextField
+              label="Semester"
+              onChange = {handleChange(setQuerySemester)}
+              value={querySemester}
+              select
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              SelectProps={{
+                native: true,
+              }}
+            >
+              {Semester.map((option) => (
+                  <option value={option}>
+                  {option}
+                  </option>
+              ))}
+            </TextField>
           </Grid>
-          </Grid>
+          {/*<Grid item xs={6} md={3}>
+            <FormControlLabel 
+              control={
+                <Switch 
+                onChange = {(e) => setQueryAnswer(e.target.checked)}/>
+              } 
+              label="Require Answer" 
+              checked = {queryAnswer}/>
+          </Grid>*/}
+        </Grid>
         </StyledFormControl>
         <br></br>
         <Button
@@ -245,8 +259,16 @@ const SearchPage = () => {
       <ContentPaper variant="outlined" >
       {
         queryFiles.length !== 0? (
-          queryFiles.map((e) =>
-            <Card content = {e}/>
+          queryFiles.map((e, i) =>{
+            return (i !== queryFiles.length-1) ? 
+            <>
+              <Card content = {e}/>
+              <Divider />
+            </> :
+            <>
+              <Card content = {e}/>
+            </>
+          }
           )
         ):(
           <Typography variant = "body2">No Documents Found...</Typography>
