@@ -78,13 +78,13 @@ const StartingPage = () => {
               spacing={2}
               justifyContent="center"
             >
-              <LinkRouter to= "/contributePage">
+              <LinkRouter to= "/contributePage" style={{ textDecoration: 'none' }}>
               <Button variant="contained" startIcon = {<FileUpload />}>I'd like to contribute</Button>
               </LinkRouter>
-              <LinkRouter to= "/searchPage">
+              <LinkRouter to= "/searchPage"  style={{ textDecoration: 'none' }}>
               <Button variant="contained" startIcon = {<Search />}>I'd like to search for documents</Button>
               </LinkRouter>
-              <LinkRouter to= "/adminSignIn">
+              <LinkRouter to= "/adminSignIn"  style={{ textDecoration: 'none' }}>
                 <Button variant="outlined" startIcon = {<Person />}>Admin Sign In</Button>
               </LinkRouter>
             </Stack>

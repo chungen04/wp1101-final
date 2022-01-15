@@ -23,11 +23,18 @@ const AdminHomePage = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
+      <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}> 
             NTU Old Exams
           </Typography>
+          <Button 
+            color = "inherit"
+            onClick = {() =>{
+              localStorage.removeItem("token")
+              navigate("/adminSignIn")
+            }}
+          >Logout</Button>
         </Toolbar>
       </AppBar>
       <main>
@@ -58,18 +65,27 @@ const AdminHomePage = () => {
               spacing={2}
               justifyContent="center"
             >
-              <LinkRouter to= "/adminReviewQueries">
+              <LinkRouter to= "/adminReviewQueries"  style={{ textDecoration: 'none' }}>
                 <Button variant="contained">See UnReviewed Queries</Button>
               </LinkRouter>
-              <LinkRouter to= "/adminChangeCourseVisibility">
+              <LinkRouter to= "/adminChangeCourseVisibility"  style={{ textDecoration: 'none' }}>
                 <Button variant="contained">delete/Change visibility of Courses</Button>
               </LinkRouter>
-              <LinkRouter to= "/adminChangeExamVisibility">
+              <LinkRouter to= "/adminChangeExamVisibility"  style={{ textDecoration: 'none' }}>
                 <Button variant="contained">delete/Change visibility of Exams</Button>
               </LinkRouter>
-              <LinkRouter to= "/adminChangeFileVisibility">
+              <LinkRouter to= "/adminChangeFileVisibility"  style={{ textDecoration: 'none' }}>
                 <Button variant="contained">delete/Change visibility of Files</Button>
               </LinkRouter>
+              <br></br>
+            </Stack>
+            <Stack
+              sx={{ pt: 4 }}
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+            >
+            
             </Stack>
           </Container>
         </Box>

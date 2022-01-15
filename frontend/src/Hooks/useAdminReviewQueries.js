@@ -36,11 +36,11 @@ const useAdminReviewQueries = () =>{
                     key !== "answerDownloadLink" &&
                     key !== "answerViewLink"
                 ){
-                    if(key != "courseId" &&
-                        key != "id" &&
-                        key != "examId" &&
-                        key != "examID" &&
-                        key != "pass"
+                    if(key !== "courseId" &&
+                        key !== "id" &&
+                        key !== "examId" &&
+                        key !== "examID" &&
+                        key !== "pass"
                     ){
                         return(
                         <ListItem key={key}>
