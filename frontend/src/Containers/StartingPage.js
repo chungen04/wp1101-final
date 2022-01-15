@@ -21,6 +21,8 @@ import {
 import { Link as LinkRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useNavigate } from 'react-router-dom';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -39,14 +41,27 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 const StartingPage = () => {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            NTU Old Exams
-          </Typography>
+          <Box  noWrap sx={{ flexGrow: 1 }}>
+            <label htmlFor="back-to-home">
+              <Button 
+                color="inherit"
+                id="back-to-home"
+                onClick = {() =>{
+                  navigate("/")
+                }}
+              >
+                <Typography variant="h6" color="inherit" > 
+                  NTU Old Exams
+                </Typography>
+              </Button>
+            </label>
+          </Box>
         </Toolbar>
       </AppBar>
       <main>

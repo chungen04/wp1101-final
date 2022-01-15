@@ -27,6 +27,7 @@ import Review from '../Components/Review';
 import useContribute from "../Hooks/useContribute"
 import axios from "../api";
 import { CREATE_COURSE_MUTATION, CREATE_EXAM_MUTATION, CREATE_FILE_MUTATION } from '../graphql';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Course Details', 'Exam Details', 'File Details', 'Check Submission'];
 
@@ -55,6 +56,8 @@ export default function ContributePage() {
   const [createCourse] = useMutation(CREATE_COURSE_MUTATION)
   const [createExam] = useMutation(CREATE_EXAM_MUTATION)
   const [createFile] = useMutation(CREATE_FILE_MUTATION)
+
+  const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
@@ -181,9 +184,21 @@ export default function ContributePage() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            NTU Old Exams
-          </Typography>
+          <Box  noWrap sx={{ flexGrow: 1 }}>
+            <label htmlFor="back-to-home">
+              <Button 
+                color="inherit"
+                id="back-to-home"
+                onClick = {() =>{
+                  navigate("/")
+                }}
+              >
+                <Typography variant="h6" color="inherit" > 
+                  NTU Old Exams
+                </Typography>
+              </Button>
+            </label>
+          </Box>
         </Toolbar>
       </AppBar>
       <Container component="main" maxWidth="md" sx={{ mb: 4 }}>

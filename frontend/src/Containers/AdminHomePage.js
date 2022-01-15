@@ -30,17 +30,33 @@ const AdminHomePage = () => {
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}> 
-            NTU Old Exams
-          </Typography>
+          <Box  noWrap sx={{ flexGrow: 1 }}>
+            <label htmlFor="back-to-home">
+              <Button 
+                color="inherit"
+                id="back-to-home"
+                onClick = {() =>{
+                  navigate("/")
+                }}
+              >
+                <Typography variant="h6" color="inherit" > 
+                  NTU Old Exams
+                </Typography>
+              </Button>
+            </label>
+          </Box>
           <Button 
             color = "inherit"
             onClick = {() =>{
               localStorage.removeItem("token")
-              navigate("/adminSignIn")
+              navigate("/")
             }}
             endIcon = {<LogoutIcon />}
-          >Logout</Button>
+          >
+            <Typography variant="h6" color="inherit" > 
+              Logout
+            </Typography>
+          </Button>
         </Toolbar>
       </AppBar>
       <main>

@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "../api";
+import { Link as LinkRouter } from 'react-router-dom';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -23,6 +24,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 const theme = createTheme();
 
 
@@ -61,6 +63,10 @@ export default function SignIn() {
       setOpen(true)
     }
   };
+
+  const toHome = () => {
+
+  }
 
   return (
     
@@ -119,10 +125,20 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 0 }}
             >
               Sign In
             </Button>
+            <LinkRouter to= "/" style={{ textDecoration: 'none' }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={toHome}
+              >
+                Back To Home
+              </Button>
+            </LinkRouter>
           </Box>
         </Box>
       </Container>
