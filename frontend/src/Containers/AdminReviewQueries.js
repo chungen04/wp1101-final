@@ -12,7 +12,8 @@ import NewReleasesIcon from '@mui/icons-material/NewReleases';
 
 import styled from 'styled-components';
 import React from "react";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import useAdminReviewQueries from '../Hooks/useAdminReviewQueries';
 
 import { 
@@ -77,7 +78,8 @@ const StyledPaper = styled(Paper)`
     padding: 2em;
 `;
 
-const AdminReviewQueries = () => {
+const AdminReviewQueries = (props) => {
+    const navigate = useNavigate();
     const {
         files,
         setFiles,
@@ -96,6 +98,9 @@ const AdminReviewQueries = () => {
 
     let Files = [];
     useEffect(() =>{
+        if(!localStorage.getItem("token")){
+            navigate("/adminSignIn")
+        }
         let Files = [];
         try{
             console.log(data)

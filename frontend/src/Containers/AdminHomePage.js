@@ -7,12 +7,19 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {Link as LinkRouter} from 'react-router-dom';
+import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
 const AdminHomePage = () => {
+  const navigate = useNavigate();
+  React.useEffect(() =>{
+    if(!localStorage.getItem("token")){
+      navigate("/adminSignIn")
+    }
+  })
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

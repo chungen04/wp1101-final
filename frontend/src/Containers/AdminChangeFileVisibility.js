@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 import { useQuery } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 import{
     ADMIN_FILE_QUERY
@@ -66,6 +67,7 @@ const AdminChangeFileVisibility = () => {
         CardForFile
     } = useAdminChangeVisibility();
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const {loading, data, subscribeToMore} = useQuery(ADMIN_FILE_QUERY, {
         variables: {
@@ -79,6 +81,9 @@ const AdminChangeFileVisibility = () => {
         setQuery(true);
     }
     useEffect(() =>{
+        if(!localStorage.getItem("token")){
+            navigate("/adminSignIn")
+        }
         console.log(query)
         if (!data) return;
         if (query){

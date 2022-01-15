@@ -9,6 +9,7 @@ import {
 
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 import { 
     useQuery,
@@ -66,6 +67,7 @@ const StyledPaper = styled(Paper)`
 `;
 
 const AdminChangeExamVisibility = () => {
+    const navigate = useNavigate();
     const {
         examFilter,
         setExamFilter,
@@ -90,6 +92,9 @@ const AdminChangeExamVisibility = () => {
         setQuery(true);
     }
     useEffect(() =>{
+        if(!localStorage.getItem("token")){
+            navigate("/adminSignIn")
+        }
         if (!data) return;
         if (query){
             console.log(data.courses);

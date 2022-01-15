@@ -16,7 +16,7 @@ function App() {
   return (
       <Router>
         <Routes>
-          <Route path = "/" exact element = {<StartingPage/>}/>
+          <Route path = "/" exact element = {<StartingPage />}/>
           <Route path = "/adminSignIn" exact element = {<SignIn/>}/>
           <Route path = "/adminHomePage" exact element = {<AdminHomePage/>}/>
           <Route path = "/adminReviewQueries" exact element = {<AdminReviewQueries/>}/>

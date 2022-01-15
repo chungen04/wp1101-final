@@ -9,6 +9,7 @@ import {
 
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 import { 
     useQuery,
@@ -73,6 +74,7 @@ const AdminChangeCourseVisibility = () => {
         setQueryData,
         CardForCourse
     } = useAdminChangeVisibility();
+    const navigate = useNavigate();
     const classes = useStyles();
     const [handleDelete] = useMutation(DELETE_COURSE_FOR_ADMIN);
     const [handleChangeVisibility] = useMutation(CHANGE_COURSE_VISIBILITY_FOR_ADMIN);
@@ -91,6 +93,9 @@ const AdminChangeCourseVisibility = () => {
         setQuery(true);
     }
     useEffect(() =>{
+        if(!localStorage.getItem("token")){
+            navigate("/adminSignIn")
+        }
         if (!data) return;
         if (query){
             console.log(data.courses);
