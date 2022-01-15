@@ -136,6 +136,7 @@ query courses(
                     answerViewLink
                     remarks
                     show
+                    pass
                 }
             }
         }

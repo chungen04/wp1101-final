@@ -223,13 +223,16 @@ const AdminChangeFileVisibility = () => {
         <ContentPaper variant="outlined" >
         {
             queryData.length !== 0? (
-                queryData.map((e) =>
-                    <CardForFile 
-                        content = {e}
-                        handleDelete = {handleDelete}
-                        handleChangeVisibility = {handleChangeVisibility}
-                    />
-                )
+                queryData.map((e) =>{
+                    if(e.pass){
+                    return (
+                        <CardForFile 
+                            content = {e}
+                            handleDelete = {handleDelete}
+                            handleChangeVisibility = {handleChangeVisibility}
+                        />
+                    )}
+                })
             ):(
             <Typography variant = "body2">No Documents Found...</Typography>
             )

@@ -128,32 +128,46 @@ const useAdminChangeVisibility = () =>{
             remarks
         } = content;
         return(
-        <React.Fragment>
+          <Card sx={{my: 2}} style={show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
           <CardContent>
+          <Grid container>
+            <Grid item xs>
             <Typography variant="h5" component="div">
-            {[year, semester].join("-")}
+            {[courseName, department, examName].join(" - ")}
             </Typography>
-            <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Course Name: {courseName}
+            <Typography variant="h6" component="div">
+            {[year, semester].join(" - ")}
             </Typography>
             <Typography sx={{ mb: 1.5 }}>
               Instructor: {instructors}
             </Typography>
             <Typography variant="body2">
-              Department: {department}<br></br>
-              Exam Name: {examName}<br></br>
               ExamTime: {examTime} <br></br>
-              Question View Link: <a href = {questionViewLink}>{questionViewLink}</a><br></br>
-              Answer View Link: <a href = {answerViewLink}>{answerViewLink}</a><br></br>
-              Remarks: {remarks}
             </Typography>
             <Typography variant="body2">
                 Currently Show: {show? "true": "false"}
             </Typography>
-          </CardContent>
-          <Typography variant="body1">
-                Options:
-          </Typography>
+            <Typography variant="body2">
+                Question View Link:
+                <a href = {questionViewLink}>Click Me</a>
+            </Typography>
+            <Typography variant="body2">
+                Answer View Link:
+                {answerViewLink? (
+                  <a href = {answerViewLink}>Click Me</a>
+                ):(
+                  "None"
+                )}
+            </Typography>
+            <Typography variant="body2">
+                Remarks: {remarks}
+            </Typography>
+            </Grid>
+            <Divider orientation="vertical" flexItem/>
+            <Grid item xs>
+            <Typography variant="h6" component = "div">  
+              &nbsp;&nbsp;Options
+            </Typography>
           <Button onClick = {() =>{
             handleDelete({
               variables:{
@@ -173,7 +187,10 @@ const useAdminChangeVisibility = () =>{
           }}>
             <RefreshIcon color = "action"/> Change Visibility
           </Button><br></br>
-        </React.Fragment>
+          </Grid>
+          </Grid>
+          </CardContent>
+        </Card>
         )
       };
     return {
