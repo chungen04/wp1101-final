@@ -128,7 +128,7 @@ const useAdminChangeVisibility = () =>{
             remarks
         } = content;
         return(
-          <Card sx={{my: 2}} style={show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
+          <Card sx={{my: 2}} style={!show? {backgroundColor: "#00000011"}: {backgroundColor: "#90F51DDD"}}>
           <CardContent>
           <Grid container>
             <Grid item xs>
