@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 
-const FileSelection = ({fileFilter, setFileFilter}) =>{
+const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
     const {
         Semester,
         Types
@@ -30,6 +30,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                         delete Filter.year;
                         setFileFilter(Filter);
                     }
+                    setQuery(false);
                     console.log(Filter)
                 }}
             />
@@ -50,6 +51,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                         delete Filter.courseDept;
                         setFileFilter(Filter);
                     }
+                    setQuery(false);
                     console.log(Filter)
                 }}
             />
@@ -70,6 +72,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                         delete Filter.courseName;
                         setFileFilter(Filter);
                     }
+                    setQuery(false);
                     console.log(Filter)
                 }}
             />
@@ -90,6 +93,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                             delete Filter.instructor;
                             setFileFilter(Filter);
                         }
+                        setQuery(false);
                         console.log(Filter)
                     }}
                 />
@@ -113,6 +117,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                         delete Filter.courseType;
                         setFileFilter(Filter);
                     }
+                    setQuery(false);
                     console.log(Filter)
                 }}
             >
@@ -142,6 +147,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                         delete Filter.Semester;
                         setFileFilter(Filter);
                     }
+                    setQuery(false);
                     console.log(Filter)
                 }}
             >
@@ -168,6 +174,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                             delete Filter.examTime;
                             setFileFilter(Filter);
                         }
+                        setQuery(false);
                         console.log(Filter)
                     }}
                 />
@@ -188,6 +195,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                             delete Filter.examName;
                             setFileFilter(Filter);
                         }
+                        setQuery(false);
                         console.log(Filter)
                     }}
                 />
