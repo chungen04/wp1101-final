@@ -16,6 +16,7 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { handle } from "express/lib/application";
 
 const useAdminChangeVisibility = () =>{
     const [documentType, setDocumentType] = useState("")
@@ -44,7 +45,7 @@ const useAdminChangeVisibility = () =>{
         </List>
       )
     }
-    const CardForCourse = ({content}) => {
+    const CardForCourse = ({content, handleDelete, handleChangeVisibility}) => {
         const [showMore, setShowMore] = useState(false);
         const {
             year,
@@ -79,16 +80,29 @@ const useAdminChangeVisibility = () =>{
           <Typography variant="body1">
                 Options:
           </Typography>
-          <Button>
+          <Button onClick = {() =>{
+            handleDelete({
+              variables:{
+                courseId: content.id
+              }
+            })
+          }}>
             <DeleteIcon color = "action"/> Delete this Course
           </Button><br></br>
-          <Button>
+          <Button onClick = {() =>{
+            handleChangeVisibility({
+              variables:{
+                courseId: content.id,
+                show: !content.show
+              }
+            })
+          }}>
             <RefreshIcon color = "action"/> Change Visibility
           </Button><br></br>
         </React.Fragment>
         )
       };
-      const CardForExam = ({content}) => {
+      const CardForExam = ({content, handleDelete, handleChangeVisibility}) => {
         const {
             year,
             semester,
@@ -126,10 +140,27 @@ const useAdminChangeVisibility = () =>{
           <Typography variant="body1">
                 Options:
           </Typography>
-          <Button>
+          <Button onClick = {() =>{
+            handleDelete({
+              variables:{
+                examId: content.examId
+              }
+            })
+          }}>
             <DeleteIcon color = "action"/> Delete this Exam
           </Button><br></br>
-          <Button>
+          <Button onClick = {() =>{
+            console.log({
+              examId: content.examId,
+              show: !content.show
+            })
+            handleChangeVisibility({
+              variables:{
+                examId: content.examId,
+                show: !content.show
+              }
+            })
+          }}>
             <RefreshIcon color = "action"/> Change Visibility
           </Button><br></br>
         </React.Fragment>

@@ -106,7 +106,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                 }}
                 onChange = {(event) =>{
                     let Filter = fileFilter
-                    if(event.target.value && event.target.value != "All"){
+                    if(event.target.value && event.target.value !== "All"){
                         Filter.courseType = event.target.value
                         setFileFilter(Filter)
                     }else{
@@ -135,7 +135,7 @@ const FileSelection = ({fileFilter, setFileFilter}) =>{
                 }}
                 onChange = {(event) =>{
                     let Filter = fileFilter
-                    if(event.target.value && event.target.value != "All"){
+                    if(event.target.value && event.target.value !== "All"){
                         Filter.Semester = event.target.value
                         setFileFilter(Filter)
                     }else{

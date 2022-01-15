@@ -10,11 +10,19 @@ import {
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
-import { useQuery } from '@apollo/client';
+import { 
+    useQuery,
+    useMutation
+} from '@apollo/client';
 
 import{
     ADMIN_EXAM_QUERY
 } from "../graphql/queryForAdmin"
+
+import{
+    CHANGE_EXAM_VISIBILITY_FOR_ADMIN,
+    DELETE_EXAM_FOR_ADMIN
+} from "../graphql/mutationForAdmin"
 
 import ExamSelection from "../Components/ExamSelection"
 
@@ -67,6 +75,8 @@ const AdminChangeExamVisibility = () => {
     } = useAdminChangeVisibility();
     const classes = useStyles();
 
+    const [handleDelete] = useMutation(DELETE_EXAM_FOR_ADMIN);
+    const [handleChangeVisibility] = useMutation(CHANGE_EXAM_VISIBILITY_FOR_ADMIN);
     const {loading, data, subscribeToMore} = useQuery(ADMIN_EXAM_QUERY, {
         variables: {
             ...examFilter
@@ -146,7 +156,11 @@ const AdminChangeExamVisibility = () => {
         {
             queryData.length !== 0? (
                 queryData.map((e) =>
-                    <CardForExam content = {e}/>
+                    <CardForExam 
+                        content = {e}
+                        handleDelete = {handleDelete}
+                        handleChangeVisibility = {handleChangeVisibility}
+                    />
                 )
             ):(
             <Typography variant = "body2">No Documents Found...</Typography>

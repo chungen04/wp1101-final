@@ -10,8 +10,6 @@ import {
 
 import {
   Grid,
-  FormControlLabel,
-  Switch
 } from '@mui/material';
 
 import styled from 'styled-components';

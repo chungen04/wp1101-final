@@ -90,6 +90,7 @@ query courses(
                 id
                 examName
                 examTime
+                show
                 files{
                     id
                 }

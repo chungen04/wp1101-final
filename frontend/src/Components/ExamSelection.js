@@ -110,7 +110,7 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                 }}
                 onChange = {(event) =>{
                     let Filter = examFilter
-                    if(event.target.value && event.target.value != "All"){
+                    if(event.target.value && event.target.value !== "All"){
                         Filter.courseType = event.target.value
                         setExamFilter(Filter)
                     }else{
@@ -141,7 +141,7 @@ const ExamSelection = ({examFilter, setExamFilter, setQuery}) =>{
                 
                 onChange = {(event) =>{
                     let Filter = examFilter
-                    if(event.target.value && event.target.value != "All"){
+                    if(event.target.value && event.target.value !== "All"){
                         Filter.Semester = event.target.value
                         setExamFilter(Filter)
                     }else{

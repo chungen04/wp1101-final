@@ -79,6 +79,7 @@ const AdminChangeFileVisibility = () => {
         setQuery(true);
     }
     useEffect(() =>{
+        console.log(query)
         if (!data) return;
         if (query){
             console.log(data.courses);

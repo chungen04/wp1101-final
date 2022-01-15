@@ -10,11 +10,19 @@ import {
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
-import { useQuery } from '@apollo/client';
+import { 
+    useQuery,
+    useMutation
+} from '@apollo/client';
 
 import{
-    ADMIN_COURSE_QUERY
+    ADMIN_COURSE_QUERY,
 } from "../graphql/queryForAdmin"
+
+import{
+    CHANGE_COURSE_VISIBILITY_FOR_ADMIN,
+    DELETE_COURSE_FOR_ADMIN
+} from "../graphql/mutationForAdmin"
 
 import CourseSelection from "../Components/CourseSelection"
 
@@ -57,7 +65,7 @@ const StyledPaper = styled(Paper)`
     padding: 2em;
 `;
 
-const AdminChangeVisibility = () => {
+const AdminChangeCourseVisibility = () => {
     const {
         courseFilter,
         setCourseFilter,
@@ -66,6 +74,8 @@ const AdminChangeVisibility = () => {
         CardForCourse
     } = useAdminChangeVisibility();
     const classes = useStyles();
+    const [handleDelete] = useMutation(DELETE_COURSE_FOR_ADMIN);
+    const [handleChangeVisibility] = useMutation(CHANGE_COURSE_VISIBILITY_FOR_ADMIN);
 
     const {loading, data, subscribeToMore} = useQuery(ADMIN_COURSE_QUERY, {
         variables: {
@@ -120,7 +130,11 @@ const AdminChangeVisibility = () => {
         {
             queryData.length !== 0? (
             queryData.map((e) =>
-                <CardForCourse content = {e}/>
+                <CardForCourse 
+                    content = {e}
+                    handleDelete = {handleDelete}
+                    handleChangeVisibility = {handleChangeVisibility}
+                />
             )
             ):(
             <Typography variant = "body2">No Documents Found...</Typography>
@@ -143,4 +157,4 @@ const AdminChangeVisibility = () => {
     4. 
 */
 
-export default AdminChangeVisibility;
+export default AdminChangeCourseVisibility;
