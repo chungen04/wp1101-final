@@ -131,7 +131,6 @@ const AdminChangeExamVisibility = () => {
                     if (!subscriptionData.data) return prev;
                     const {courseID, examID, mutation} = subscriptionData.data.exam;
                     if (mutation === "DELETED"){
-                        
                         const courses = prev.courses.filter((course)=>{
                             return course.id !==courseID
                         })
@@ -141,19 +140,13 @@ const AdminChangeExamVisibility = () => {
                         const exams = course.exams.filter((exam) => {
                             return exam.id !== examID
                         })
-                        console.log(courses)
-                        console.log(course)
-                        console.log(exams)
-                        console.log(prev)
                         const newCourse = {
                             ...prev,
                             courses: [...courses, {...course, exams: exams}]
                         }
-                        console.log(newCourse)
                         return newCourse
                     }else if (mutation === "UPDATED"){
                         const {show} = subscriptionData.data.exam.data
-                        console.log(subscriptionData)
                         const courses = prev.courses.map((course)=>{
                             if (course.id !==courseID){
                                 return course;
@@ -169,7 +162,6 @@ const AdminChangeExamVisibility = () => {
                             }
                         })
                         const result = {...prev, courses: courses}
-                        console.log(result)
                         return result
                     }
                 },
