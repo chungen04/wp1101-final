@@ -24,24 +24,6 @@ const useAdminChangeVisibility = () => {
   const [queryData, setQueryData] = useState([]);
   const [query, setQuery] = useState({});
 
-  const ShowMore = (content) => {
-    return (
-      <List disablePadding>
-        <Typography variant="h6" gutterBottom>
-          Details
-        </Typography>
-        {Object.keys(content).map((key) => (
-          <ListItem key={key}>
-            <ListItemText primary={key} sx={{ padding: 1 }} />
-            <Grid item>
-              <Typography variant="body2">{content[key]}</Typography>
-            </Grid>
-          </ListItem>
-        ))}
-      </List>
-    );
-  };
-
     const ShowMore = (content) => {
       return(
         <List disablePadding>

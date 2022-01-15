@@ -11,14 +11,15 @@ const Types = ["All", "Required", "Elective", "Liberal"];
 
 const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
     return (
-        <Grid container xs={12} sm={13}>
-            <Grid item xs={6} md={3}>
+        <Grid container>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Year"
                 type="number"
                 InputLabelProps={{
                     shrink: true,
                 }}
+                fullWidth
                 onChange = {(event) =>{
                     let Filter = fileFilter
                     if(event.target.value){
@@ -33,13 +34,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                 }}
             />
             </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Course Department"
                 type="string"
                 InputLabelProps={{
                     shrink: true,
                 }}
+                fullWidth
                 onChange = {(event) =>{
                     let Filter = fileFilter
                     if(event.target.value){
@@ -54,13 +56,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Course Name"
                 type="string"
                 InputLabelProps={{
                     shrink: true,
                 }}
+                fullWidth
                 onChange = {(event) =>{
                     let Filter = fileFilter
                     if(event.target.value){
@@ -75,13 +78,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
                 <TextField
                     label="Instructor"
                     type="string"
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    fullWidth
                     onChange = {(event) =>{
                         let Filter = fileFilter
                         if(event.target.value){
@@ -96,13 +100,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                     }}
                 />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Required/elective/liberal?"
                 select
                 InputLabelProps={{
                     shrink: true,
                 }}
+                fullWidth
                 SelectProps={{
                     native: true,
                 }}
@@ -126,13 +131,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                 ))}
             </TextField>
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
             <TextField
                 label="Semester"
                 select
                 InputLabelProps={{
                     shrink: true,
                 }}
+                fullWidth
                 SelectProps={{
                     native: true,
                 }}
@@ -156,13 +162,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                 ))}
             </TextField>
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
                 <TextField
                     label="Exam Time"
                     type="number"
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    fullWidth
                     onChange = {(event) =>{
                         let Filter = fileFilter
                         if(event.target.value){
@@ -177,13 +184,14 @@ const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
                     }}
                 />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
                 <TextField
                     label="Exam Name"
                     type="string"
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    fullWidth
                     onChange = {(event) =>{
                         let Filter = fileFilter
                         if(event.target.value){
