@@ -1,10 +1,12 @@
 import {
+  AppBar, 
   Button,
   FormControl,
   Paper,
   TextField,
   Typography,
   makeStyles,
+  Toolbar,
   Box,
   Divider
 } from '@material-ui/core';
@@ -23,10 +25,12 @@ import React from "react";
 import { USER_SEARCH_QUERY } from "../graphql/query";
 import { useQuery } from '@apollo/client';
 
+import { useNavigate } from 'react-router-dom';
+
 const Wrapper = styled.div`
-  margin: 2vh auto;
+  margin: 1vh auto;
   width: 60%;
-  height: 96vh;
+  height: 98vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,8 +64,9 @@ const ContentPaper = styled(Paper)`
 `;
 
 const StyledPaper = styled(Paper)`
+  margin: 4em 0 0 0;
   padding: 2em;
-  max-height: 90vh;
+  max-height: 100vh;
   overflow: auto;
 `;
 
@@ -141,7 +146,29 @@ const SearchPage = () => {
     func(event.target.value);
   };
 
+  const navigate = useNavigate();
+
   return (
+    <>
+    <AppBar position="absolute">
+        <Toolbar>
+          <Box  noWrap sx={{ flexGrow: 1 }}>
+            <label htmlFor="back-to-home">
+              <Button 
+                color="inherit"
+                id="back-to-home"
+                onClick = {() =>{
+                  navigate("/")
+                }}
+              >
+                <Typography variant="h6" color="inherit" > 
+                  NTU Old Exams
+                </Typography>
+              </Button>
+            </label>
+          </Box>
+        </Toolbar>
+      </AppBar>
     <Wrapper>
     <StyledPaper elevation={3}>
     <InTextWrapper>
@@ -276,6 +303,7 @@ const SearchPage = () => {
     </InTextWrapper>
     </StyledPaper>
     </Wrapper>
+    </>
   );
 };
 
