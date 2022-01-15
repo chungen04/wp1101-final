@@ -5,13 +5,11 @@ import {
 import {
     Grid,
 } from '@mui/material';
-import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
+
+const Semester = ["All", "Fall", "Spring", "Summer"];
+const Types = ["All", "Required", "Elective", "Liberal"];
 
 const FileSelection = ({fileFilter, setFileFilter, setQuery}) =>{
-    const {
-        Semester,
-        Types
-    } = useAdminChangeVisibility();
     return (
         <Grid container xs={12} sm={13}>
             <Grid item xs={6} md={3}>

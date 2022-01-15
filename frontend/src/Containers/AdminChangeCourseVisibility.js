@@ -14,7 +14,7 @@ import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
 
 import SearchIcon from '@mui/icons-material/Search';
 import CourseSelection from "../Components/CourseSelection"
-import CardForCourse from '../Components/CardForCourse';
+import CardForCourses from '../Components/CardForCourses';
 
 const Wrapper = styled.div`
   margin: 2vh auto;
@@ -60,9 +60,6 @@ const AdminChangeCourseVisibility = () => {
     } = useAdminChangeVisibility();
     const navigate = useNavigate();
     const classes = useStyles();
-    
-    
-    console.log(query);
 
     useEffect(() =>{
         if(!localStorage.getItem("token")){
@@ -101,7 +98,7 @@ const AdminChangeCourseVisibility = () => {
             Query
             </Button>
             <br></br>
-            <CardForCourse 
+            <CardForCourses 
                 query={query}
             />
         </InTextWrapper>

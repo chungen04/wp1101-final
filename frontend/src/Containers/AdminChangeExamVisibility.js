@@ -85,7 +85,6 @@ const AdminChangeExamVisibility = () => {
             ...query
         }
     })
-    console.log(data)
 
     const handleQuery = () =>{
         setQuery({...examFilter});

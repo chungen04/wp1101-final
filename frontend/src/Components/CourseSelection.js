@@ -14,7 +14,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
 
     return (
         <Grid container>
-            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
             <TextField
                 label="Year"
                 type="number"
@@ -34,7 +34,36 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
+            <TextField
+                label="Semester"
+                select
+                fullWidth
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                SelectProps={{
+                    native: true,
+                }}
+                onChange = {(event) =>{
+                    let Filter = courseFilter
+                    if(event.target.value && event.target.value !== "All"){
+                        Filter.Semester = event.target.value
+                        setCourseFilter(Filter)
+                    }else{
+                        delete Filter.Semester;
+                        setCourseFilter(Filter);
+                    }
+                }}
+            >
+                {Semester.map((option) => (
+                    <option value={option}>
+                    {option}
+                    </option>
+                ))}
+            </TextField>
+            </Grid>
+            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
             <TextField
                 label="Course Department"
                 type="string"
@@ -54,27 +83,7 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 }}
             />
             </Grid>
-            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
-            <TextField
-                label="Course Name"
-                type="string"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                fullWidth
-                onChange = {(event) =>{
-                    let Filter = courseFilter
-                    if(event.target.value){
-                        Filter.courseName = event.target.value
-                        setCourseFilter(Filter)
-                    }else{
-                        delete Filter.courseName;
-                        setCourseFilter(Filter);
-                    }
-                }}
-            />
-            </Grid>
-            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
             <TextField
                 label="Required/elective/liberal?"
                 select
@@ -103,34 +112,25 @@ const CourseSelection = ({courseFilter, setCourseFilter}) =>{
                 ))}
             </TextField>
             </Grid>
-            <Grid item xs={12} sm = {6} sx={{ p: 1 }}>
+            <Grid item xs={12} sm = {3} sx={{ p: 1 }}>
             <TextField
-                label="Semester"
-                select
-                fullWidth
+                label="Course Name"
+                type="string"
                 InputLabelProps={{
                     shrink: true,
                 }}
-                SelectProps={{
-                    native: true,
-                }}
+                fullWidth
                 onChange = {(event) =>{
                     let Filter = courseFilter
-                    if(event.target.value && event.target.value !== "All"){
-                        Filter.Semester = event.target.value
+                    if(event.target.value){
+                        Filter.courseName = event.target.value
                         setCourseFilter(Filter)
                     }else{
-                        delete Filter.Semester;
+                        delete Filter.courseName;
                         setCourseFilter(Filter);
                     }
                 }}
-            >
-                {Semester.map((option) => (
-                    <option value={option}>
-                    {option}
-                    </option>
-                ))}
-            </TextField>
+            />
             </Grid>
         </Grid>
     )
