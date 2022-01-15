@@ -26,6 +26,7 @@ import{
 } from "../graphql/queryForAdmin"
 
 import FileSelection from "../Components/FileSelection"
+import { ADMIN_CHANGE_FILE_SUBSCRIPTION } from '../graphql';
 
 const Wrapper = styled.div`
     margin: auto;
@@ -143,6 +144,54 @@ const AdminChangeFileVisibility = () => {
             setQueryData(files);
         }
     }, [data, query]);
+
+    useEffect(()=> {
+        try {
+            subscribeToMore({
+                document: ADMIN_CHANGE_FILE_SUBSCRIPTION,
+                updateQuery: (prev, { subscriptionData }) => {
+                    if (!subscriptionData.data) return prev;
+                    const {fileID, examID, mutation} = subscriptionData.data.file;
+                    if (mutation === "DELETED"){
+                        const courses = prev.courses.map((course)=>{
+                            const exams = course.exams.map((exam)=> {
+                                if(exam.id === examID){
+                                    const files = exam.files.filter((file)=> {
+                                        return file.id !== fileID
+                                    })
+                                    return {...exam, files}
+                                }else{
+                                    return exam
+                                }
+                            })
+                            return {...course, exams}
+                        })
+                        return {...prev, courses}
+                    }else if (mutation === "UPDATED"){
+                        const {show} = subscriptionData.data.file.data
+                        console.log(show)
+                        const courses = prev.courses.map((course)=>{
+                            const exams = course.exams.map((exam)=> {
+                                if(exam.id === examID){
+                                    const files = exam.files.map((file)=> {
+                                        if(file.id === fileID){
+                                            return {...file, show}
+                                        }
+                                        return file
+                                    })
+                                    return {...exam, files}
+                                }else{
+                                    return exam
+                                }
+                            })
+                            return {...course, exams}
+                        })
+                        return {...prev, courses}
+                    }
+                },
+            });
+        } catch (e) {}
+    }, [subscribeToMore])
 
     return (
         <Wrapper>

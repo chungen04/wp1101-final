@@ -20,7 +20,7 @@ const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator('FILE'),
             (payload, variables) => {
-                return payload.file.examID === variables.examID
+                return payload.file.examID === variables.examID || variables.examID === "0"
             }
         )
     }

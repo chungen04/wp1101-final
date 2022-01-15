@@ -60,3 +60,19 @@ export const ADMIN_CHANGE_EXAM_SUBSCRIPTION = gql`
         }
     }
 `
+
+export const ADMIN_CHANGE_FILE_SUBSCRIPTION = gql`
+    subscription
+    {
+        file(
+            examID: "0"
+        ){
+            data{
+                show
+            }
+            fileID
+            examID
+            mutation
+        }
+    }
+`
