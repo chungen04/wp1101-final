@@ -16,12 +16,14 @@ import './index.css';
 import App from './App'
 import reportWebVitals from './reportWebVitals';
 
+const url = new URL("/graphql", window.location.href);
+
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: url.href,
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: url.href.replace("http", "ws"),
   options: { reconnect: true },
 })
 
