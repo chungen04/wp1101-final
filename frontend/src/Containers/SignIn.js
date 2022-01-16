@@ -4,10 +4,11 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Modal from '@mui/material/Modal';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -71,20 +72,17 @@ export default function SignIn() {
   return (
     
     <ThemeProvider theme={theme}>
-      <Modal
-        open={open}
-        onClose = {() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        
-        <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2}}>
-          wrong Admin ID or password...
-          </Typography>
-        </Box>
-      </Modal>
       <Container component="main" maxWidth="xs">
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert variant="filled" severity="error">
+          Wrong Admin ID or Password...
+        </Alert>
+      </Snackbar>
         <CssBaseline />
         <Box
           sx={{

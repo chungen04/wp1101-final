@@ -7,6 +7,7 @@ import {
     Box
 } from '@material-ui/core';
 
+import Header from "../Components/Header"
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import useAdminChangeVisibility from '../Hooks/useAdminChangeVisibility';
@@ -197,6 +198,8 @@ const AdminChangeFileVisibility = () => {
     }, [subscribeToMore])
 
     return (
+        <>
+        <Header navigate={navigate} />
         <Wrapper>
         <StyledPaper elevation={3}>
         <InTextWrapper>
@@ -243,6 +246,7 @@ const AdminChangeFileVisibility = () => {
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>
+        </>
     );
 };
 
