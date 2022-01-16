@@ -1,6 +1,6 @@
 import express from "express";
-import getToken from "./api/getToken";
-import uploadFile from "./api/uploadFile";
+import getToken from "./api/getToken.js";
+import uploadFile from "./api/uploadFile.js";
 
 const router = express.Router()
 

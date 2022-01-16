@@ -25,8 +25,6 @@ const drive = google.drive({
     auth: oauth2Client
 })
 
-const filePath = path.join(__dirname, "report.pdf")
-
 const uploadFile = async(name, uploadData) => {
     try{
         let bufferStream = new stream.PassThrough();

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs"
-import model from "../../models"
+import model from "../../models/index.js"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv-defaults"
 

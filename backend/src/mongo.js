@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import dotenv from "dotenv-defaults"
-import {initData} from "./utility"
+import {initData} from "./utility.js"
 
 export default () => {
     dotenv.config();

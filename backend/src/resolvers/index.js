@@ -1,8 +1,8 @@
-import Query from "./Query"
-import Mutation from "./Mutation"
-import Course from "./Course"
-import Exam from "./Exam"
-import Subscription from "./Subscription"
+import Query from "./Query.js"
+import Mutation from "./Mutation.js"
+import Course from "./Course.js"
+import Exam from "./Exam.js"
+import Subscription from "./Subscription.js"
 
 export default {
     Query,

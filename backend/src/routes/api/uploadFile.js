@@ -1,4 +1,4 @@
-import google from "../../google";
+import google from "../../google/index.js";
 
 export default async(req, res) => {
   const file = req.files.file

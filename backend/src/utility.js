@@ -1,4 +1,4 @@
-import model from "./models"
+import model from "./models/index.js"
 import dotenv from "dotenv-defaults"
 import bcrypt from "bcryptjs"
 

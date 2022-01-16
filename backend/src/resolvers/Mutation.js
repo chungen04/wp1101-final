@@ -1,5 +1,5 @@
-import pubsub from "./pubsub"
-import google from "../google"
+import pubsub from "./pubsub.js"
+import google from "../google/index.js"
 
 const Mutation = {
     async createCourse(parent, args, {db, login}){
