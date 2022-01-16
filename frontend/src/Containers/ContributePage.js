@@ -174,8 +174,8 @@ export default function ContributePage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2}}>
-          Submission Succeess! Thank you so much for your contribution.
+          <Typography id="modal-modal-description" variant = "h6" align = "center">
+          Submission Success! Thank you so much for your contribution.
           Your submission will be sent to the admin.
           </Typography>
         </Box>

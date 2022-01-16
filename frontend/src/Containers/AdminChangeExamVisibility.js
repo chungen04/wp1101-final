@@ -7,6 +7,7 @@ import {
     Box
 } from '@material-ui/core';
 
+import Header from "../Components/Header"
 import styled from 'styled-components';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -172,6 +173,8 @@ const AdminChangeExamVisibility = () => {
     }, [data, subscribeToMore])
 
     return (
+        <>
+        <Header navigate = {navigate} />
         <Wrapper>
         <StyledPaper elevation={3}>
         <InTextWrapper>
@@ -215,6 +218,7 @@ const AdminChangeExamVisibility = () => {
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>
+        </>
     );
 };
 

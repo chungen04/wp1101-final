@@ -10,6 +10,7 @@ import {
     Grid
 } from '@mui/material';
 
+import Header from "../Components/Header"
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
@@ -149,6 +150,8 @@ const AdminReviewQueries = (props) => {
     }, [subscribeToMore])
 
     return (
+        <>
+        <Header navigate = {navigate} />
         <Wrapper>
         <StyledPaper elevation={3}>
         <InTextWrapper>
@@ -205,6 +208,7 @@ const AdminReviewQueries = (props) => {
         </InTextWrapper>
         </StyledPaper>
         </Wrapper>
+        </>
     );
 };
 
